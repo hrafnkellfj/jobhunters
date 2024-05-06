@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return render(request, 'application/index.html')
+    return render(request, 'job/index.html')
 
