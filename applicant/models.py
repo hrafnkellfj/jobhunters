@@ -1,11 +1,14 @@
 from django.db import models
-
 # Create your models here.
 
 class ApplicantCountry(models.Model):
+    """Allows the applicant class to link the applicant
+    to a country that's in our database"""
     name = models.CharField(max_length=255)
 
 class Applicant(models.Model):
+    """This class contains all the variable that an instance of
+    an applicant will need"""
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255) #unique=True?
     aboutMe = models.CharField(max_length=500)
