@@ -22,6 +22,7 @@ urlpatterns = [
     path('',include('applicant.urls')),
     path('admin/', admin.site.urls),
     path('companies/', include('company.urls')),
-    path('applicants/', include('applicant.urls'))
+    path('applicants/', include('applicant.urls')),
+    path('appliesto/', include('appliesto.urls'))
 
 ]
