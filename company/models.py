@@ -9,6 +9,6 @@ class Company(models.Model):
     address = models.CharField(max_length=100)
     logo = models.CharField(max_length=100, blank=True, null=True)
     coverImage = models.CharField(max_length=100, blank=True, null=True)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=1000)
     companyPage = models.URLField(blank=True, null=True)
     username = models.CharField(unique=True)
