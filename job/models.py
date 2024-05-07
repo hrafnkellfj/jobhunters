@@ -34,7 +34,7 @@ class Application(models.Model):
     #Umsóknar meðhöndlun
     status = models.CharField(max_length=8) #Pending / Hired / Rejected
     applyDate = models.DateField()
-    resultDate = models.DateField(blank=True) #Dagsetning þegar status verður eitthvað annað en pending
+    resultDate = models.DateField(blank=True, null=True) #Dagsetning þegar status verður eitthvað annað en pending
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
@@ -43,8 +43,8 @@ class Application(models.Model):
 class Recommendation(models.Model):
     """A person that can provide recommendations for an Applicant"""
     name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, blank=True)
-    phone = models.IntegerField(blank=True)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    phone = models.IntegerField(blank=True, null=True)
     allowedToContact = models.BooleanField()
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
@@ -54,7 +54,7 @@ class Experience(models.Model):
     company = models.CharField(max_length=255)
     role = models.CharField(max_length=255)
     start = models.DateField()
-    end = models.DateField(blank=True)
+    end = models.DateField(blank=True, null=True)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
 
