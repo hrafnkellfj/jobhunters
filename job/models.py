@@ -18,7 +18,6 @@ class Job(models.Model):
 class Applications(models.Model):
     """Text"""
     coverLetter = models.CharField(max_length=255)
-    #image?? alzheimer
     status = models.CharField(max_length=8) #Pending / Hired / Rejected
     resultDate = models.DateField(blank=True)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)

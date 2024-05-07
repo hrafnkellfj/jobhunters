@@ -13,7 +13,7 @@ class Applicant(models.Model):
     email = models.EmailField(max_length=255) #unique=True?
     aboutMe = models.CharField(max_length=500)
     phone = models.IntegerField(max_length=30, blank=True)
-    photo = models.URLField() #??Sjá piazza, fyrsta spurning 06/05
+    photo = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
     houseNr = models.CharField(max_length=10)
     city = models.CharField(max_length=30)
