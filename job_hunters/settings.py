@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'applicant.apps.JobhuntersConfig',
+
+    #'applicant.apps.Applicantconfig',
+    #'company.apps.Companyconfig',
+    #'job.apps.Jobconfig'
 ]
 
 MIDDLEWARE = [
