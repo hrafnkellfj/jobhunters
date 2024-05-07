@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Job síðan</h2>
+    {% for job in jobs %}
+        <h4>{{ job.title }}</h4>
+        <p>{{ job.location }}</p>
+    {% endfor %}
 {% endblock %}
