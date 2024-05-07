@@ -11,4 +11,4 @@ class Company(models.Model):
     coverImage = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=1000)
     companyPage = models.URLField(blank=True, null=True)
-    username = models.CharField(unique=True)
+    username = models.CharField(unique=True, max_length=100)
