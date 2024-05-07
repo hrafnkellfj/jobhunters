@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h2>JobHunters</h2>
+        <p>Nýskráning</p>
+        <h3>Skráðu þig inn</h3>
+        <form action="/login" method="post">
+            <input type="text" id="email" name="email" placeholder="Netfang" required>
+            <br><br>
+            <input type="text" id="name" name="name" placeholder="Nafn" required>
+            <br><br>
+            <input type="password" id="password" name="password" placeholder="Lykilorð" required>
+            <br><br>
+            <input type="password" id="password" name="confirmpassword" placeholder="Staðfesta lykilorð" required>
+            <br><br>
+            <input type="submit" id="nyskra" value="Búa til aðgang">
+        </form>
+    </div>
+{% endblock %}

@@ -14,7 +14,7 @@ class Applicant(models.Model):
     username = models.CharField(max_length=30, unique=True)
     #auka frá okkur
     email = models.EmailField(max_length=255, unique=True)
-    aboutMe = models.CharField(max_length=500, blank=True, null=True)
+    aboutMe = models.CharField(max_length=1000, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
     #Autofillast í job application ef þetta er fyllt út
     street = models.CharField(max_length=255, blank=True, null=True)

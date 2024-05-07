@@ -12,11 +12,12 @@ class Job(models.Model):
     Jobs are made by Company users and can be applied to by Applicant users"""
     title = models.CharField(max_length=255)
     jobPercentage = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=1000)
     location = models.CharField(max_length=255)
     postDate = models.DateField()
     dueDate = models.DateField()
     startDate = models.DateField()
+    jobImage = models.CharField(max_length=255, blank=True, null=True)
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
