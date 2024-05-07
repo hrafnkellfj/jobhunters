@@ -12,7 +12,7 @@ class Applicant(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True) #unique=True?
     aboutMe = models.CharField(max_length=500)
-    phone = models.IntegerField(max_length=30, blank=True)
+    phone = models.IntegerField(blank=True)
     photo = models.CharField(max_length=100)
     street = models.CharField(max_length=255)
     houseNr = models.CharField(max_length=10)
@@ -25,7 +25,7 @@ class Recommendations(models.Model):
     """A person that can provide recommendations for an Applicant"""
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
-    phone = models.IntegerField(max_length=30)
+    phone = models.IntegerField(blank=True)
     allowedToContact = models.BooleanField()
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
