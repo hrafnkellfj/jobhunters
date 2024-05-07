@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'applicant.apps.JobhuntersConfig',
-
-    #'applicant.apps.Applicantconfig',
-    #'company.apps.Companyconfig',
-    #'job.apps.Jobconfig'
+    'applicant.apps.ApplicantConfig',
+    'company.apps.CompanyConfig',
+    'job.apps.JobConfig'
 ]
 
 MIDDLEWARE = [
@@ -81,8 +79,14 @@ WSGI_APPLICATION = 'job_hunters.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres', 'USER': 'vln2_assignment_groups_50_user',
+        'PASSWORD': 'A9ovy76Nsh',
+        'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=vln2_assignment_groups_50'
+        }
     }
 }
 
