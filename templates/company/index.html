@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Listi af öllum fyrirtækjum</h1>
+    <div class="companies">
+        {% for candy in candies %}
+            {% include 'candy/single_candy.html' with candy=candy %}
+        
+        {% endfor %}
+    
+    
+    </div>>
 {% endblock %}
