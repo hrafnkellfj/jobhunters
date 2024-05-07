@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Job síðan</h2>
-    {% for job in jobs %}
-        <h4>{{ job.title }}</h4>
-        <p>{{ job.location }}</p>
-    {% endfor %}
+    <div class="jobs">
+        {% for job in jobs %}
+            {% include 'job/single_job.html' with job=job %}
+        
+        {% endfor %}
+    
+    </div>>
 {% endblock %}
