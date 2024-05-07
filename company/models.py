@@ -10,4 +10,4 @@ class Company(models.Model):
     coverImage = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     companyPage = models.URLField()
-    username = models.CharField(unique=True) #email sem username?
+    username = models.CharField(unique=True)
