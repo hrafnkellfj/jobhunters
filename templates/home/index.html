@@ -1,4 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Heima síðan</h2>
+{% load static %}
+    <div class="container-home-logo">
+        <a class="jobhunters-home" href="#">
+            <img src="{% static 'images/jobhunterslogo.png' %}" alt="JobHunters Logo" class="home-logo">
+        </a>
+        <h2>Job Hunters</h2>
+    </div><br>
+    <p>Um job Hunters</p>
+    <div>
+        <p>
+            Velkomin til Job Hunters, þar sem metnaður mætir tækifærum!
+            Við bjóðum upp á vettvang sem metur hvert skref í atvinnuleitarferðinni þinni,
+            óháð því hvar þú stendur í starfsframa þínum. Stofnað af ástríðufullu teymi um nýsköpun,
+            er markmið okkar að veita atvinnuleitendum og atvinnurekendum einfalt og styðjandi umhverfi á netinu.
+            Vefsíðan okkar tengir hæfileikaríkt fólk við leiðandi fyrirtæki með nýjustu tækni og sérsniðinni starfsleitarþjónustu.
+        </p>
+    </div>
+    <div>
+        <p>
+            Vettvangur okkar býður upp á fjölbreytt úrval af starfsgreinum í ýmsum atvinnugreinum,
+            með ítarlegum leitarþáttum og notendavænu viðmóti sem hjálpar þér að finna stöður sem henta hæfileikum þínum og starfsferilsmarkmiðum.
+            Við bjóðum einnig upp á öflugan vettvang til að birta starfsauglýsingar, stjórna umsóknum,
+            eiga samskipti við umsækjendur og fylgjast með ráðningarferlinu á áreynslulausan hátt.
+        </p>
+    </div>
+    <div>
+        <p>
+            Á Job Hunters erum við skuldbundin til að viðhalda hæstu mögulegu öryggis- og friðhelgisstöðlum,
+            og við erum sífellt að þróast og taka á móti endurgjöf frá notendum til að bæta þjónustu okkar og notendaupplifun.
+        </p>
+    </div>
+
+    <footer>
+        <p>Jobhunters ehf.</p>
+        <p>jobhunters@jobhunters.is</p>
+        <p>Sími: 000:0000</p>
+        <p>Götuheiti: xx Reykjavík</p>
+        <p>Kennitala: 000000-0000</p>
+    </footer>
+
 {% endblock %}
