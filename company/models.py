@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Company(models.Model):
+    """"This class contains all the variables and methods that a user of type Company will need"""
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     logo = models.CharField(max_length=100)
