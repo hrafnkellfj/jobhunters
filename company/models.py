@@ -11,7 +11,8 @@ class Company(models.Model):
     coverImage = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=1000)
     companyPage = models.URLField(blank=True, null=True)
-    username = models.CharField(unique=True)
+    username = models.CharField(unique=True, max_length=100)
+    
 
 
     def __str__(self):
@@ -20,3 +21,4 @@ class Company(models.Model):
     def get_all_companies(self):
         """Returns a list of all companies"""
 
+    
