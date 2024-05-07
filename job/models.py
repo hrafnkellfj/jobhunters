@@ -1,5 +1,5 @@
 from django.db import models
-from applicant.models import Applicant
+from applicant.models import Applicant, ApplicantCountry
 from company.models import Company
 
 # Create your models here.
@@ -20,16 +20,43 @@ class Job(models.Model):
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-class Applications(models.Model):
+class Application(models.Model):
     """This class links an Applicant to a Job when the Applicant has applied for that Job.
     The class contains variables of interest to both applicant and company users."""
+    #frá notanda handvirkt
     coverLetter = models.CharField(max_length=255)
+    #frá notanda autofill eða handvirkt
+    street = models.CharField(max_length=255)
+    houseNr = models.CharField(max_length=10)
+    city = models.CharField(max_length=30)
+    country = models.ForeignKey(ApplicantCountry, on_delete=models.CASCADE)  # !Valið með select html úr lista
+    postalCode = models.CharField(max_length=255)
+    #Umsóknar meðhöndlun
     status = models.CharField(max_length=8) #Pending / Hired / Rejected
-    resultDate = models.DateField(blank=True) #Dagsetning þegar status verður eitthvað annað en pending
+    applyDate = models.DateField()
+    resultDate = models.DateField(blank=True, null=True) #Dagsetning þegar status verður eitthvað annað en pending
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
-
+#Recommendations og Experiences eru undir job en ekki applicant
+#því annars varð circular import þegar foreignkey var sett á þau fyrir Applications
+class Recommendation(models.Model):
+    """A person that can provide recommendations for an Applicant"""
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255, blank=True, null=True)
+    phone = models.IntegerField(blank=True, null=True)
+    allowedToContact = models.BooleanField()
+    role = models.CharField(max_length=100)
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
+class Experience(models.Model):
+    """A work related experience that belongs to an Applicant"""
+    company = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
+    start = models.DateField()
+    end = models.DateField(blank=True, null=True)
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
 
 
 
