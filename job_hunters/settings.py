@@ -78,25 +78,20 @@ WSGI_APPLICATION = 'job_hunters.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': 'postgres', 'USER': 'vln2_assignment_groups_50_user',
-#        'PASSWORD': 'A9ovy76Nsh',
-#        'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
-#        'PORT': '5432',
-#        'OPTIONS': {
-#            'options': '-c search_path=vln2_assignment_groups_50'
-#        }
-#    }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres', 'USER': 'vln2_assignment_groups_50_user',
+        'PASSWORD': 'A9ovy76Nsh',
+        'HOST': 'verklegt-namskeid-ii.northeurope.cloudapp.azure.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=vln2_assignment_groups_50'
+        }
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
