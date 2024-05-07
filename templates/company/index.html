@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Company síðan</h2>
+    <h1>Listi af öllum fyrirtækjum</h1>
+    <div class="companies">
+        {% for company in companies %}
+            {% include 'company/single_company.html' with company=company %}
+        
+        {% endfor %}
+    
+    
+    </div>>
 {% endblock %}
