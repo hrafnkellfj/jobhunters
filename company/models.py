@@ -7,8 +7,8 @@ class Company(models.Model):
     """"This class contains all the variables and methods that a user of type Company will need"""
     title = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    logo = models.CharField(max_length=100)
-    coverImage = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
-    companyPage = models.URLField()
-    username = models.CharField(unique=True, max_length=500)
+    logo = models.CharField(max_length=100, blank=True, null=True)
+    coverImage = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=1000)
+    companyPage = models.URLField(blank=True, null=True)
+    username = models.CharField(unique=True)
