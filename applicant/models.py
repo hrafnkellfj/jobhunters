@@ -9,7 +9,6 @@ class ApplicantCountry(models.Model):
     def __str__(self):
         return self.name
 
-
 class Applicant(models.Model):
     """This class contains all the variables and methods that a user of type Applicant will need"""
 
