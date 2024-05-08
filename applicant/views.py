@@ -4,10 +4,12 @@ from templates.applicant.forms.step1_form import StepOneCreateForm
 from templates.applicant.forms.step2_form import StepTwoCreateForm
 from templates.applicant.forms.step3_form import StepThreeCreateForm
 from templates.applicant.forms.step4_form import StepFourCreateForm
+from applicant.models import Applicant
 
 
 def index(request):
-    return render(request, 'applicant/index.html')
+    all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
+    return render(request, 'applicant/index.html', all_applicants)
 
 def application1(request):
     return render(request, 'applicant/applyToJob_step1.html')
