@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from company.models import Company
+from job.models import Job
 #from django.http import HttpResponse
 
 
@@ -10,5 +11,5 @@ def index(request):
 
 def get_company_by_id(request, id):
     return  render(request, 'company/company_details.html', {
-      'company': get_object_or_404(Company, pk=id)
+      'company': get_object_or_404(Company, pk=id), 'company_jobs': Job.objects.filter(company_id=id)
     })

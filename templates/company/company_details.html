@@ -1,14 +1,25 @@
 {% extends 'base.html' %}
-{% block content %}
+{% load static %}
 
-    <h1>{{ company.title }}</h1>
-    {{ company.coverImage }}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <div class="company-logo-title">
+        <img class="company-logo" src="../static/images/{{ company.logo }}" alt="{{ company.title }} logo" />
+        <h1>{{ company.title }}</h1>
+        
+    </div>
+    <div>
+        <img class="company-cover" src="../static/images/{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+    </div>
+    
+    <p> {{ company.address }}</p>
+    <p>{{ company.description }}</p>
+    {% for job in company_jobs %}
+        {% include 'job/single_job.html' with job=job %}
+    {% endfor %}
+    
 {% endblock %}
 
-title
-address
-logo
-coverImage
-description (displayed as html)
+
 list of all non due job offerings the company has
-    (each job offering listed should provide a link to the link offering)
+    (each job offering listed should provide a link to the link offering
