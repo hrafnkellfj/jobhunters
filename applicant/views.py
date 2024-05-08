@@ -32,7 +32,9 @@ def mottekinUmsokn(request):
 
 def application1(request):
     if request.method == 'POST':
-        print(1)
+        form = StepOneCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
     else:
         form = StepOneCreateForm()
     return render(request, 'applicant/applyToJob_step1.html', {
@@ -42,7 +44,9 @@ def application1(request):
 
 def application2(request):
     if request.method == 'POST':
-        print(1)
+        form = StepTwoCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
     else:
         form = StepTwoCreateForm()
     return render(request, 'applicant/applyToJob_step2.html', {
@@ -52,7 +56,9 @@ def application2(request):
 
 def application3(request):
     if request.method == 'POST':
-        print(1)
+        form = StepThreeCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
     else:
         form = StepThreeCreateForm()
     return render(request, 'applicant/applyToJob_step3.html', {
@@ -63,20 +69,37 @@ def application3(request):
 
 def application4(request):
     if request.method == 'POST':
-        print(1)
+        form = StepFourCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
     else:
         form = StepFourCreateForm()
     return render(request, 'applicant/applyToJob_step4.html', {
         'form': form
     })
 
-
-
 def yfirfara(request):
-    return render(request, 'applicant/yfirfara.html')
+    if request.method == 'POST':
+        form = StepFiveCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
+    else:
+        form = StepFiveCreateForm()
+    return render(request, 'applicant/yfirfara.html.html', {
+        'form': form
+    })
 
 
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 
-# Create your views here.
+def submit_application1(request):
+    if request.method == 'POST':
+        form =StepOneCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
+    else:
+        form = StepOneCreateForm()
+    return render(request, 'applicant/applyToJob_step1.html',{
+        'form':form
+    })

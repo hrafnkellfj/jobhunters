@@ -9,9 +9,10 @@
     </div>
     <div>
         <h3>Meðmælendur</h3>
-        <form class="form form-horizontal" action="{% url 'Step4' %}" method="post">
+        <form class="form form-horizontal" action="{% url 'Step4' %}" method="POST">
             {% csrf_token %}
             {{ form }}
+            <input type="submit" value="Vista" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
         </form>
     </div>
     <button onclick="history.back()">Back</button>
