@@ -1,8 +1,8 @@
 <div class="single_job">
-    <a href="/jobs/{{ jobs.id }}">
+    <a href="/jobs/{{ job.id }}">
     <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
     </a>
-    <a href="{{ job.id }}"><h3>{{ job.title }}</h3> </a>
+    <a href="/jobs/{{ job.id }}"><h3>{{ job.title }}</h3> </a>
     <p>{{ job.description }}</p>
     <p>{{ job.dueDate }}</p>
     </a>
