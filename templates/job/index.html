@@ -2,10 +2,20 @@
 {% block content %}
     <link rel="stylesheet" href="../../static/css/job.css">
     <h2>Job síðan</h2>
-    <div>
+    <div id="job-filter-search">
         <p>Filter by: Category(select html), Company, already applied job offerings(bara fyrir innskráða?)</p>
-        <p>Search (based on name)</p>
-        <p>Order by: Date of offering, Due date of offering</p>
+        <form>
+            <label for="search_title">Leita eftir starfsheiti:</label>
+            <input type="text" id="search_title" name="title"> </br>
+            <input type="radio" id="postDateRadio" name="orderby" value="postDate">
+            <label for="postDate">Raða eftir postDate</label> </br>
+            <input type="radio" id="dueDateRadio" name="orderby" value="dueDate">
+            <label for="postDate">Raða eftir Umsóknarfresti</label> </br>
+            <input type="radio" id="titleRadio" name="orderby" value="title">
+            <label for="postDate">Raða eftir starfstitli</label> </br>
+            <input type="submit" value="Leita"> </br>
+        </form>
+        
     </div>
     <div class="jobs">
         {% for job in jobs %}
@@ -13,5 +23,5 @@
         
         {% endfor %}
     
-    </div>>
+    </div>
 {% endblock %}
