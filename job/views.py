@@ -1,17 +1,6 @@
 from django.shortcuts import render , get_object_or_404
 from job.models import Job
 
-#jobs = [
- #   {'title': 'Meindýraeyðir', 'location': 'Reykjavík'},
-  #  {'title': 'Nuddari', 'location': 'Eskifjörður'}]
-    #serverdót
-    #jid
-    #cid
-    #catid
-
-#def index(request):
-    #return render(request, 'job/index.html', context={'jobs': jobs})
-
 def index(request):
     job_list = Job.objects.all()
     title = request.GET.get('title')
