@@ -9,24 +9,9 @@
     </div>
     <div>
         <h3>Meðmælendur</h3>
-        <form action="/Step4" method="post">
-            <label for="recommendationName">Nafn:</label>
-            <input type="text" id="recommendationName" name="recommendationName">
-            <br><br>
-            <label for="recommendationEmail">Tölvupóstur:</label>
-            <input type="text" id="recommendationEmail" name="recommendationEmail">
-            <br><br>
-            <label for="recommendationPhone">Símanúmer:</label>
-            <input type="number" id="recommendationPhone" name="recommendationPhone"> -- Takmarka fjölda stafa í símanúmeri?
-            <br><br>
-            <label for="mayContact">
-                <input type="checkbox" id="mayContact" name="mayContact">
-                Má hafa samband?
-            </label>
-            <br><br>
-            <label for="addNewRecommendation">Bæta við öðrum meðmælenda:</label>
-            <input type="button" id="addNewRecommendation" name="addNewRecommendation" value="+">
-            <br><br>
+        <form class="form form-horizontal" action="{% url 'Step4' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
         </form>
     </div>
     <button onclick="history.back()">Back</button>

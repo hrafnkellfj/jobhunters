@@ -9,22 +9,9 @@
     </div>
     <div>
         <h3>Reynsla</h3>
-        <form action="/Step3" method="post">
-            <label for="workplace">Vinnustaður:</label>
-            <input type="text" id="workplace" name="workplace">
-            <br><br>
-            <label for="jobtitle">Starfsheiti:</label>
-            <input type="text" id="jobtitle" name="jobtitle">
-            <br><br>
-            <label for="JobStart">Hóf Störf:</label>
-            <input type="text" id="JobStart" name="JobStart"> --Veit ekki hvernig þetta á að vera (velja úr dagatali)
-            <br><br>
-            <label for="JobEnd">Lauk Störfum:</label>
-            <input type="text" id="JobEnd" name="JobEnd"> --Veit ekki hvernig þetta á að vera (velja úr dagatali)
-            <br><br>
-            <label for="jobExperience">Bæta við annarri starfsreynslu:</label>
-            <input type="button" id="jobExperience" name="jobExperience" value="+">
-            <br><br>
+        <form class="form form-horizontal" action="{% url 'Step3' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
         </form>
     </div>
     <button onclick="history.back()">Back</button>
