@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404
 from job.models import Job
 
 #jobs = [
@@ -15,3 +15,8 @@ from job.models import Job
 def index(request):
     all_jobs = {'jobs': Job.objects.all().order_by('title')}
     return render(request, 'job/index.html', all_jobs)
+
+def get_job_by_id(request, id):
+    return  render(request, 'job/job_details.html', {
+      'job': get_object_or_404(Job, pk=id)
+    })
