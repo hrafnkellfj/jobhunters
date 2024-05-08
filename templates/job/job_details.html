@@ -7,18 +7,9 @@
     <p>Starf auglýst:   {{ job.postDate }}</p>
     <p>Umsóknarfrestur: {{ job.dueDate }}</p>
     <p>Starfstegund:    {{ job.category.type }}</p>
-    <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
-    <p>{{ job.company }}</p>
+    <a href="/companies/{{ job.company.id }}">
+        <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
+        <p>{{ job.company }}</p>
+    </a>
 {% endblock %}
 
-
-
-    jobPercentage = models.CharField(max_length=255)
-    description = models.CharField(max_length=1000)
-    location = models.CharField(max_length=255)
-    postDate = models.DateField()
-    dueDate = models.DateField()
-    startDate = models.DateField()
-    jobImage = models.CharField(max_length=255, blank=True, null=True)
-    category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
