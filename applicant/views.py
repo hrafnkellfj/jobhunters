@@ -24,6 +24,10 @@ def application4(request):
 
 
 
+def application5(request):
+    return render(request, 'applicant/applyToJob_step5.html')
+
+
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="tabs">
+        <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+        <a class="tab kynningarbreif">Kynningarbréf</a>
+        <a class="tab reynsla">Reynsla</a>
+        <a class="tab medmaelendur">Meðmælendur</a>
+        <a class="tab yfirfara active">Yfirfara</a>
+    </div>
+    <div>
+        <h1>Yfirfara</h1>
+        <p>Yfirfara er í vinnslu (Þarfnast virkni frá gagnagrunni)</p>
+    </div>
+    <button onclick="history.back()">Back</button>
+    <a href="{% url 'motekid' %}">
+        <button>Sækja um</button>
+    </a>
+{% endblock %}
