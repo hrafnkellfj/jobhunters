@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    
+    <div class="company-logo-title">
+        <img class="company-logo" src="../static/images/{{ company.logo }}" alt="{{ company.title }} logo" />
+        <h1>{{ company.title }}</h1>        
+    </div>
+    <div>
+        <img class="company-cover" src="../static/images/{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+    </div>    
+    <p> {{ company.address }}</p>
+    <p>{{ company.description }}</p>
+    
+    {% if company_jobs %}
+        <h2>{{ company.title }} er að ráða í eftirfarandi störf:</h2>
+        {% else %}
+        <h2>{{ company.title }} er ekki að ráða þessa stundina.</h2>    
+    {% endif %}
+    {% for job in company_jobs %}
+        {% include 'job/single_job.html' with job=job %}
+    {% endfor %}
+    
+{% endblock %}

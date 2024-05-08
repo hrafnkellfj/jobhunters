@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+    <link rel="stylesheet" href="../../static/css/job.css">
     <h2>Job síðan</h2>
+    <div>
+        <p>Filter by: Category(select html), Company, already applied job offerings(bara fyrir innskráða?)</p>
+        <p>Search (based on name)</p>
+        <p>Order by: Date of offering, Due date of offering</p>
+    </div>
     <div class="jobs">
         {% for job in jobs %}
             {% include 'job/single_job.html' with job=job %}
