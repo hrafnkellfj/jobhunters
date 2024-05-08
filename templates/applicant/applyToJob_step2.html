@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h3>Kynningarbréf</h3>
+        <p>Hér getur þú skrifað kynnaingarbréf um sjálfan þig. T.d. afhverju þú ert kjörin/n í starfið</p>
+        <textarea name="coverLetter" id="coverLetter" cols="30" rows="10" placeholder="Skrifa hér"></textarea>
+    </div>
+    <button onclick="history.back()">Back</button>
+    <a href="applyToJob_step2.html">
+        <button>Next</button>
+    </a>
+{% endblock %}
