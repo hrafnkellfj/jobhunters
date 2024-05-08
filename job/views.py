@@ -18,7 +18,7 @@ def index(request):
     if category_query:
         job_list = job_list.filter(category=category_query)
     if company_query:
-        company = Company.objects.filter(title__icontains=company_query)
+        company = get_object_or_404(Company, title__icontains=company_query)
     if company:
         job_list = job_list.filter(company_id=company.id)
 
