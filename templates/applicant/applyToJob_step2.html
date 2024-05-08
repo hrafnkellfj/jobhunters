@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div id="tabs">
+            <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+            <a class="tab kynningarbreif active">Kynningarbréf</a>
+            <a class="tab reynsla">Reynsla</a>
+            <a class="tab medmaelendur">Meðmælendur</a>
+            <a class="tab yfirfara">Yfirfara</a>
+    </div>
     <div>
         <h3>Kynningarbréf</h3>
         <p>Hér getur þú skrifað kynnaingarbréf um sjálfan þig. T.d. afhverju þú ert kjörin/n í starfið</p>
         <textarea name="coverLetter" id="coverLetter" cols="30" rows="10" placeholder="Skrifa hér"></textarea>
     </div>
     <button onclick="history.back()">Back</button>
-    <a href="applyToJob_step2.html">
+    <a href="{% url 'Step3' %}">
         <button>Next</button>
     </a>
 {% endblock %}

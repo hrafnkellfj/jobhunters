@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-    <h1>Listi af öllum fyrirtækjum</h1>
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <h1 id="listifyrirtæki">Listi af öllum fyrirtækjum</h1>
     <div class="companies">
         {% for company in companies %}
             {% include 'company/single_company.html' with company=company %}
-        
+
         {% endfor %}
-    
-    
+
+
     </div>>
 {% endblock %}
