@@ -8,28 +8,13 @@
             <a class="tab medmaelendur">Meðmælendur</a>
             <a class="tab yfirfara">Yfirfara</a>
         </div>
-        <form action="/Step1" method="post">
-            <label for="name">Nafn:</label>
-            <input type="text" id="name" name="name" required>
-            <br><br>
-            <label for="address">Heimilisfang:</label>
-            <input type="text" id="address" name="address" required>
-            <br><br>
-            <label for="city">Borg/Bær:</label>
-            <input type="text" id="city" name="city" required>
-            <br><br>
-            <label for="postalCode">Póstnúmer:</label>
-            <input type="text" id="postalCode" name="postalCode" required>
-            <br><br>
-            <label for="dropdown">Land:</label>
-            <select id="dropdown" name="options">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </select>
-            <br><br>
-        </form>
     </div>
+
+    <form class="form form-horizontal" action="{% url 'Step1' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+
     <a href="{% url 'Step2' %}">
         <button>Next</button>
     </a>
