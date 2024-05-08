@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h3>Reynsla</h3>
+        <form action="/Step3" method="post">
+            <label for="workplace">Vinnustaður:</label>
+            <input type="text" id="workplace" name="workplace" required>
+            <br><br>
+            <label for="jobtitle">Starfsheiti:</label>
+            <input type="text" id="jobtitle" name="jobtitle" required>
+            <br><br>
+            <label for="JobStart">Hóf Störf:</label>
+            <input type="text" id="JobStart" name="JobStart" required> --Veit ekki hvernig þetta á að vera (velja úr dagatali)
+            <br><br>
+            <label for="JobEnd">Lauk Störfum:</label>
+            <input type="text" id="JobEnd" name="JobEnd" required> --Veit ekki hvernig þetta á að vera (velja úr dagatali)
+            <br><br>
+            <label for="jobExperience">Bæta við starfsreynslu:</label>
+            <input type="text" id="jobExperience" name="jobExperience"> --Veit ekki hvernig þetta á að vera (velja úr dagatali)
+            <br><br>
+        </form>
+    </div>
+    <button onclick="history.back()">Back</button>
+    <a href="applyToJob_step2.html">
+        <button>Next</button>
+    </a>
+{% endblock %}
