@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="tabs">
+        <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+        <a class="tab kynningarbreif">Kynningarbréf</a>
+        <a class="tab reynsla">Reynsla</a>
+        <a class="tab medmaelendur">Meðmælendur</a>
+        <a class="tab yfirfara active">Yfirfara</a>
+    </div>
+    <div>
+        -- image --
+        <div>
+            -- starfslýsing --
+        </div>
+
+        <div>
+            <p>Umsókn móttekin!</p>
+            <a href="{% url 'home-index' %}">
+                <button>Heim</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

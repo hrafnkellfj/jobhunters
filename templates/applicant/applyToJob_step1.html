@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
     <div>
+        <div id="tabs">
+            <a class="tab grunnupplysingar active">Grunnupplýsingar</a>
+            <a class="tab kynningarbreif">Kynningarbréf</a>
+            <a class="tab reynsla">Reynsla</a>
+            <a class="tab medmaelendur">Meðmælendur</a>
+            <a class="tab yfirfara">Yfirfara</a>
+        </div>
         <form action="/Step1" method="post">
             <label for="name">Nafn:</label>
             <input type="text" id="name" name="name" required>
@@ -23,7 +30,7 @@
             <br><br>
         </form>
     </div>
-    <a href="{% url 'application2' %}">
+    <a href="{% url 'Step2' %}">
         <button>Next</button>
     </a>
 

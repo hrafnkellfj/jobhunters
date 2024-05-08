@@ -13,4 +13,18 @@ def application1(request):
 def application2(request):
     return render(request, 'applicant/applyToJob_step2.html')
 
+
+def application3(request):
+    return render(request, 'applicant/applyToJob_step3.html')
+
+
+
+def application4(request):
+    return render(request, 'applicant/applyToJob_step4.html')
+
+
+
+def mottekinUmsokn(request):
+    return render(request, 'applicant/mottekinUmsokn.html')
+
 # Create your views here.
