@@ -17,3 +17,9 @@
         <button>Sækja um starf</button>
     </a>
 {% endblock %}
+    <a href="/companies/{{ job.company.id }}">
+        <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
+        <p>{{ job.company }}</p>
+    </a>
+{% endblock %}
+
