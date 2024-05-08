@@ -13,13 +13,8 @@
     <p>{{ job.company }}</p>
     
     Placeholder - Þarf að breyta í form og senda ID og token með
-    <a href="../applicant/applications">
+    <a href="../applicants/applications">
         <button>Sækja um starf</button>
-    </a>
-{% endblock %}
-    <a href="/companies/{{ job.company.id }}">
-        <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
-        <p>{{ job.company }}</p>
     </a>
 {% endblock %}
 
