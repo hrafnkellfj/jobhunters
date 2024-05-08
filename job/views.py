@@ -13,17 +13,14 @@ from job.models import Job
     #return render(request, 'job/index.html', context={'jobs': jobs})
 
 def index(request):
+    job_list = Job.objects.all()
     title = request.GET.get('title')
     orderby = request.GET.get('orderby')
-    if not orderby:
-        orderby = "title"
-
-    if not title:
-        jobs_return = {'jobs': Job.objects.all().order_by(orderby)}
-    else:
-        jobs_return = {'jobs': Job.objects.filter(title__icontains=title).order_by(orderby)}
-
-    return render(request, 'job/index.html', jobs_return)
+    if title:
+        job_list = job_list.filter(title__icontains=title)
+    if orderby:
+        job_list = job_list.order_by(orderby)
+    return render(request, 'job/index.html', {'jobs': job_list} )
 
 def get_job_by_id(request, id):
     return  render(request, 'job/job_details.html', {
