@@ -10,9 +10,11 @@
         </div>
     </div>
 
-    <form class="form form-horizontal" action="{% url 'Step1' %}" method="post">
+    <form class="form form-horizontal" action="{% url 'Step1' %}" method="POST">
         {% csrf_token %}
         {{ form }}
+        <input type="submit" value="Vista" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+
     </form>
 
     <a href="{% url 'Step2' %}">
