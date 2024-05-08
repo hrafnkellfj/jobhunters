@@ -5,3 +5,25 @@
     width: 60px;
     height: 60px ;
 }
+
+.company_logo{
+    width: 10px;
+    height: 10px;
+}
+
+
+
+.tab {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+}
+
+
+.active {
+    background-color: lightgreen;
+    color: black;
+}
