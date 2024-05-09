@@ -11,7 +11,6 @@ class ApplicantCountry(models.Model):
 
 class Applicant(models.Model):
     """This class contains all the variables and methods that a user of type Applicant will need"""
-
     #grunnur
     name = models.CharField(max_length=255)
     photo = models.CharField(max_length=999, blank=True, null=True, default='https://cdn-icons-png.freepik.com/256/12259/12259373.png?ga=GA1.1.1834476485.1715253075&semt=ais_hybrid')
@@ -26,7 +25,7 @@ class Applicant(models.Model):
     street = models.CharField(max_length=255, blank=True, null=True)
     houseNr = models.CharField(max_length=10, blank=True, null=True)
     city = models.CharField(max_length=30, blank=True, null=True)
-    country = models.ForeignKey(ApplicantCountry, blank=True, null=True,on_delete=models.CASCADE)  #!Valið með select html úr lista
+    country = models.ForeignKey(ApplicantCountry, blank=True, null=True, on_delete=models.CASCADE)
     postalCode = models.CharField(max_length=255, blank=True, null=True)
 
 
