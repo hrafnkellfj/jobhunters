@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <div id="tabs">
+            <a class="tab grunnupplysingar active">Grunnupplýsingar</a>
+            <a class="tab menntun">Menntun</a>
+            <a class="tab namskeid">Námskeið</a>
+            <a class="tab starfsferill">Starfsferill</a>
+        </div>
+    </div>
+    
+    <form class="form form-horizontal" action="{% url 'changeProfile2' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+    </form>
+    
+    <button onclick="history.back()">Back</button>
+    <a href="{% url 'changeProfile3' %}">
+        <button>Next</button>
+    </a>
+    
+
+{% endblock %}

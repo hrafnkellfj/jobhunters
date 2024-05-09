@@ -5,7 +5,7 @@ from templates.applicant.forms.step2_form import StepTwoCreateForm
 from templates.applicant.forms.step3_form import StepThreeCreateForm
 from templates.applicant.forms.step4_form import StepFourCreateForm
 from applicant.models import Applicant
-
+from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
@@ -68,7 +68,6 @@ def application3(request):
     })
 
 
-
 def application4(request):
     if request.method == 'POST':
         form = StepFourCreateForm(data=request.POST)
@@ -95,13 +94,26 @@ def yfirfara(request):
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 
-def submit_application1(request):
+
+def changeProfiles1(request):
     if request.method == 'POST':
-        form =StepOneCreateForm(data=request.POST)
-        if form.is_valid():
-            application = form.save()
+        print(1)
     else:
-        form = StepOneCreateForm()
-    return render(request, 'applicant/applyToJob_step1.html',{
-        'form':form
+        form = StepOneChangeProfile()
+    return render(request, 'applicant/changeProfile_step1.html', {
+        'form': form
     })
+
+
+def changeProfiles2(request):
+    ...
+
+
+def changeProfiles3(request):
+    ...
+
+
+def changeProfiles4(request):
+    ...
+
+# Create your views here.
