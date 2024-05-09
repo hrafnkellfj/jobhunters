@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <h2>JobHunters</h2>
+        <p>Innskráning</p>
+        <h3>Skráðu þig inn</h3>
+        <form method="post" class="form form-horizontal">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" class="btn btn-primary" value="Skrá inn">
+        </form>
+    </div>
+{% endblock %}

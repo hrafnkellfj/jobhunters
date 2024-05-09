@@ -22,14 +22,25 @@
         <li class="nav-item">
           <a class="nav-link" href="/about_us/">Um okkur</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home-signup' %}">Nýskrá</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'home-login' %}">Innskrá</a>
-        </li>
-        
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-logout' %}">Útskrá</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-profile' %}">Prófíll</a>
+            </li>
+        {% else %}
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-signup' %}">Nýskrá</a>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{% url 'user-login' %}">Innskrá</a>
+             </li>
+        {% endif %}
+       
+       
       </ul>
+        
     </div>
   </div>
 </nav>

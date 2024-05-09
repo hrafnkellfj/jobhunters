@@ -149,8 +149,8 @@ def yfirfara(request):
                 'start': step_three_data.get('start'),
                 'end': step_three_data.get('end')
             }
-            applicant_education= ApplicantEduction.objects.create(**applicant_education_data)
-            experience_data= {
+            applicant_education = ApplicantEduction.objects.create(**applicant_education_data)
+            experience_data = {
                 'company': step_four_data.get('company'),
                 'role': step_four_data.get('role'),
                 'start': step_four_data.get('start'),
