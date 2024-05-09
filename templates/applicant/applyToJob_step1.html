@@ -14,13 +14,11 @@
     <form class="form form-horizontal" action="{% url 'Step1' %}" method="POST">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Vista" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+         <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+        <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+          
 
     </form>
-
-    <a href="{% url 'Step2' %}">
-        <button>Next</button>
-    </a>
-
+    
 
 {% endblock %}
