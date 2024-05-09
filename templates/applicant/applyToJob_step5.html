@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <div id="tabs">
+        <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+        <a class="tab kynningarbreif">Kynningarbréf</a>
+        <a class="tab menntun">Menntun</a>
+        <a class="tab reynsla">Reynsla</a>
+        <a class="tab medmaelendur active">Meðmælendur</a>
+        <a class="tab yfirfara">Yfirfara</a>
+    </div>
+    <div>
+        <form class="form form-horizontal" action="{% url 'Step5' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+            <a href="{% url 'yfirfara' %}">
+                <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+            </a>
+        </form>
+    </div>
+    <button onclick="history.back()">Back</button>
+    <a href="{% url 'Step3' %}">
+        <button>Next</button>
+    </a>
+{% endblock %}

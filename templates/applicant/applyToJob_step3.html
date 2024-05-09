@@ -6,12 +6,14 @@
     <div id="tabs">
         <a class="tab grunnupplysingar">Grunnupplýsingar</a>
         <a class="tab kynningarbreif">Kynningarbréf</a>
-        <a class="tab reynsla active">Reynsla</a>
+        <a class="tab menntun active">Menntun</a>
+        <a class="tab reynsla">Reynsla</a>
         <a class="tab medmaelendur">Meðmælendur</a>
         <a class="tab yfirfara">Yfirfara</a>
     </div>
+
     <div>
-        <h3>Reynsla</h3>
+        <p>Gráða</p>
         <form class="form form-horizontal" action="{% url 'Step3' %}" method="POST">
             {% csrf_token %}
             {{ form }}
@@ -20,17 +22,9 @@
                 <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
             </a>
         </form>
-    
-     <script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                format: 'yyyy-mm-dd',  // Adjust the format to match your database requirements
-                autoclose: true,
-                clearBtn: true
-            });
-        });
-    </script>
     </div>
-    
+
+
+
    
 {% endblock %}

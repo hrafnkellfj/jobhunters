@@ -1,16 +1,15 @@
 from django.forms import ModelForm, widgets
-from job.models import Recommendation
+from job.models import Experience
 
 
 class StepFourCreateForm(ModelForm):
     class Meta:
-        model = Recommendation
+        model = Experience
         exclude = ['applicant', 'applied_job']
         widgets = {
-            'name': widgets.TextInput(attrs={'class': 'form-control'}),
-            'email': widgets.EmailInput(attrs={'class': 'form-control'}),
-            'phone': widgets.NumberInput(attrs={'class': 'form-control'}),
+            'company': widgets.TextInput(attrs={'class': 'form-control'}),
             'role': widgets.TextInput(attrs={'class': 'form-control'}),
-            'allow_contact': widgets.CheckboxInput(attrs={'class': 'form-control'})
+            'start': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
+            'end': widgets.TextInput(attrs={'class': 'form-control datepicker'})
         }
 
