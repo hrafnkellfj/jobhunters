@@ -14,7 +14,7 @@ class Applicant(models.Model):
 
     #grunnur
     name = models.CharField(max_length=255)
-    photo = models.CharField(max_length=100, blank=True, null=True)
+    photo = models.CharField(max_length=999, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
 
     #auka frá okkur
