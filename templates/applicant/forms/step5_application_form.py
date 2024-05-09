@@ -2,7 +2,7 @@ from django.forms import ModelForm, widgets
 from job.models import Recommendation
 
 
-class StepFourCreateForm(ModelForm):
+class StepFiveCreateForm(ModelForm):
     class Meta:
         model = Recommendation
         exclude = ['applicant', 'applied_job']
@@ -13,4 +13,3 @@ class StepFourCreateForm(ModelForm):
             'role': widgets.TextInput(attrs={'class': 'form-control'}),
             'allow_contact': widgets.CheckboxInput(attrs={'class': 'form-control'})
         }
-

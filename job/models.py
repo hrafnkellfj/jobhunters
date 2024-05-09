@@ -17,7 +17,7 @@ class Job(models.Model):
     postDate = models.DateField()
     dueDate = models.DateField()
     startDate = models.DateField()
-    jobImage = models.CharField(max_length=255, blank=True, null=True)
+    jobImage = models.CharField(max_length=999, blank=True, null=True)
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
