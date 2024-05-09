@@ -1,0 +1,30 @@
+#single_applicant{
+    margin: 5rem;
+    padding: 1rem;
+    border-color: #5dad24;
+    border-style: solid;
+
+#single_flex{
+    display: flex;
+}
+
+#single_name_street{
+
+
+}
+#single_applicant_photo {
+
+}
+
+#aboutme{
+    margin-left: 3rem;
+    align-self: flex-start;
+    font-size: 1rem;
+
+}
+#applicant-image{
+    height: 10rem;
+    widt: 10rem;
+}
+
+
