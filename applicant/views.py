@@ -1,15 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from templates.applicant.forms.step1_form import StepOneCreateForm
-from templates.applicant.forms.step2_form import StepTwoCreateForm
-from templates.applicant.forms.step3_form import StepThreeCreateForm
-from templates.applicant.forms.step4_form import StepFourCreateForm
+from templates.applicant.forms.step1_application_form import StepOneCreateForm
+from templates.applicant.forms.step2_application_form import StepTwoCreateForm
+from templates.applicant.forms.step3_application_form import StepThreeCreateForm
+from templates.applicant.forms.step4_application_form import StepFourCreateForm
+from templates.applicant.forms.step5_application_form import StepFiveCreateForm
 from applicant.models import Applicant
 from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
+
+
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
+
 
 def application1(request):
     return render(request, 'applicant/applyToJob_step1.html')
@@ -23,14 +27,13 @@ def application3(request):
     return render(request, 'applicant/applyToJob_step3.html')
 
 
-
 def application4(request):
     return render(request, 'applicant/applyToJob_step4.html')
 
 
-
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
+
 
 def application1(request):
     if request.method == 'POST':
@@ -79,6 +82,19 @@ def application4(request):
         'form': form
     })
 
+
+def application5(request):
+    if request.method == 'POST':
+        form = StepFourCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
+    else:
+        form = StepFiveCreateForm()
+    return render(request, 'applicant/applyToJob_step5.html', {
+        'form': form
+    })
+
+
 def yfirfara(request):
     if request.method == 'POST':
         form = StepFiveCreateForm(data=request.POST)
@@ -86,7 +102,7 @@ def yfirfara(request):
             application = form.save()
     else:
         form = StepFiveCreateForm()
-    return render(request, 'applicant/yfirfara.html.html', {
+    return render(request, 'applicant/yfirfara.html', {
         'form': form
     })
 
