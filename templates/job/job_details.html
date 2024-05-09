@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     
-    <img id="company-cover" src="../static/images/{{ job.company.coverImage }}"  alt="Company cover image"/>
+    <img id="company-cover" src="{{ job.company.coverImage }}"  alt="Company cover image"/>
 	<h1>{{ job.title }}</h1>
     <p>Starfslýsing:    {{ job.description }}</p>
     <p>Starfshlutfall:  {{ job.percentage }}</p>
@@ -9,7 +9,7 @@
     <p>Starf auglýst:   {{ job.postDate }}</p>
     <p>Umsóknarfrestur: {{ job.dueDate }}</p>
     <p>Starfstegund:    {{ job.category.type }}</p>
-    <img id="company-logo" src="../static/images/{{ job.company.logo }}"  alt="Company logo"/>
+    <img id="company-logo" src="{{ job.company.logo }}"  alt="Company logo"/>
     <p>{{ job.company }}</p>
     
     Placeholder - Þarf að breyta í form og senda ID og token með

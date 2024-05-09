@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="{% static 'css/company.css' %}">
     
     <div class="company-logo-title">
-        <img class="company-logo" src="../static/images/{{ company.logo }}" alt="{{ company.title }} logo" />
+        <img class="company-logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
         <h1>{{ company.title }}</h1>        
     </div>
     <div>
-        <img class="company-cover" src="../static/images/{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+        <img class="company-cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
     </div>    
     <p> {{ company.address }}</p>
     <p>{{ company.description }}</p>
