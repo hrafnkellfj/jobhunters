@@ -3,18 +3,29 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/job.css' %}">
-    <h2>Job síðan</h2>
-    <div id="job-filter-search">
-        <p>Filter by: Category(select html), Company, already applied job offerings(bara fyrir innskráða?)</p>
+    <h2>Störf í boði</h2>
+    
+    <div id="job-filter-search">        
+        <h3>Síur: already applied job offerings(bara fyrir innskráða?)</h3>
         <form>
             <label for="search_title">Leita eftir starfsheiti:</label>
-            <input type="text" id="search_title" name="title"> </br>
+            <input type="text" id="job_search_title" name="title"> </br>
+            <label for="search_title">Leita eftir fyrirtækjum:</label>
+            <input type="text" id="job_search_company" name="company"> </br>
+            <label for="category">Starfstegund:</label>
+            <select name="category">
+                <option value="{{ NULL }}" >Allt</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}" name="category">{{ category.type }}</option>
+                {% endfor %}
+            </select> </br>
+            <input type="radio" id="titleRadio" name="orderby" value="title" checked="checked">
+            <label for="postDate">Raða eftir starfstitli</label> </br>
             <input type="radio" id="postDateRadio" name="orderby" value="postDate">
             <label for="postDate">Raða eftir birtingardegi</label> </br>
             <input type="radio" id="dueDateRadio" name="orderby" value="dueDate">
             <label for="postDate">Raða eftir umsóknarfresti</label> </br>
-            <input type="radio" id="titleRadio" name="orderby" value="title">
-            <label for="postDate">Raða eftir starfstitli</label> </br>
+            
             <input type="submit" value="Leita"> </br>
         </form>        
     </div>
