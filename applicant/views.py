@@ -12,27 +12,6 @@ def index(request):
     return render(request, 'applicant/index.html', all_applicants)
 
 def application1(request):
-    return render(request, 'applicant/applyToJob_step1.html')
-
-
-def application2(request):
-    return render(request, 'applicant/applyToJob_step2.html')
-
-
-def application3(request):
-    return render(request, 'applicant/applyToJob_step3.html')
-
-
-
-def application4(request):
-    return render(request, 'applicant/applyToJob_step4.html')
-
-
-
-def mottekinUmsokn(request):
-    return render(request, 'applicant/mottekinUmsokn.html')
-
-def application1(request):
     if request.method == 'POST':
         form = StepOneCreateForm(data=request.POST)
         if form.is_valid():
@@ -95,13 +74,4 @@ def yfirfara(request):
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 
-def submit_application1(request):
-    if request.method == 'POST':
-        form =StepOneCreateForm(data=request.POST)
-        if form.is_valid():
-            application = form.save()
-    else:
-        form = StepOneCreateForm()
-    return render(request, 'applicant/applyToJob_step1.html',{
-        'form':form
-    })
+

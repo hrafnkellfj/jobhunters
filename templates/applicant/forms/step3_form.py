@@ -11,5 +11,4 @@ class StepThreeCreateForm(ModelForm):
             'role': widgets.TextInput(attrs={'class': 'form-control'}),
             'start': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'end': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
-
         }  
