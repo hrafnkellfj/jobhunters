@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from templates.applicant.forms.step1_form import StepOneCreateForm
-from templates.applicant.forms.step2_form import StepTwoCreateForm
-from templates.applicant.forms.step3_form import StepThreeCreateForm
-from templates.applicant.forms.step4_form import StepFourCreateForm
+from templates.applicant.forms.step1_application_form import StepOneCreateForm
+from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
+from templates.applicant.forms.step2_application_form import StepTwoCreateForm
+from templates.applicant.forms.step3_application_form import StepThreeCreateForm
+from templates.applicant.forms.step4_application_form import StepFourCreateForm
 
 
 def index(request):
@@ -40,7 +41,6 @@ def application3(request):
     })
 
 
-
 def application4(request):
     if request.method == 'POST':
         print(1)
@@ -51,12 +51,33 @@ def application4(request):
     })
 
 
-
 def yfirfara(request):
     return render(request, 'applicant/yfirfara.html')
 
 
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
+
+
+def changeProfiles1(request):
+    if request.method == 'POST':
+        print(1)
+    else:
+        form = StepOneChangeProfile()
+    return render(request, 'applicant/changeProfile_step1.html', {
+        'form': form
+    })
+
+
+def changeProfiles2(request):
+    ...
+
+
+def changeProfiles3(request):
+    ...
+
+
+def changeProfiles4(request):
+    ...
 
 # Create your views here.
