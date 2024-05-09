@@ -115,7 +115,7 @@ def changeProfiles2(request):
     if request.method == 'POST':
         form = StepTwoChangeProfile(data=request.POST)
         if form.is_valid():
-            ... # save the form
+            application = form.save()
     else:
         form = StepTwoChangeProfile()
     return render(request, 'applicant/changeProfile_step2.html', {
@@ -127,7 +127,7 @@ def changeProfiles3(request):
     if request.method == 'POST':
         form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
-            ...
+            application = form.save()
     else:
         form = StepThreeCreateForm()
     return render(request, 'applicant/changeProfile_step3.html', {
