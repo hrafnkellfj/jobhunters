@@ -10,10 +10,18 @@
     </div>
     <div>
         <h1>Yfirfara</h1>
-        <p>Yfirfara er í vinnslu (Þarfnast virkni frá gagnagrunni)</p>
-    </div>
-    <button onclick="history.back()">Back</button>
-    <a href="{% url 'mottekid' %}">
-        <button>Sækja um</button>
-    </a>
+    <form method="post">
+    {% csrf_token %}
+    <table class="table">
+        {% for key, value in data.items %}
+        <tr>
+            <th>{{ key|capfirst }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button type="submit" name="action" value="submit" class="btn btn-success">Staðfesta umsókn</button>
+    <button type="submit" name="action" value="cancel" class="btn btn-danger">Hætta við</button>
+</form>
 {% endblock %}

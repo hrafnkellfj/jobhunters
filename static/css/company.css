@@ -1,14 +1,19 @@
-.company-logo{
-    width: 60px;
-    height: 60px;
+#company-logo{
+    width: 25%;
+    height: 60%;
 }
-.company-cover{
-    width: 50%;
-    height: 50%;
+#company-cover{
+    width: 100%;
+    height: 100%;
+}
+#cover_logo{
+    display:flex;
+
 }
 .company-logo-title{
     display: inline-flex;
 }
+
 
 #job-company-logo{
     width: 200px;
