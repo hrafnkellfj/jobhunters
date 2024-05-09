@@ -14,7 +14,7 @@ class Applicant(models.Model):
 
     #grunnur
     name = models.CharField(max_length=255)
-    photo = models.CharField(max_length=100, blank=True, null=True)
+    photo = models.CharField(max_length=999, blank=True, null=True)
     username = models.CharField(max_length=30, unique=True)
 
     #auka frá okkur
@@ -29,10 +29,12 @@ class Applicant(models.Model):
     country = models.ForeignKey(ApplicantCountry, blank=True, null=True,on_delete=models.CASCADE)  #!Valið með select html úr lista
     postalCode = models.CharField(max_length=255, blank=True, null=True)
 
+
 class ApplicantEduction(models.Model):
     """This class holds information about the education of the applicant."""
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     school = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
+    fieldOfStudy = models.CharField(max_length=255,)
     dateStart = models.DateField()
     dateEnd = models.DateField()
