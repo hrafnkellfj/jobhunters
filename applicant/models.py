@@ -9,7 +9,6 @@ class ApplicantCountry(models.Model):
     def __str__(self):
         return self.name
 
-
 class Applicant(models.Model):
     """This class contains all the variables and methods that a user of type Applicant will need"""
 
@@ -29,3 +28,11 @@ class Applicant(models.Model):
     city = models.CharField(max_length=30, blank=True, null=True)
     country = models.ForeignKey(ApplicantCountry, blank=True, null=True,on_delete=models.CASCADE)  #!Valið með select html úr lista
     postalCode = models.CharField(max_length=255, blank=True, null=True)
+
+class ApplicantEduction(models.Model):
+    """This class holds information about the education of the applicant."""
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    school = models.CharField(max_length=255)
+    degree = models.CharField(max_length=255)
+    dateStart = models.DateField()
+    dateEnd = models.DateField()

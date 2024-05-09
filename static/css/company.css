@@ -2,11 +2,15 @@
     width: 60px;
     height: 60px;
 }
-
 .company-cover{
     width: 50%;
     height: 50%;
 }
 .company-logo-title{
     display: inline-flex;
+}
+
+#job-company-logo{
+    width: 200px;
+    height: 200px;
 }
