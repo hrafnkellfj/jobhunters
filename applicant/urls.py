@@ -10,8 +10,8 @@ urlpatterns = [
     path('applications5/', views.application5, name='Step5'),
     path('yfirfara/', views.yfirfara, name='yfirfara'),
     path('mottekid/', views.mottekinUmsokn, name='mottekid'),
+    path('profile/', views.profile, name='profile'),
     path('changeProfiles/', views.changeProfiles1, name='changeProfile1'),
     path('changeProfiles2/', views.changeProfiles2, name='changeProfile2'),
-    path('changeProfiles3/', views.changeProfiles3, name='changeProfile3'),
-    path('changeProfiles4/', views.changeProfiles4, name='changeProfile4')
+    path('changeProfiles3/', views.changeProfiles3, name='changeProfile3')
 ]

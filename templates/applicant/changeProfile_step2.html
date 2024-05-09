@@ -2,22 +2,32 @@
 {% block content %}
     <div>
         <div id="tabs">
-            <a class="tab grunnupplysingar active">Grunnupplýsingar</a>
-            <a class="tab menntun">Menntun</a>
-            <a class="tab namskeid">Námskeið</a>
+            <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+            <a class="tab menntun active">Menntun</a>
             <a class="tab starfsferill">Starfsferill</a>
         </div>
     </div>
     
-    <form class="form form-horizontal" action="{% url 'changeProfile2' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-    </form>
+    <div>
+        <form class="form form-horizontal" action="{% url 'changeProfile2' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+            <a href="{% url 'changeProfile3' %}">
+                <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+            </a>
+        </form>
     
-    <button onclick="history.back()">Back</button>
-    <a href="{% url 'changeProfile3' %}">
-        <button>Next</button>
-    </a>
+        <script>
+            $(document).ready(function () {
+                $('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',  // Adjust the format to match your database requirements
+                    autoclose: true,
+                    clearBtn: true
+                });
+            });
+        </script>
+    </div>
     
 
 {% endblock %}
