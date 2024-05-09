@@ -14,7 +14,7 @@ class Applicant(models.Model):
 
     #grunnur
     name = models.CharField(max_length=255)
-    photo = models.CharField(max_length=999, blank=True, null=True)
+    photo = models.CharField(max_length=999, blank=True, default='https://cdn-icons-png.freepik.com/256/12259/12259373.png?ga=GA1.1.1834476485.1715253075&semt=ais_hybrid')
     username = models.CharField(max_length=30, unique=True)
 
     #auka frá okkur
