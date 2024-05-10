@@ -18,11 +18,12 @@ def get_company_by_id(request, id):
 
 def get_company_job_applications(request, jobid):
     applications = Application.objects.filter(job=jobid)
-    job = applications.first().job
-    company = applications.first().job.company
-    return render(request, 'company/company_job_applications.html', {
-        'applications': applications, 'job': job, 'company': company
-    })
+    if applications:
+        job = applications.first().job
+        company = applications.first().job.company
+        return render(request, 'company/company_job_applications.html', {
+            'applications': applications, 'job': job, 'company': company
+        })
 
 
 
