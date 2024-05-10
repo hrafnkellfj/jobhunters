@@ -6,17 +6,20 @@
     width: 200px;
     height: 200px;
 }
-#company_detailed_logo_cover{
+#company_detailed{
     display:flex;
 }
 #company_title_add_desc{
     margin-left: 3rem;
 }
-#company_cover{
+#company_logo_cover{
+    display:flex;
+}
+#company_detailed_cover{
     height: 20rem;
     width: 40rem;
 }
-#company_cover_logo{
+#company_detailed_logo{
     position: absolute;
     max-height: 10rem;
     max-width: 10rem;

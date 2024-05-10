@@ -12,10 +12,6 @@ class Company(models.Model):
     description = models.CharField(max_length=500)
     companyPage = models.URLField(blank=True, null=True)
 
-    def __str__(self):
-        """A string representation of a company"""
-        return self.title
-    def get_all_companies(self):
-        """Returns a list of all companies"""
+
 
     

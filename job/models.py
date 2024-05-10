@@ -1,6 +1,7 @@
 from django.db import models
 from applicant.models import Applicant, ApplicantCountry
 from company.models import Company
+from datetime import date
 
 # Create your models here.
 class JobCategory(models.Model):
@@ -20,6 +21,12 @@ class Job(models.Model):
     jobImage = models.CharField(max_length=999, blank=True,default='https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=360')
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+    def isDue(self):
+        """Determines if a job offering is past its due date"""
+        return date.today() > self.dueDate
+
+
 
 class Application(models.Model):
     """This class links an Applicant to a Job when the Applicant has applied for that Job.

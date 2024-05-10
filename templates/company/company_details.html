@@ -3,14 +3,18 @@
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="/static/css/company.css">
-    <div id="company_detailed_logo_cover">
-        <img id="company_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
-        <img id="company_cover_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+
+    <div id="company_detailed">
         <div id="company_title_add_desc">
             <h2>{{ company.title }}</h2>
             <p>{{ company.address }}</p>
             <p>{{ company.description }}</p>
         </div>
+        <div id="company_logo_cover">
+            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+        </div>
+
     </div>
     
     </br>
