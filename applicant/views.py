@@ -189,7 +189,7 @@ def mottekinUmsokn(request):
 
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    return render(request, 'user/applicant_profile.html')
 
 
 def changeProfiles1(request):

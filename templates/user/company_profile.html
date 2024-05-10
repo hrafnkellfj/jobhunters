@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Prófíllinn þinn {{ user.username }}</h1>
+    
+    <p>Um mig</p>
+    <textarea name="coverLetter" id="coverLetter" cols="30" rows="10" disabled></textarea>
+    
+    <a href="{% url 'changeProfile1' %}">
+        <button>Next</button>
+    </a>
+    
+{% endblock %}

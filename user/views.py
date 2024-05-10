@@ -21,14 +21,17 @@ def signup(request):
 def profile(request):
     a_user = applicantProfile.objects.filter(user=request.user).first()
     if a_user:
+        applicant = a_user.applicant
         if request.method == "POST":
             print(1)
         return render(request, 'user/applicant_profile.html', {
-            "form": ""
+            "form": "", "applicant": applicant
         })
     c_user = companyProfile.objects.filter(user=request.user).first()
-    if request.method == "POST":
-        print(2)
-    return render(request, 'user/user_profile.html', {
-        "form":""
-    })
+    if c_user:
+        company = c_user.company
+        if request.method == "POST":
+            print(2)
+        return render(request, 'user/user_profile.html', {
+            "form":"", "company": company
+        })
