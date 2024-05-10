@@ -31,7 +31,7 @@ def profile(request):
         company = c_user.company
         if request.method == "POST":
             print(2)
-        return render(request, 'user/user_profile.html', {
+        return render(request, 'user/company_profile.html', {
             "form": "", "company": company
         })
     #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
