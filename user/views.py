@@ -6,6 +6,7 @@ from user.models import applicantProfile, companyProfile
 def login(request):
     return render(request, 'user/login.html')
 
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(data=request.POST)
@@ -15,6 +16,8 @@ def signup(request):
     return render(request, 'user/signup.html', {
         'form': CustomUserCreationForm()
     })
+
+
 def profile(request):
     a_user = applicantProfile.objects.filter(user=request.user).first()
     if a_user:

@@ -10,18 +10,19 @@
     </div>
     <div>
         <h1>Yfirfara</h1>
-    <form method="post">
-    {% csrf_token %}
-    <table class="table">
-        {% for key, value in data.items %}
-        <tr>
-            <th>{{ key|capfirst }}</th>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <button type="submit" name="action" value="submit" class="btn btn-success">Staðfesta umsókn</button>
-    <button type="submit" name="action" value="cancel" class="btn btn-danger">Hætta við</button>
-</form>
+        <form method="post">
+            {% csrf_token %}
+            <table class="table">
+                {% for key, value in data.items %}
+                <tr>
+                    <th>{{ key|capfirst }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        
+            <button type="submit" name="action" value="submit" class="btn btn-success">Staðfesta umsókn</button>
+            <button type="submit" name="action" value="cancel" class="btn btn-danger">Hætta við</button>
+        </form>
+    </div>
 {% endblock %}

@@ -7,7 +7,7 @@ class StepOneChangeProfile(ModelForm):
         model = Applicant
         exclude = ['username', 'postalCode', 'city', 'country']
         widgets = {
-            'photo': widgets.FileInput(attrs={'class': 'form-control'}),
+            'photo': widgets.TextInput(attrs={'class': 'form-control'}),
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'phone': widgets.TextInput(attrs={'class': 'form-control'}),
             'email': widgets.EmailInput(attrs={'class': 'form-control'}),
