@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from templates.user.forms.signup_form import CustomUserCreationForm
+from user.models import applicantProfile, companyProfile
 
 
 def login(request):
@@ -18,4 +19,14 @@ def signup(request):
 
 
 def profile(request):
-    return render(request, 'user/profile.html')
+    a_user = applicantProfile.objects.filter(user=request.user).first()
+    if a_user:
+        if request.method == "POST":
+            print(1)
+        return render(request, 'user/profile.html', {
+            "form":""
+        })
+    c_user = companyProfile.objects.filter(user=request.user).first()
+        if request.method == "POST":
+            print(2)
+        return render(request, 'user/profile.html')
