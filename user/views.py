@@ -5,6 +5,7 @@ from templates.user.forms.signup_form import CustomUserCreationForm
 def login(request):
     return render(request, 'user/login.html')
 
+
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(data=request.POST)
@@ -14,5 +15,7 @@ def signup(request):
     return render(request, 'user/signup.html', {
         'form': CustomUserCreationForm()
     })
+
+
 def profile(request):
     return render(request, 'user/profile.html')
