@@ -1,0 +1,14 @@
+<div class="company_single_job">
+
+    <div id="job_title_container">
+        <h3 id="job_title">{{ job.title }}</h3>
+        <a href="/companies/applications/{{ job.id }}">
+            <button>Skoða umsækjendur</button>
+        </a>
+        <p>Birtingardagur : {{ job.postDate }}</p>
+        <p>Umsóknarfrestur: {{ job.dueDate }}</p>
+    </div>
+    <div>
+        <p>{{ job.description }}</p>
+    </div>
+</div>

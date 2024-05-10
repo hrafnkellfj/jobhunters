@@ -1,16 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <h1>Prófíllinn þinn {{ company.title }}</h1>
-    
-    <p>Um fyrirtækið</p>
-    <p>{{ company.description }}</p>
-    <textarea name="description" id="description" cols="30" rows="10" disabled></textarea>
-    
-    <image src="{{ company.logo }}"></image>
-    <image src="{{ company.coverImage }}"></image>
-    
+    <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
+    <h1>Prófíll fyrir {{ company.title }}</h1>
     <a href="{% url 'changeProfile1' %}">
-        <button>Next</button>
+            <button>Breyta prófíl</button>
     </a>
+    <div id="company_detailed">
+        <div id="company_title_add_desc">
+            <h2>{{ company.title }}</h2>
+            <p>{{ company.address }}</p>
+            <p>{{ company.description }}</p>
+        </div>
+        <div id="company_logo_cover">
+            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+        </div>
+
+    </div>
+
+    <p>Starfsauglýsingar ykkar:</p>
+    <a href="{% url 'changeProfile1' %}">
+        <button>Búa til nýtt starf</button>
+    </a>
+    
+    <div class="company_single_jobs">
+            {% for job in jobs %}
+                {% include 'company/company_single_job.html' with job=job company=company%}
+            {% endfor %}
+    </div>
+
+
     
 {% endblock %}

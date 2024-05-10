@@ -45,7 +45,7 @@ class Application(models.Model):
     """This class links an Applicant to a Job when the Applicant has applied for that Job.
     The class contains variables of interest to both applicant and company users."""
     #frá notanda handvirkt
-    coverLetter = models.CharField(max_length=255)
+    coverLetter = models.CharField(max_length=500)
     #frá notanda autofill eða handvirkt
     street = models.CharField(max_length=255)
     houseNr = models.CharField(max_length=10)
