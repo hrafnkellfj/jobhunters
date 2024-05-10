@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from templates.user.forms.signup_form import CustomUserCreationForm
+from user.forms.signup_form import CustomUserCreationForm
 from user.models import applicantProfile, companyProfile
 
 def login(request):
@@ -32,6 +32,6 @@ def profile(request):
         if request.method == "POST":
             print(2)
         return render(request, 'user/user_profile.html', {
-            "form":"", "company": company
+            "form": "", "company": company
         })
     #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
