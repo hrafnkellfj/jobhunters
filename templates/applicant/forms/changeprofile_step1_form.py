@@ -5,7 +5,7 @@ from applicant.models import Applicant
 class StepOneChangeProfile(ModelForm):
     class Meta:
         model = Applicant
-        exclude = ['username', 'postalCode', 'city', 'country']
+        exclude = ['id']
         widgets = {
             'photo': widgets.TextInput(attrs={'class': 'form-control'}),
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
@@ -13,5 +13,8 @@ class StepOneChangeProfile(ModelForm):
             'email': widgets.EmailInput(attrs={'class': 'form-control'}),
             'street': widgets.TextInput(attrs={'class': 'form-control'}),
             'houseNr': widgets.TextInput(attrs={'class': 'form-control'}),
+            'postalCode': widgets.TextInput(attrs={'class': 'form-control'}),
+            'city': widgets.TextInput(attrs={'class': 'form-control'}),
+            'country': widgets.TextInput(attrs={'class': 'form-control'}),
             'aboutMe': widgets.Textarea(attrs={'class': 'form-control'}),
         }
