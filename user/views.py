@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from templates.user.forms.signup_form import CustomUserCreationForm
 
-
 def login(request):
     return render(request, 'user/login.html')
 

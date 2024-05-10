@@ -27,6 +27,7 @@
                 <form action="{% url 'user-logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link nav-link" style="text-decoration: none;">Útskrá</button>
+                </form>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'user-profile' %}">Prófíll</a>

@@ -9,6 +9,7 @@ from applicant.models import Applicant, ApplicantEduction,ApplicantCountry
 from job.models import Experience, Recommendation
 from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
+from templates.user.forms.signup_form import User
 
 
 def index(request):
@@ -64,7 +65,6 @@ def application3(request):
         form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
             step_three_data = form.cleaned_data.copy()
-
             # Handle the non-serializable fields (like dates)
             for date_field in ['start', 'end']:  # Replace with your actual date fields
                 if date_field in step_three_data and step_three_data[date_field]:
@@ -122,7 +122,7 @@ def yfirfara(request):
                 **request.session.get('step_three_data', {}),
                 **request.session.get('step_four_data', {}),
                 **request.session.get('step_five_data', {})}
-    step_one_data= {**request.session.get('step_one_data', {})}
+    step_one_data = {**request.session.get('step_one_data', {})}
     step_two_data = {**request.session.get('step_two_data', {})}
     step_three_data = {**request.session.get('step_three_data', {})}
     step_four_data = {**request.session.get('step_four_data', {})}
@@ -136,12 +136,18 @@ def yfirfara(request):
                 'houseNr': step_one_data.get('houseNr'),
                 'city': step_one_data.get('city'),
                 'postalCode': step_one_data.get('postalCode'),
-                'aboutMe': step_two_data.get('aboutMe')
+                'aboutMe': step_two_data.get('aboutMe'),
             }
             # Create the Applicant instance
             applicant = Applicant.objects.create(**applicant_data)
-            applicant_country_data = {'country': step_one_data.get('country')}
+            country_pk = step_one_data.get('country')
+            if country_pk:
+                country_obj = ApplicantCountry.objects.filter(pk=country_pk).first()
+                if country_obj:
+                    step_one_data['country'] = country_obj.name
+            applicant_country_data = {'name': step_one_data.get('country')}
             applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
+
             applicant_education_data = {
                 'school': step_three_data.get('school'),
                 'degree': step_three_data.get('degree'),
