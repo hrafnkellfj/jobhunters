@@ -1,4 +1,28 @@
+#jobs_container{
+    display:flex;
+    margin-bottom:2rem;
+}
+
+#job_filter_search{
+    margin-right: 3rem;
+}
+
+#searchDiv{
+    padding: 1rem;
+}
+
 #job-company-logo{
     width: 200px;
     height: 200px;
+}
+#orderByDiv{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+#alreadyAppliedDiv{
+    text-wrap: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
 }
