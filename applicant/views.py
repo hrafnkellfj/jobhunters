@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from templates.applicant.forms.step1_application_form import StepOneCreateForm
-from templates.applicant.forms.step2_application_form import StepTwoCreateForm
-from templates.applicant.forms.step2_changep_form import StepTwoChangeProfile
-from templates.applicant.forms.step3_application_form import StepThreeCreateForm
-from templates.applicant.forms.step4_application_form import StepFourCreateForm
-from templates.applicant.forms.step5_application_form import StepFiveCreateForm
-from applicant.models import Applicant, ApplicantEduction,ApplicantCountry
+from templates.applicant.forms.application_step1_form import StepOneCreateForm
+from templates.applicant.forms.application_step2_form import StepTwoCreateForm
+from templates.applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
+from templates.applicant.forms.application_step3_form import StepThreeCreateForm
+from templates.applicant.forms.application_step4_form import StepFourCreateForm
+from templates.applicant.forms.application_step5_form import StepFiveCreateForm
+from applicant.models import Applicant, ApplicantEduction
+from user.models import applicantProfile
 from job.models import Experience, Recommendation
-from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
+from templates.applicant.forms.changeprofile_step1_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from templates.user.forms.signup_form import User
 
@@ -145,7 +146,9 @@ def yfirfara(request):
                 'aboutMe': step_two_data.get('aboutMe'),
             }
             # Create the Applicant instance
-            applicant = Applicant.objects.create(**applicant_data)
+            a_user = applicantProfile.objects.filter(user=request.user).first()
+            applicant = a_user.applicant
+            applicant = Applicant.objects.update_or_create(**applicant_data)
             applicant_country_data = {'name': step_one_data.get('country')}
             applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
 
