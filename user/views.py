@@ -20,10 +20,12 @@ def profile(request):
     if a_user:
         if request.method == "POST":
             print(1)
-        return render(request, 'user/profile.html', {
-            "form":""
+        return render(request, 'user/applicant_profile.html', {
+            "form": ""
         })
     c_user = companyProfile.objects.filter(user=request.user).first()
     if request.method == "POST":
         print(2)
-    return render(request, 'user/profile.html')
+    return render(request, 'user/user_profile.html', {
+        "form":""
+    })
