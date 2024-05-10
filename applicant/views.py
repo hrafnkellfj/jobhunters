@@ -16,8 +16,6 @@ def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
 
-
-
 def application1(request):
     if request.method == 'POST':
         form = StepOneCreateForm(data=request.POST)
