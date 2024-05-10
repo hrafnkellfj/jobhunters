@@ -1,12 +1,14 @@
-<div class="single_company">
-    <div id="cover_logo">
-        <img id="company-cover" src="{{ company.coverImage }}" alt="{{ company.title }} background image">
-        <a href="/companies/{{ company.id }}">
-            <img id="company-logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+    <div id="single_company">
+    <div id="single_company_logo_div">
+       <a href="/companies/{{ company.id }}">
+            <img id="single_company_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
         </a>
-
-
     </div>
-    <h3>{{ company.title }}</h3>
-    <p>{{ company.description }}</p>    
+    <div>
+        
+        <h3>{{ company.title }}</h3>
+        <p>{{ company.description }}</p>        
+    </div>
+    
 </div>
+<a href="/companies/{{ company.id }}"><p>Hlekkur á síðu fyrirtækis</p></a>

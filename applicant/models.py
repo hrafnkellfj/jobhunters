@@ -14,11 +14,11 @@ class Applicant(models.Model):
     #grunnur
     name = models.CharField(max_length=255)
     photo = models.CharField(max_length=999, blank=True, null=True, default='https://cdn-icons-png.freepik.com/256/12259/12259373.png?ga=GA1.1.1834476485.1715253075&semt=ais_hybrid')
-    username = models.CharField(max_length=30, unique=True)
+
 
     #auka frá okkur
     email = models.EmailField(max_length=255, unique=True)
-    aboutMe = models.CharField(max_length=1000, blank=True, null=True)
+    aboutMe = models.CharField(max_length=500, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
 
     #Autofillast í job application ef þetta er fyllt út
