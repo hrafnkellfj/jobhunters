@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'applicant.apps.ApplicantConfig',
     'company.apps.CompanyConfig',
-    'job.apps.JobConfig'
+    'job.apps.JobConfig',
+    'user.apps.UserConfig'
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]

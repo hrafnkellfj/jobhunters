@@ -2,8 +2,9 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/company.css' %}">
-    <h1 id="listifyrirtæki">Listi af öllum fyrirtækjum</h1>
+    <link rel="stylesheet" type="text/css" href="/static/css/company.css">
+    <h1 id="listifyrirtæki">Hér eru þau fyrirtæki sem eru skráð hjá okkur</h1>
+    <br>
     <div class="companies">
         {% for company in companies %}
             {% include 'company/single_company.html' with company=company %}
@@ -11,5 +12,5 @@
         {% endfor %}
 
 
-    </div>>
+    </div>
 {% endblock %}

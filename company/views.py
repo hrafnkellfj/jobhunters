@@ -10,6 +10,8 @@ def index(request):
     return render(request, 'company/index.html', all_companies)
 
 def get_company_by_id(request, id):
-    return  render(request, 'company/company_details.html', {
-      'company': get_object_or_404(Company, pk=id), 'company_jobs': Job.objects.filter(company_id=id)
+    all_company_jobs = Job.objects.filter(company_id=id)
+    valid_company_jobs = [job for job in all_company_jobs if not job.isDue()]
+    return render(request, 'company/company_details.html', {
+      'company': get_object_or_404(Company, pk=id), 'company_jobs': valid_company_jobs
     })

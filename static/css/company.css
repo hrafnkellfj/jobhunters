@@ -1,16 +1,52 @@
-.company-logo{
-    width: 60px;
-    height: 60px;
+#company-logo{
+    width: 25%;
+    height: 60%;
 }
-.company-cover{
-    width: 50%;
-    height: 50%;
-}
-.company-logo-title{
-    display: inline-flex;
-}
-
 #job-company-logo{
     width: 200px;
     height: 200px;
 }
+#company_detailed{
+    display:flex;
+}
+#company_title_add_desc{
+    margin-left: 3rem;
+}
+#company_logo_cover{
+    display:flex;
+}
+#company_detailed_cover{
+    height: 20rem;
+    width: 40rem;
+}
+#company_detailed_logo{
+    position: absolute;
+    max-height: 10rem;
+    max-width: 10rem;
+}
+
+#company_address{
+    bottom: 0;
+}
+
+#single_company{
+    height:10rem;
+    width: 40rem;
+    display:flex;
+    margin-top: 5rem;
+
+}
+
+#single_company_cover{
+    width: 100%;
+    height: 100%;
+}
+#single_company_logo_div{
+    text-align: right;
+    margin-right: 1rem;
+}
+#single_company_logo{
+    max-height: 10rem;
+    max-width: 10rem;
+}
+
