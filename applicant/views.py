@@ -6,7 +6,7 @@ from applicant.forms.step3_application_form import StepThreeCreateForm
 from applicant.forms.step4_application_form import StepFourCreateForm
 from applicant.forms.step5_application_form import StepFiveCreateForm
 from applicant.models import Applicant, ApplicantEduction
-from job.models import Experience, Recommendation
+from job.models import Experience, Recommendation,Application
 from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 
@@ -16,6 +16,10 @@ def index(request):
     return render(request, 'applicant/index.html', all_applicants)
 
 def application1(request):
+    job_id = request.GET.get('job_id')
+
+    if job_id:
+        request.session['current_job_id'] = job_id  # Store job ID in the session
     if request.method == 'POST':
         form = StepOneCreateForm(data=request.POST)
         if form.is_valid():
@@ -133,44 +137,53 @@ def yfirfara(request):
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'submit':
-            applicant_data = {
-                'name':step_one_data.get('name'),
-                'street': step_one_data.get('street'),
-                'houseNr': step_one_data.get('houseNr'),
-                'city': step_one_data.get('city'),
-                'postalCode': step_one_data.get('postalCode'),
-                'aboutMe': step_two_data.get('aboutMe'),
-            }
-            # Create the Applicant instance
-            applicant = Applicant.objects.create(**applicant_data)
+            # Retrieve the applicant using the update_or_create method or other logic
+            user_email = request.user.email
 
+            # Find the existing applicant or create a new one
+            applicant, created = Applicant.objects.update_or_create(
+                email=user_email,
+                defaults={
+                    'name': step_one_data.get('name'),
+                    'street': step_one_data.get('street'),
+                    'houseNr': step_one_data.get('houseNr'),
+                    'city': step_one_data.get('city'),
+                    'postalCode': step_one_data.get('postalCode'),
+                    'aboutMe': step_two_data.get('aboutMe')
+                }
+            )
 
-            applicant_country_data = {'name': step_one_data.get('country')}
-            applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
-
+            # Now, create or update ApplicantEduction and pass the applicant instance
             applicant_education_data = {
+                'applicant': applicant,  # Pass the applicant instance to the foreign key field
                 'school': step_three_data.get('school'),
                 'degree': step_three_data.get('degree'),
                 'fieldOfStudy': step_three_data.get('fieldOfStudy'),
                 'start': step_three_data.get('start'),
                 'end': step_three_data.get('end')
             }
-            applicant_education = ApplicantEduction.objects.create(**applicant_education_data)
+            job_id = request.session.get('current_job_id')
+            applied_job = Application.objects.filter(pk=job_id).first()
+            # Use create or update_or_create to save the education record
+            applicant_education = ApplicantEduction.objects.update_or_create(**applicant_education_data)
             experience_data = {
+                'applicant': applicant,
                 'company': step_four_data.get('company'),
                 'role': step_four_data.get('role'),
                 'start': step_four_data.get('start'),
-                'end': step_four_data.get('end')
+                'end': step_four_data.get('end'),
+                'applied_job_id':job_id
             }
-            experience = Experience.objects.create(**experience_data)
+            experience = Experience.objects.update(**experience_data)
             recommendation_data = {
+                'applicant': applicant,
                 'name': step_five_data.get('name'),
                 'email': step_five_data.get('email'),
                 'phone': step_five_data.get('phone'),
                 'role': step_five_data.get('role'),
-                'allow_contact': step_five_data.get('allow_contact')
+                'allowedToContact': step_five_data.get('allow_contact')
             }
-            recommendation = Recommendation.objects.create(**recommendation_data)
+            recommendation = Recommendation.objects.update(**recommendation_data)
 
 
 
