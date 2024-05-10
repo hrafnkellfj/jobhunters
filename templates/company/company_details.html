@@ -15,9 +15,9 @@
     
     </br>
     {% if company_jobs %}
-        <h3>{{ company.title }} er að ráða í eftirfarandi störf:</h3>
+        <p>{{ company.title }} er að ráða í eftirfarandi störf:</p>
         {% else %}
-        <h3>{{ company.title }} er ekki að ráða þessa stundina.</h3>
+        <p>{{ company.title }} er ekki að ráða þessa stundina.</p>
     {% endif %}
     {% for job in company_jobs %}
         {% include 'job/single_job.html' with job=job %}

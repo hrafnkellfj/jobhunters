@@ -12,7 +12,7 @@ class Job(models.Model):
     Jobs are made by Company users and can be applied to by Applicant users"""
     title = models.CharField(max_length=255)
     jobPercentage = models.CharField(max_length=255)
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=500)
     location = models.CharField(max_length=255)
     postDate = models.DateField()
     dueDate = models.DateField()
