@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Prófíllinn þinn {{ user.username }}</h1>
+    <h1>Prófíllinn þinn {{ company.title }}</h1>
     
-    <p>Um mig</p>
-    <textarea name="coverLetter" id="coverLetter" cols="30" rows="10" disabled></textarea>
+    <p>Um fyrirtækið</p>
+    <p>{{ company.description }}</p>
+    <textarea name="description" id="description" cols="30" rows="10" disabled></textarea>
+    
+    <image src="{{ company.logo }}"></image>
+    <image src="{{ company.coverImage }}"></image>
     
     <a href="{% url 'changeProfile1' %}">
         <button>Next</button>

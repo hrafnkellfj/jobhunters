@@ -1,17 +1,15 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from templates.applicant.forms.application_step1_form import StepOneCreateForm
-from templates.applicant.forms.application_step2_form import StepTwoCreateForm
-from templates.applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
-from templates.applicant.forms.application_step3_form import StepThreeCreateForm
-from templates.applicant.forms.application_step4_form import StepFourCreateForm
-from templates.applicant.forms.application_step5_form import StepFiveCreateForm
+from applicant.forms.step1_application_form import StepOneCreateForm
+from applicant.forms.step2_application_form import StepTwoCreateForm
+from applicant.forms.step2_changep_form import StepTwoChangeProfile
+from applicant.forms.step3_application_form import StepThreeCreateForm
+from applicant.forms.step4_application_form import StepFourCreateForm
+from applicant.forms.step5_application_form import StepFiveCreateForm
 from applicant.models import Applicant, ApplicantEduction
-from user.models import applicantProfile
-from job.models import Experience, Recommendation,Application
-from templates.applicant.forms.changeprofile_step1_form import StepOneChangeProfile
+from job.models import Experience, Recommendation
+from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
-from templates.user.forms.signup_form import User
+
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
