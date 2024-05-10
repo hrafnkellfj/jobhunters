@@ -3,7 +3,7 @@ from django.forms import ModelForm, widgets
 from job.models import Experience
 
 
-class StepFourCreateForm(ModelForm):
+class StepThreeChangeProfile(ModelForm):
     class Meta:
         model = Experience
         exclude = ['applicant', 'applied_job']

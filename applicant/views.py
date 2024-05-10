@@ -1,20 +1,21 @@
 from django.shortcuts import render, redirect
-from applicant.forms.step1_application_form import StepOneCreateForm
-from applicant.forms.step2_application_form import StepTwoCreateForm
-from applicant.forms.step2_changep_form import StepTwoChangeProfile
-from applicant.forms.step3_application_form import StepThreeCreateForm
-from applicant.forms.step4_application_form import StepFourCreateForm
-from applicant.forms.step5_application_form import StepFiveCreateForm
+from applicant.forms.application_step1_form import StepOneCreateForm
+from applicant.forms.application_step2_form import StepTwoCreateForm
+from applicant.forms.application_step3_form import StepThreeCreateForm
+from applicant.forms.application_step4_form import StepFourCreateForm
+from applicant.forms.application_step5_form import StepFiveCreateForm
 from applicant.models import Applicant, ApplicantEduction
-from job.models import Experience, Recommendation,Application
-from applicant.forms.step1_changep_form import StepOneChangeProfile
+from job.models import Experience, Recommendation, Application
+from applicant.forms.changeprofile_step1_form import StepOneChangeProfile
+from applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
+from applicant.forms.changeprofile_step3_form import StepThreeChangeProfile
 from applicant.models import ApplicantCountry
-
 
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
+
 
 def application1(request):
     job_id = request.GET.get('job_id')
@@ -173,7 +174,7 @@ def yfirfara(request):
                 'role': step_four_data.get('role'),
                 'start': step_four_data.get('start'),
                 'end': step_four_data.get('end'),
-                'applied_job_id':job_id
+                'applied_job_id': job_id
             }
             experience = Experience.objects.update(**experience_data)
             recommendation_data = {
@@ -185,8 +186,6 @@ def yfirfara(request):
                 'allowedToContact': step_five_data.get('allow_contact')
             }
             recommendation = Recommendation.objects.update(**recommendation_data)
-
-
 
             request.session.pop('step_one_data', None)
             request.session.pop('step_two_data', None)
@@ -216,6 +215,7 @@ def changeProfiles1(request):
         form = StepOneChangeProfile(data=request.POST)
         if form.is_valid():
             application = form.save()
+            return redirect('changeProfile2')
     else:
         form = StepOneChangeProfile()
     return render(request, 'applicant/changeProfile_step1.html', {
@@ -228,6 +228,7 @@ def changeProfiles2(request):
         form = StepTwoChangeProfile(data=request.POST)
         if form.is_valid():
             application = form.save()
+            return redirect('changeProfile3')
     else:
         form = StepTwoChangeProfile()
     return render(request, 'applicant/changeProfile_step2.html', {
@@ -240,6 +241,7 @@ def changeProfiles3(request):
         form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
             application = form.save()
+            return redirect('user-profile')
     else:
         form = StepThreeCreateForm()
     return render(request, 'applicant/changeProfile_step3.html', {
