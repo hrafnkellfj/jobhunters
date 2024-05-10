@@ -34,3 +34,4 @@ def profile(request):
         return render(request, 'user/user_profile.html', {
             "form":"", "company": company
         })
+    #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
