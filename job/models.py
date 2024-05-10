@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 from applicant.models import Applicant, ApplicantCountry
 from company.models import Company
 from datetime import date
@@ -22,9 +23,21 @@ class Job(models.Model):
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-    def isDue(self):
-        """Determines if a job offering is past its due date"""
-        return date.today() > self.dueDate
+
+    def apply_filters(query_dict, job_list):
+        """Gets all jobs from the database and returns those that are not past the due date"""
+        company = None
+        if query_dict["title"]:
+            job_list = job_list.filter(title__icontains=query_dict["title"])
+        if query_dict["orderby"]:
+            job_list = job_list.order_by(query_dict["orderby"])
+        if query_dict["category"]:
+            job_list = job_list.filter(category=query_dict["category"])
+        if query_dict["company"]:
+            company = get_object_or_404(Company, title__icontains=query_dict["company"])
+        if company:
+            job_list = job_list.filter(company_id=company.id)
+        return job_list
 
 
 
