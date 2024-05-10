@@ -12,9 +12,16 @@
     <img id="company-logo" src="{{ job.company.logo }}"  alt="Company logo"/>
     <p>{{ job.company }}</p>
     
-    Placeholder - Þarf að breyta í form og senda ID og token með
-    <a href="../applicants/applications">
-        <button>Sækja um starf</button>
-    </a>
+    {% if user.is_authenticated %}
+          <a href="{% url 'Step1' %}">
+            <button>Sækja um starf</button>
+          </a>
+        
+    {% else %}
+        <p> Skráðu þig inn til að sækja um starf</p>
+        <a href="{% url 'user-login' %}"> 
+            <button>Innskrá</button>
+        </a>
+   {% endif %}
 {% endblock %}
 
