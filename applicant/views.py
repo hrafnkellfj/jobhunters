@@ -6,16 +6,16 @@ from templates.applicant.forms.step2_changep_form import StepTwoChangeProfile
 from templates.applicant.forms.step3_application_form import StepThreeCreateForm
 from templates.applicant.forms.step4_application_form import StepFourCreateForm
 from templates.applicant.forms.step5_application_form import StepFiveCreateForm
-from applicant.models import Applicant, ApplicantEduction,ApplicantCountry
+from applicant.models import Applicant, ApplicantEduction, ApplicantCountry
 from job.models import Experience, Recommendation
 from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from templates.user.forms.signup_form import User
 
+
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
-
 
 
 def application1(request):
@@ -137,7 +137,7 @@ def yfirfara(request):
         action = request.POST.get('action')
         if action == 'submit':
             applicant_data = {
-                'name':step_one_data.get('name'),
+                'name': step_one_data.get('name'),
                 'street': step_one_data.get('street'),
                 'houseNr': step_one_data.get('houseNr'),
                 'city': step_one_data.get('city'),
@@ -145,8 +145,7 @@ def yfirfara(request):
                 'aboutMe': step_two_data.get('aboutMe'),
             }
             # Create the Applicant instance
-            applicant = Applicant.objects.create(**applicant_data)
-
+            applicant = Applicant.objects.update(**applicant_data)
 
             applicant_country_data = {'name': step_one_data.get('country')}
             applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
@@ -165,17 +164,15 @@ def yfirfara(request):
                 'start': step_four_data.get('start'),
                 'end': step_four_data.get('end')
             }
-            experience = Experience.objects.create(**experience_data)
+            experience = Experience.objects.update_or_create(**experience_data)
             recommendation_data = {
                 'name': step_five_data.get('name'),
                 'email': step_five_data.get('email'),
                 'phone': step_five_data.get('phone'),
                 'role': step_five_data.get('role'),
-                'allow_contact': step_five_data.get('allow_contact')
+                'allowedToContact': step_five_data.get('allow_contact')
             }
-            recommendation = Recommendation.objects.create(**recommendation_data)
-
-
+            recommendation = Recommendation.objects.update_or_create(**recommendation_data)
 
             request.session.pop('step_one_data', None)
             request.session.pop('step_two_data', None)
@@ -193,14 +190,11 @@ def yfirfara(request):
             request.session.pop('step_five_data', None)
             return redirect('/jobs/')
 
-
     return render(request, 'applicant/yfirfara.html', {'data': all_data})
-
 
 
 def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
-
 
 
 def changeProfiles1(request):
