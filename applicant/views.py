@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from templates.applicant.forms.step1_application_form import StepOneCreateForm
 from templates.applicant.forms.step2_application_form import StepTwoCreateForm
+from templates.applicant.forms.step2_changep_form import StepTwoChangeProfile
 from templates.applicant.forms.step3_application_form import StepThreeCreateForm
 from templates.applicant.forms.step4_application_form import StepFourCreateForm
 from templates.applicant.forms.step5_application_form import StepFiveCreateForm
@@ -10,7 +11,6 @@ from job.models import Experience, Recommendation
 from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from templates.user.forms.signup_form import User
-
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
@@ -202,9 +202,15 @@ def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 
 
+def profile(request):
+    return render(request, 'user/applicant_profile.html')
+
+
 def changeProfiles1(request):
     if request.method == 'POST':
-        print(1)
+        form = StepOneChangeProfile(data=request.POST)
+        if form.is_valid():
+            application = form.save()
     else:
         form = StepOneChangeProfile()
     return render(request, 'applicant/changeProfile_step1.html', {
@@ -213,14 +219,26 @@ def changeProfiles1(request):
 
 
 def changeProfiles2(request):
-    ...
+    if request.method == 'POST':
+        form = StepTwoChangeProfile(data=request.POST)
+        if form.is_valid():
+            application = form.save()
+    else:
+        form = StepTwoChangeProfile()
+    return render(request, 'applicant/changeProfile_step2.html', {
+        'form': form
+    })
 
 
 def changeProfiles3(request):
-    ...
-
-
-def changeProfiles4(request):
-    ...
+    if request.method == 'POST':
+        form = StepThreeCreateForm(data=request.POST)
+        if form.is_valid():
+            application = form.save()
+    else:
+        form = StepThreeCreateForm()
+    return render(request, 'applicant/changeProfile_step3.html', {
+        'form': form
+    })
 
 # Create your views here.
