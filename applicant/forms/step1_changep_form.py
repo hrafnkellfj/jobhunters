@@ -15,6 +15,6 @@ class StepOneChangeProfile(ModelForm):
             'houseNr': widgets.TextInput(attrs={'class': 'form-control'}),
             'postalCode': widgets.TextInput(attrs={'class': 'form-control'}),
             'city': widgets.TextInput(attrs={'class': 'form-control'}),
-            'country': widgets.TextInput(attrs={'class': 'form-control'}),
+            'country': widgets.Select(attrs={'class': 'form-control'}),
             'aboutMe': widgets.Textarea(attrs={'class': 'form-control'}),
         }
