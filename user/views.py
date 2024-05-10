@@ -24,6 +24,6 @@ def profile(request):
             "form":""
         })
     c_user = companyProfile.objects.filter(user=request.user).first()
-        if request.method == "POST":
-            print(2)
-        return render(request, 'user/profile.html')
+    if request.method == "POST":
+        print(2)
+    return render(request, 'user/profile.html')
