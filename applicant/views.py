@@ -10,6 +10,7 @@ from applicant.models import Applicant, ApplicantEduction,ApplicantCountry
 from job.models import Experience, Recommendation
 from templates.applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
+from templates.user.forms.signup_form import User
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
@@ -93,7 +94,7 @@ def application4(request):
                     step_four_data[date_field] = step_four_data[date_field].strftime('%Y-%m-%d')
 
             # Save the serializable data to the session
-            request.session['step_three_data'] = step_four_data
+            request.session['step_four_data'] = step_four_data
             return redirect('Step5')
     else:
         initial_data = request.session.get('step_four_data', {})
@@ -116,17 +117,22 @@ def application5(request):
         'form': form
     })
 
+
 def yfirfara(request):
-    all_data = {**request.session.get('step_one_data', {}),
-                **request.session.get('step_two_data', {}),
-                **request.session.get('step_three_data', {}),
-                **request.session.get('step_four_data', {}),
-                **request.session.get('step_five_data', {})}
-    step_one_data= {**request.session.get('step_one_data', {})}
+    step_one_data = {**request.session.get('step_one_data', {})}
     step_two_data = {**request.session.get('step_two_data', {})}
     step_three_data = {**request.session.get('step_three_data', {})}
     step_four_data = {**request.session.get('step_four_data', {})}
     step_five_data = {**request.session.get('step_five_data', {})}
+    country_pk = step_one_data.get('country')
+    country_obj = ApplicantCountry.objects.filter(pk=country_pk).first()
+    step_one_data['country'] = country_obj.name
+
+    all_data = {**step_one_data,
+                **request.session.get('step_two_data', {}),
+                **request.session.get('step_three_data', {}),
+                **request.session.get('step_four_data', {}),
+                **request.session.get('step_five_data', {})}
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'submit':
@@ -136,12 +142,15 @@ def yfirfara(request):
                 'houseNr': step_one_data.get('houseNr'),
                 'city': step_one_data.get('city'),
                 'postalCode': step_one_data.get('postalCode'),
-                'aboutMe': step_two_data.get('aboutMe')
+                'aboutMe': step_two_data.get('aboutMe'),
             }
             # Create the Applicant instance
             applicant = Applicant.objects.create(**applicant_data)
-            applicant_country_data = {'country': step_one_data.get('country')}
+
+
+            applicant_country_data = {'name': step_one_data.get('country')}
             applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
+
             applicant_education_data = {
                 'school': step_three_data.get('school'),
                 'degree': step_three_data.get('degree'),
@@ -166,6 +175,8 @@ def yfirfara(request):
             }
             recommendation = Recommendation.objects.create(**recommendation_data)
 
+
+
             request.session.pop('step_one_data', None)
             request.session.pop('step_two_data', None)
             request.session.pop('step_three_data', None)
@@ -173,6 +184,7 @@ def yfirfara(request):
             request.session.pop('step_five_data', None)
 
             return redirect('mottekid')
+
         elif action == 'cancel':
             request.session.pop('step_one_data', None)
             request.session.pop('step_two_data', None)
@@ -180,6 +192,8 @@ def yfirfara(request):
             request.session.pop('step_four_data', None)
             request.session.pop('step_five_data', None)
             return redirect('/jobs/')
+
+
     return render(request, 'applicant/yfirfara.html', {'data': all_data})
 
 
