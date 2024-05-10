@@ -146,8 +146,6 @@ def yfirfara(request):
             }
             # Create the Applicant instance
             applicant = Applicant.objects.create(**applicant_data)
-
-
             applicant_country_data = {'name': step_one_data.get('country')}
             applicant_country = ApplicantCountry.objects.create(**applicant_country_data)
 
