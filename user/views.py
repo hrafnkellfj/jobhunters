@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from user.forms.signup_form import CustomUserCreationForm
 from user.models import applicantProfile, companyProfile
+from job.models import Job
 
 def login(request):
     return render(request, 'user/login.html')
@@ -29,9 +30,10 @@ def profile(request):
     c_user = companyProfile.objects.filter(user=request.user).first()
     if c_user:
         company = c_user.company
+        job_list = Job.objects.filter(company_id=company.id)
         if request.method == "POST":
             print(2)
         return render(request, 'user/company_profile.html', {
-            "form": "", "company": company
+            "form": "", "company": company, "jobs": job_list
         })
     #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna

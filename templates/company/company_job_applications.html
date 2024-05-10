@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
+    <div id="company_detailed">
+        <div id="company_title_add_desc">
+            <h2>Hér er að finna umsóknir fyrir starfið: {{ job.title }}</h2>
+            <p>{{ job.description }}</p>
+            <p>Umsóknarfrestur: {{ job.dueDate }}</p>
+            <p>Fyrstu starfsdagur: {{ job.startDate }}</p>
+        </div>
+        <div id="company_logo_cover">
+            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+        </div>
+
+    </div>
+    
+    {% for application in applications %}
+        {% include 'company/single_application.html' with application=application %}
+    {% endfor %}
+
+
+
+{% endblock %}
