@@ -188,9 +188,6 @@ def mottekinUmsokn(request):
     return render(request, 'applicant/mottekinUmsokn.html')
 
 
-def profile(request):
-    return render(request, 'user/profile.html')
-
 
 def changeProfiles1(request):
     if request.method == 'POST':
