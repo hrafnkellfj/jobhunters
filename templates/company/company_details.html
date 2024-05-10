@@ -2,22 +2,26 @@
 {% load static %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static 'css/company.css' %}">
-    
-    <div class="company-logo-title">
-        <img class="company-logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
-        <h1>{{ company.title }}</h1>        
+    <link rel="stylesheet" type="text/css" href="/static/css/company.css">
+
+    <div id="company_detailed">
+        <div id="company_title_add_desc">
+            <h2>{{ company.title }}</h2>
+            <p>{{ company.address }}</p>
+            <p>{{ company.description }}</p>
+        </div>
+        <div id="company_logo_cover">
+            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+        </div>
+
     </div>
-    <div>
-        <img class="company-cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
-    </div>    
-    <p> {{ company.address }}</p>
-    <p>{{ company.description }}</p>
     
+    </br>
     {% if company_jobs %}
-        <h2>{{ company.title }} er að ráða í eftirfarandi störf:</h2>
+        <p>{{ company.title }} er að ráða í eftirfarandi störf:</p>
         {% else %}
-        <h2>{{ company.title }} er ekki að ráða þessa stundina.</h2>    
+        <p>{{ company.title }} er ekki að ráða þessa stundina.</p>
     {% endif %}
     {% for job in company_jobs %}
         {% include 'job/single_job.html' with job=job %}
