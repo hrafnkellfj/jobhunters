@@ -19,6 +19,18 @@
             <td>{{ value }}</td>
         </tr>
         {% endfor %}
+        {% for key, value in experiences.items %}
+        <tr>
+            <th>{{ key|capfirst }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
+        {% for key, value in recommendations.items %}
+        <tr>
+            <th>{{ key|capfirst }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {% endfor %}
     </table>
     <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
     <button type="submit" name="action" value="submit" class="btn btn-success">Staðfesta umsókn</button>

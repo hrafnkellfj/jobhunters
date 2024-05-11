@@ -133,9 +133,11 @@ def yfirfara(request):
 
     all_data = {**step_one_data,
                 **request.session.get('step_two_data', {}),
-                **request.session.get('step_three_data', {}),
-                **request.session.get('step_four_data', {}),
-                **request.session.get('step_five_data', {})}
+                **request.session.get('step_three_data', {})
+                }
+    experiences = {**request.session.get('step_four_data', {})}
+    recommendations = {**request.session.get('step_five_data', {})}
+
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'submit':
@@ -222,7 +224,7 @@ def yfirfara(request):
             return redirect('/jobs/')
 
 
-    return render(request, 'applicant/yfirfara.html', {'data': all_data})
+    return render(request, 'applicant/yfirfara.html', {'data': all_data, 'experiences': experiences, 'recommendatons': recommendations})
 
 
 

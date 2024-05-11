@@ -1,19 +1,10 @@
+/* jobs index.html */
 #jobs_container{
     display:flex;
     margin-bottom:2rem;
 }
-
 #job_filter_search{
     margin-right: 3rem;
-}
-
-#searchDiv{
-    padding: 1rem;
-}
-
-#job-company-logo{
-    width: 200px;
-    height: 200px;
 }
 #orderByDiv{
     margin-left: 1rem;
@@ -25,4 +16,51 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     padding: 1rem;
+}
+#searchDiv{
+    padding: 1rem;
+}
+
+/* single_job.html */
+#single_job{
+    border-style: solid;
+    border-color: #5dad24;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+#logo_title_container{
+    display:flex;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+#job_company_logo{
+    height: 3rem;
+    width: 3rem;
+}
+
+/* job_details.html */
+#job_detailed_upper{
+    display:flex;
+}
+#job_logo_cover_container{
+    display:flex;
+}
+#company_cover{
+    height: 20rem;
+    width: 40rem;
+}
+#company_logo{
+    position: absolute;
+    max-height: 7rem;
+    max-width: 7rem;
+}
+
+#extra_info_container{
+    display:flex;
+    margin-left: 1rem;
+}
+#upper_legend{
+    font-weight: bold;
+
+    margin-right: 1rem;
 }
