@@ -8,8 +8,8 @@ class StepFourCreateForm(ModelForm):
         exclude = ['applicant', 'applied_job']
         widgets = {
             'company': widgets.TextInput(attrs={'class': 'form-control'}),
-            'role': widgets.TextInput(attrs={'class': 'form-control'}),
-            'start': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
-            'end': widgets.TextInput(attrs={'class': 'form-control datepicker'})
+            'experience_role': widgets.TextInput(attrs={'class': 'form-control'}),
+            'experience_start': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
+            'experience_end': widgets.TextInput(attrs={'class': 'form-control datepicker'})
         }
 

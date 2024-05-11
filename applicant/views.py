@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from applicant.forms.step1_application_form import StepOneCreateForm
 from applicant.forms.step2_application_form import StepTwoCreateForm
 from applicant.forms.step2_changep_form import StepTwoChangeProfile
@@ -18,11 +18,11 @@ def index(request):
 
 def application1(request):
     job_id = request.GET.get('job_id')
-
     if job_id:
-        request.session['current_job_id'] = job_id  # Store job ID in the session
+        request.session['current_job_id'] = job_id
+
+    form = StepOneCreateForm(data=request.POST)
     if request.method == 'POST':
-        form = StepOneCreateForm(data=request.POST)
         if form.is_valid():
             country = form.cleaned_data['country']
             # Store only the primary key of the country
@@ -30,17 +30,11 @@ def application1(request):
             # Create a copy of form.cleaned_data without non-serializable objects
             step_one_data = form.cleaned_data.copy()
             step_one_data['country'] = country.pk  # Replace the object with the primary key
-
             request.session['step_one_data'] = step_one_data
             return redirect('Step2')
     else:
-        # When retrieving the initial data, reconstruct foreign keys from primary keys
-        initial_data = request.session.get('step_one_data', {})
-        # Retrieve the country instance again if its primary key is in the session
-        country_pk = request.session.get('applicant_country_pk')
-        if country_pk:
-            initial_data['country'] = country_pk  # Replace it with the PK to pre-fill the form
 
+        initial_data = request.session.get('step_one_data', {})
         form = StepOneCreateForm(initial=initial_data)
     return render(request, 'applicant/applyToJob_step1.html', {
         'form': form
@@ -64,10 +58,10 @@ def application2(request):
 
 def application3(request):
     if request.method == 'POST':
+
         form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
             step_three_data = form.cleaned_data.copy()
-
             # Handle the non-serializable fields (like dates)
             for date_field in ['start', 'end']:  # Replace with your actual date fields
                 if date_field in step_three_data and step_three_data[date_field]:
@@ -89,7 +83,6 @@ def application4(request):
         form = StepFourCreateForm(data=request.POST)
         if form.is_valid():
             step_four_data = form.cleaned_data.copy()
-
             # Handle the non-serializable fields (like dates)
             for date_field in ['start', 'end']:  # Replace with your actual date fields
                 if date_field in step_four_data and step_four_data[date_field]:
@@ -130,12 +123,12 @@ def yfirfara(request):
     country_obj = ApplicantCountry.objects.filter(pk=country_pk).first()
     step_one_data['country'] = country_obj.name
 
-
     all_data = {**step_one_data,
                 **request.session.get('step_two_data', {}),
                 **request.session.get('step_three_data', {}),
-                **request.session.get('step_four_data', {}),
-                **request.session.get('step_five_data', {})}
+                }
+    experiences = {**request.session.get('step_four_data', {})}
+    recommendations = {**request.session.get('step_five_data', {})}
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'submit':
@@ -156,7 +149,7 @@ def yfirfara(request):
             )
             job_id = request.session.get('current_job_id')
             application, created = Application.objects.update_or_create(
-                applicant=applicant,  # This should be the f    ield used to uniquely identify the record
+                applicant=applicant,  # This should be the field used to uniquely identify the record
                 defaults={
                     'street': step_one_data.get('street'),
                     'houseNr': step_one_data.get('houseNr'),
@@ -181,6 +174,7 @@ def yfirfara(request):
             applied_job = application.id
             # Use create or update_or_create to save the education record
             applicant_education = ApplicantEduction.objects.update_or_create(**applicant_education_data)
+
             experience_data = {
                 'applicant_id': applicant.id,
                 'company': step_four_data.get('company'),
@@ -192,10 +186,10 @@ def yfirfara(request):
             experience = Experience.objects.update_or_create(**experience_data)
             recommendation_data = {
                 'applicant': applicant,
-                'name': step_five_data.get('name'),
-                'email': step_five_data.get('email'),
-                'phone': step_five_data.get('phone'),
-                'role': step_five_data.get('role'),
+                'name': step_five_data.get('recommendation_name'),
+                'email': step_five_data.get('recommendation_email'),
+                'phone': step_five_data.get('recommendation_phone'),
+                'role': step_five_data.get('recommendation_role'),
                 'allowedToContact': True,
                 'applied_job_id': applied_job
 
@@ -222,7 +216,7 @@ def yfirfara(request):
             return redirect('/jobs/')
 
 
-    return render(request, 'applicant/yfirfara.html', {'data': all_data})
+    return render(request, 'applicant/yfirfara.html', {'data': all_data, 'experiences': experiences, 'recommendations': recommendations})
 
 
 
