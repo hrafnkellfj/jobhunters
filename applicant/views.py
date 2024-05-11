@@ -9,6 +9,7 @@ from applicant.models import Applicant, ApplicantEduction
 from job.models import Experience, Recommendation,Application
 from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
+from django.utils import timezone
 
 
 def index(request):
@@ -129,6 +130,7 @@ def yfirfara(request):
     country_obj = ApplicantCountry.objects.filter(pk=country_pk).first()
     step_one_data['country'] = country_obj.name
 
+
     all_data = {**step_one_data,
                 **request.session.get('step_two_data', {}),
                 **request.session.get('step_three_data', {}),
@@ -152,6 +154,20 @@ def yfirfara(request):
                     'aboutMe': step_two_data.get('aboutMe')
                 }
             )
+            job_id = request.session.get('current_job_id')
+            application, created = Application.objects.update_or_create(
+                applicant=applicant,  # This should be the f    ield used to uniquely identify the record
+                defaults={
+                    'street': step_one_data.get('street'),
+                    'houseNr': step_one_data.get('houseNr'),
+                    'city': step_one_data.get('city'),
+                    'postalCode': step_one_data.get('postalCode'),
+                    'coverLetter': step_two_data.get('aboutMe'),
+                    'country': country_obj,
+                    'applyDate':timezone.now(),
+                    'job_id':job_id
+                }
+            )
 
             # Now, create or update ApplicantEduction and pass the applicant instance
             applicant_education_data = {
@@ -162,28 +178,30 @@ def yfirfara(request):
                 'start': step_three_data.get('start'),
                 'end': step_three_data.get('end')
             }
-            job_id = request.session.get('current_job_id')
-            applied_job = Application.objects.filter(pk=job_id).first()
+            applied_job = application.id
             # Use create or update_or_create to save the education record
             applicant_education = ApplicantEduction.objects.update_or_create(**applicant_education_data)
             experience_data = {
-                'applicant': applicant,
+                'applicant_id': applicant.id,
                 'company': step_four_data.get('company'),
                 'role': step_four_data.get('role'),
                 'start': step_four_data.get('start'),
                 'end': step_four_data.get('end'),
-                'applied_job_id':job_id
+                'applied_job_id': applied_job
             }
-            experience = Experience.objects.update(**experience_data)
+            experience = Experience.objects.update_or_create(**experience_data)
             recommendation_data = {
                 'applicant': applicant,
                 'name': step_five_data.get('name'),
                 'email': step_five_data.get('email'),
                 'phone': step_five_data.get('phone'),
                 'role': step_five_data.get('role'),
-                'allowedToContact': step_five_data.get('allow_contact')
+                'allowedToContact': True,
+                'applied_job_id': applied_job
+
             }
-            recommendation = Recommendation.objects.update(**recommendation_data)
+            recommendation = Recommendation.objects.update_or_create(**recommendation_data)
+
 
 
 
