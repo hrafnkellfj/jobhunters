@@ -69,3 +69,55 @@
     padding: 1rem;
     width: 50%
 }
+
+/* Applicant details */
+#applicant_photo_aboutMe_container{
+    margin-top: 1rem;
+    display: flex;
+}
+#applicant_photo{
+    max-height: 10rem;
+    max-width: 10rem;
+}
+#photo_email_container{
+    margin-right: 1rem;
+    max-width: 10rem;
+    word-wrap: break-word;
+    font-size: 1rem;
+    text-align: center;
+}
+#applicant_information{
+    display:flex;
+}
+#address_legend_container{
+    font-weight: bold;
+    text-align:right;
+    margin-right: 1rem;
+}
+#recommendation_container{
+    border-style: solid;
+    border-color: #5dad24;
+    display:flex;
+    margin: 1rem;
+    padding: 1rem;
+    max-width: 40rem;
+}
+#recommendation_legend{
+    font-weight: bold;
+    text-align:right;
+    margin-right: 1rem;
+}
+
+#experience_container{
+    border-style: solid;
+    border-color: #5dad24;
+    display:flex;
+    margin: 1rem;
+    padding: 1rem;
+    max-width: 40rem;
+}
+#experience_legend{
+    font-weight: bold;
+    text-align:right;
+    margin-right: 1rem;
+}

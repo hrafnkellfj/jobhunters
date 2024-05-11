@@ -1,8 +1,10 @@
     <div id="single_application">
-        
-        <p>{{ application.applicant.name }}</p>
-        <p>{{application.coverLetter}}</p>
-        
 
-
+        <div>
+            <p>{{ application.applicant.name }}</p>
+            <p>{{application.coverLetter}}</p>
+        </div>
+        <a href="/companies/applications/{{ application.job_id }}/applicant/{{ application.id }}">
+            <button>Skoða nánar</button>
+        </a>
     </div>
