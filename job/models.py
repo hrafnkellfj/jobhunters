@@ -23,9 +23,8 @@ class Job(models.Model):
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-
     def apply_filters(query_dict, job_list):
-        """Gets all jobs from the database and returns those that are not past the due date"""
+        """Gets a list of jobs and applies filters and search term to it."""
         company = None
         if query_dict["title"]:
             job_list = job_list.filter(title__icontains=query_dict["title"])
@@ -38,8 +37,6 @@ class Job(models.Model):
         if company:
             job_list = job_list.filter(company_id=company.id)
         return job_list
-
-
 
 class Application(models.Model):
     """This class links an Applicant to a Job when the Applicant has applied for that Job.
@@ -70,6 +67,7 @@ class Recommendation(models.Model):
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
+
 class Experience(models.Model):
     """A work related experience that belongs to an Applicant"""
     company = models.CharField(max_length=255)
@@ -78,7 +76,6 @@ class Experience(models.Model):
     end = models.DateField(blank=True, null=True)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
-
 
 
 
