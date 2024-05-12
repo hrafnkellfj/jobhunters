@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from applicant.forms.application_step1_form import StepOneCreateForm
 from applicant.forms.application_step2_form import StepTwoCreateForm
 from applicant.forms.application_step3_form import StepThreeCreateForm
@@ -211,39 +211,46 @@ def mottekinUmsokn(request):
 
 
 def changeProfiles1(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    # Initialize the form with the applicant instance directly
+    form = StepOneChangeProfile(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepOneChangeProfile(data=request.POST)
         if form.is_valid():
-            application = form.save()
+            form.save()
             return redirect('changeProfile2')
-    else:
-        form = StepOneChangeProfile()
     return render(request, 'applicant/changeProfile_step1.html', {
         'form': form
     })
 
 
 def changeProfiles2(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    educationobj = ApplicantEduction.objects.filter(applicant=applicant).first()
+    form = StepTwoChangeProfile(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepTwoChangeProfile(data=request.POST)
+        # Get the Applicant object using the logged-in User's ID
+        # Initialize the form with the instance if it exists, whether it's a GET or POST request
         if form.is_valid():
-            application = form.save()
+            education = form.save(commit=False)
+            education.applicant = applicant  # Set the applicant from the verified Applicant instance
+            education.save()
             return redirect('changeProfile3')
-    else:
-        form = StepTwoChangeProfile()
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
     })
 
 
 def changeProfiles3(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    experienceobject = Experience.objects.filter(applicant=applicant).first()
+    form = StepThreeChangeProfile(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
-            application = form.save()
+            experience = form.save(commit=False)
+            experience.applicant = applicant  # Set the applicant from the verified Applicant instance
+            experience.applied_job_id = 8 #Ekki viss um þetta en þetta er bara til að fá þetta til að virka
+            experience.save()
             return redirect('user-profile')
-    else:
-        form = StepThreeCreateForm()
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
