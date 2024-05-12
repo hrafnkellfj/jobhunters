@@ -1,11 +1,11 @@
 from django.forms import ModelForm, widgets
-from applicant.models import Applicant
+from job.models import Application
 
 
 class StepTwoCreateForm(ModelForm):
     class Meta:
-        model = Applicant
-        exclude = ['photo', 'username', 'email', 'name', 'street', 'houseNr', 'city', 'postalCode', 'country', 'phone']
+        model = Application
+        exclude = ['status', 'applyDate', 'resultDate', 'applicant', 'job']
         widgets = {
-            'aboutMe': widgets.Textarea(attrs={'class': 'form-control'})
+            'coverLetter': widgets.Textarea(attrs={'class': 'form-control'})
         }

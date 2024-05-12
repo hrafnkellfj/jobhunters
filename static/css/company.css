@@ -6,6 +6,12 @@
     width: 200px;
     height: 200px;
 }
+#profile_title_button{
+    display:flex;
+}
+#change_profile_button{
+    margin-left: 2rem;
+}
 #company_detailed{
     display:flex;
 }
@@ -59,7 +65,6 @@
 }
 #job_title{
     display:inline-block;
-
 }
 
 #single_application{

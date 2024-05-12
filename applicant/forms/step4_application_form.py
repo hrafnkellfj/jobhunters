@@ -5,7 +5,7 @@ from job.models import Experience
 class StepFourCreateForm(ModelForm):
     class Meta:
         model = Experience
-        exclude = ['applicant', 'applied_job']
+        exclude = ['applicant', 'job']
         widgets = {
             'company': widgets.TextInput(attrs={'class': 'form-control'}),
             'role': widgets.TextInput(attrs={'class': 'form-control'}),
