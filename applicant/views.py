@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from applicant.forms.applicantform import ApplicantFormPrimary
+from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormAll
 from applicant.forms.applicationform import ApplicationForm
 from applicant.forms.educationform import EducationForm
 from applicant.forms.experienceform import ExperienceForm
 from applicant.forms.recommendationform import RecommendationForm
 from applicant.models import Applicant, ApplicantEducation
 from job.models import Experience, Recommendation,Application, Job
-from applicant.forms.step1_changep_form import StepOneChangeProfile
 from user.models import applicantProfile
 from datetime import date
 
@@ -239,7 +238,7 @@ def application_delete(request, jobid):
 def changeProfiles1(request):
     applicant = get_object_or_404(Applicant, id=request.user.id)
     # Initialize the form with the applicant instance directly
-    form = StepOneChangeProfile(instance=applicant, data=request.POST if request.method == 'POST' else None)
+    form = ApplicantFormAll(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -252,7 +251,7 @@ def changeProfiles1(request):
 def changeProfiles2(request):
     applicant = get_object_or_404(Applicant, id=request.user.id)
     educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
-    form = StepTwoChangeProfile(instance=educationobj, data=request.POST if request.method == 'POST' else None)
+    form = EducationForm(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         # Get the Applicant object using the logged-in User's ID
         # Initialize the form with the instance if it exists, whether it's a GET or POST request
