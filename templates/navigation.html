@@ -34,6 +34,9 @@
                 <a class="nav-link" href="{% url 'user-profile' %}">Prófíll</a>
             </li>
         {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'company-signup' %}">Nýskrá Fyrirtæki</a>
+             </li>
              <li class="nav-item">
                 <a class="nav-link" href="{% url 'user-signup' %}">Nýskrá</a>
              </li>

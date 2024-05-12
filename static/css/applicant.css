@@ -4,7 +4,6 @@
     border-color: #5dad24;
     border-style: solid;
 }
-
 #single_flex{
     display: flex;
 }
@@ -20,11 +19,57 @@
     font-size: 1rem;
 
 }
-
-#applicant-image{
+#applicant-image {
     height: 10rem;
-    widt: 10rem;
+    width: 10rem;
 }
 
+/* application ferlið */
 
+.application_form_heading{
+    margin-top: 2rem;
+}
 
+.application_list_form_container{
+    display:flex;
+    margin: 2rem;
+}
+
+.applicant_list{
+    margin-right: 3rem;
+}
+
+.application_legend_info_container{
+    margin-top: 1rem;
+    display:flex;
+    text-wrap: nowrap;
+}
+.application_list_container{
+    border-style: solid;
+    border-color: #5dad24;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    margin-right: 2rem;
+}
+.application_legend{
+    font-weight: bold;
+    text-align:right;
+    margin-right: 1rem;
+}
+
+.application_legend_info_container_many{
+    display:flex;
+     border-style: solid;
+    border-color: #5dad24;
+    padding: 1rem;
+    text-wrap: nowrap;
+}
+
+#overview_form_container{
+    display:flex;
+    align-items: center;
+}
+
+#overview_accept{
+    margin-right: 2rem;
+}

@@ -8,9 +8,6 @@ from datetime import date
 from user.models import companyProfile
 
 
-#from django.http import HttpResponse
-
-
 
 def index(request):
     """Gets a list of all companies and sends them to be rendered in html"""
@@ -34,7 +31,6 @@ def company_job_applications(request, jobid):
             applications = Application.objects.filter(job=jobid)
             if applications:
                 company = applications.first().job.company
-
                 return render(request, 'company/company_job_applications.html', {
                     'applications': applications, 'job': job, 'company': company
                 })
@@ -43,10 +39,11 @@ def company_job_applications(request, jobid):
 
 def application_details(request, jobid, appid):
     """A company user can see detailed information about this application"""
+    job = get_object_or_404(Job, pk=jobid)
     application = Application.objects.filter(pk=appid).first()
     applicant = application.applicant
-    recommendations = Recommendation.objects.filter(applicant=applicant, applied_job=application)
-    experiences = Experience.objects.filter(applicant=applicant, applied_job=application)
+    recommendations = Recommendation.objects.filter(applicant=applicant, job=job)
+    experiences = Experience.objects.filter(applicant=applicant, job=job)
 
     return render(request, 'company/application_details.html', {
         'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences
