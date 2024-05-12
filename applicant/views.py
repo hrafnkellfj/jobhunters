@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from applicant.forms.applicantform import ApplicantFormPrimary
 from applicant.forms.applicationform import ApplicationForm
-from applicant.forms.step2_changep_form import StepTwoChangeProfile
 from applicant.forms.educationform import EducationForm
 from applicant.forms.experienceform import ExperienceForm
 from applicant.forms.recommendationform import RecommendationForm
@@ -237,43 +236,52 @@ def application_delete(request, jobid):
         recommendation_list.delete()
     return redirect("home-index")
 
-def profile(request):
-    return render(request, 'user/applicant_profile.html')
-
-
 def changeProfiles1(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    # Initialize the form with the applicant instance directly
+    form = StepOneChangeProfile(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepOneChangeProfile(data=request.POST)
         if form.is_valid():
-            application = form.save()
-    else:
-        form = StepOneChangeProfile()
+            form.save()
+            return redirect('changeProfile2')
     return render(request, 'applicant/changeProfile_step1.html', {
         'form': form
     })
 
 
 def changeProfiles2(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
+    form = StepTwoChangeProfile(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepTwoChangeProfile(data=request.POST)
+        # Get the Applicant object using the logged-in User's ID
+        # Initialize the form with the instance if it exists, whether it's a GET or POST request
         if form.is_valid():
-            application = form.save()
-    else:
-        form = StepTwoChangeProfile()
+            education = form.save(commit=False)
+            education.applicant = applicant  # Set the applicant from the verified Applicant instance
+            education.save()
+            return redirect('changeProfile3')
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
     })
 
 
 def changeProfiles3(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    experienceobject = Experience.objects.filter(applicant=applicant).first()
+    form = EducationForm(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         form = EducationForm(data=request.POST)
         if form.is_valid():
-            application = form.save()
-    else:
-        form = EducationForm()
+            experience = form.save(commit=False)
+            experience.applicant = applicant  # Set the applicant from the verified Applicant instance
+            experience.save()
+            return redirect('user-profile')
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
+
+
+
 
 # Create your views here.

@@ -11,9 +11,8 @@
     <form class="form form-horizontal" action="{% url 'changeProfile1' %}" method="POST">
         {% csrf_token %}
         {{ form }}
-        <a href="{% url 'changeProfile2' %}">
-            <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
-        </a>
+        
+        <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
     </form>
 
 

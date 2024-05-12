@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <div>
+        <div id="tabs">
+            <a class="tab grunnupplysingar active">Grunnupplýsingar</a>
+        </div>
+    </div>
+    
+    <div>
+        <form class="form form-horizontal" action="{% url 'ChangeCompanyProfile' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <a href="{% url 'user-profile' %}">
+                <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+            </a>
+        </form>
+    
+    </div>
+
+{% endblock %}

@@ -13,5 +13,5 @@ urlpatterns = [
     path('applications/delete/<int:jobid>', views.application_delete, name="application_cancel"),
     path('changeProfiles/', views.changeProfiles1, name='changeProfile1'),
     path('changeProfiles2/', views.changeProfiles2, name='changeProfile2'),
-    path('changeProfiles3/', views.changeProfiles3, name='changeProfile3')
+    path('changeProfiles3/', views.changeProfiles3, name='changeProfile3'),
 ]
