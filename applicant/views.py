@@ -6,7 +6,7 @@ from applicant.forms.step3_application_form import StepThreeCreateForm
 from applicant.forms.step4_application_form import StepFourCreateForm
 from applicant.forms.step5_application_form import StepFiveCreateForm
 from applicant.models import Applicant, ApplicantEducation
-from job.models import Experience, Recommendation,Application, Job
+from job.models import Experience, Recommendation, Application, Job
 from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from django.utils import timezone
