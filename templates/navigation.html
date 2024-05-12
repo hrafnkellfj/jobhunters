@@ -22,6 +22,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/about_us/">Um okkur</a>
         </li>
+      
         {% if user.is_authenticated %}
             <li class="nav-item">
                 <form action="{% url 'user-logout' %}" method="post">
@@ -43,10 +44,11 @@
                 <a class="nav-link" href="{% url 'user-login' %}">Innskrá</a>
              </li>
         {% endif %}
-       
-       
       </ul>
         
+        {% if user.is_authenticated %}
+            <img id="profile-image-navbar" src="{{ applicant.photo }}"  alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
+        {% endif %}
     </div>
   </div>
 </nav>

@@ -177,58 +177,94 @@ def application5(request, jobid):
     })
 
 
-def overview(request):
+def overview(request, jobid):
+    """Allows the applicant to go over the application's status and if he's happy he
+    can submit the application
+
+    The application is already submitted, instead the isFinished field is set to True
+    if applicant cancels, delete all data related to application"""
+
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = get_object_or_404(Application, job=job, applicant=applicant)
+    if request.method == "POST":
+        if application:
+            application.isFinished = True
+            application.save()
+        return redirect("/applicants/applications/success/"+str(jobid))
+
+    education_list = ApplicantEducation.objects.filter(applicant=applicant)
+    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+
+    return render(request, 'applicant/overview.html', { 'applicant': applicant,
+        'job': job, 'application': application, 'education_list': education_list, 'experience_list': experience_list,
+        'recommendation_list': recommendation_list
+    })
+
+def application_successful(request, jobid):
     """"""
+    job_title = get_object_or_404(Job, pk=jobid).title
+    return render(request, 'applicant/application_successful.html', {'title': job_title})
 
-    pass
-
-
-    #return render(request, 'applicant/yfirfara.html', {'data': all_data})
-
-
-
-
-def mottekinUmsokn(request):
-    return render(request, 'applicant/mottekinUmsokn.html')
-
-
-def profile(request):
-    return render(request, 'user/applicant_profile.html')
-
+def application_delete(request, jobid):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = get_object_or_404(Application, job=job, applicant=applicant)
+    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        application.delete()
+        experience_list.delete()
+        recommendation_list.delete()
+    return redirect("home-index")
 
 def changeProfiles1(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    # Initialize the form with the applicant instance directly
+    form = StepOneChangeProfile(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepOneChangeProfile(data=request.POST)
         if form.is_valid():
-            application = form.save()
-    else:
-        form = StepOneChangeProfile()
+            form.save()
+            return redirect('changeProfile2')
     return render(request, 'applicant/changeProfile_step1.html', {
         'form': form
     })
 
 
 def changeProfiles2(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
+    form = StepTwoChangeProfile(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepTwoChangeProfile(data=request.POST)
+        # Get the Applicant object using the logged-in User's ID
+        # Initialize the form with the instance if it exists, whether it's a GET or POST request
         if form.is_valid():
-            application = form.save()
-    else:
-        form = StepTwoChangeProfile()
+            education = form.save(commit=False)
+            education.applicant = applicant  # Set the applicant from the verified Applicant instance
+            education.save()
+            return redirect('changeProfile3')
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
     })
 
 
 def changeProfiles3(request):
+    applicant = get_object_or_404(Applicant, id=request.user.id)
+    experienceobject = Experience.objects.filter(applicant=applicant).first()
+    form = StepThreeChangeProfile(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
-            application = form.save()
-    else:
-        form = StepThreeCreateForm()
+            experience = form.save(commit=False)
+            experience.applicant = applicant  # Set the applicant from the verified Applicant instance
+            experience.save()
+            return redirect('user-profile')
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
+
+
+
 
 # Create your views here.
