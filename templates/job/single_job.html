@@ -1,10 +1,17 @@
-<div class="single_job">
-    <a href="/jobs/{{ job.id }}">
-    <img id="job-company-logo" src="{{ job.company.logo }}"  alt="Company logo"/>
-    </a>
-    <a href="/jobs/{{ job.id }}"><h3>{{ job.title }}</h3> </a>
+<div id="single_job">
+
+    <a href="/jobs/{{ job.id }}"></a>
+
+    <div id="logo_title_container">
+        <img id="job_company_logo" src="{{ job.company.logo }}"  alt="Company logo"/>
+        <h2>{{ job.company.title }}</h2>
+    </div>
+
+    <h3>{{ job.title }}</h3>
     <p>{{ job.description }}</p>
     <p>Birtingardagur : {{ job.postDate }}</p>
     <p>Umsóknarfrestur: {{ job.dueDate }}</p>
+    <a href="/jobs/{{ job.id }}">
+    <button>Skoða nánar</button>
     </a>
 </div>

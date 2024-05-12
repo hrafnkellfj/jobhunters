@@ -12,4 +12,3 @@ class companyProfile(models.Model):
     """Extends the user as a company"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company = models.OneToOneField(Company, on_delete=models.CASCADE)
-

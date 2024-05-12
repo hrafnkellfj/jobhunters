@@ -12,24 +12,49 @@
         <a class="tab yfirfara">Yfirfara</a>
     </div>
     <div>
-        <h3>Reynsla</h3>
+        <h3>Reynsla</h3>    
         <form class="form form-horizontal" action="{% url 'Step4' %}" method="POST">
             {% csrf_token %}
-            {{ form }}
+            <div id="experience-fields-wrapper">
+            {{ form.as_p }} 
+           </div>
+           <button type="submit" id="add-experience" class="btn btn-info">Bæta við annari reynslu</button>
            <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
            <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
           
         </form>
         <script>
-            $(document).ready(function () {
-                $('.datepicker').datepicker({
-                    format: 'yyyy-mm-dd',  // Adjust the format to match your database requirements
-                    autoclose: true,
-                    clearBtn: true
-                });
-            });
-        </script>
-    </div>
+        $(document).ready(function () {
+        // Initialize the datepicker
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',  
+            autoclose: true,
+            clearBtn: true
+        });
 
-   
+        var wrapper = $('#experience-fields-wrapper');  // This is the container for the form fields
+        var formHTML = $('#experience-fields-wrapper').html();  // Store the initial form HTML for duplication
+
+        $('#add-experience').click(function() {
+            var newForm = $(formHTML).clone();  // Clone the form HTML
+            newForm.find('input').each(function() {
+                // Clear each input field in the cloned form
+                if($(this).is(':text')) {
+                    $(this).val('');
+                }
+            });
+            newForm.find('.datepicker').removeClass('hasDatepicker').removeAttr('id');  // Remove specific attributes to re-initialize datepickers
+            $(wrapper).append('<hr>').append(newForm);  // Append the new set of cleared fields
+            // Re-initialize the datepicker for newly added fields
+            $(wrapper).find('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                clearBtn: true
+            });
+        });
+    });
+</script>
+
+</div>
+    
 {% endblock %}
