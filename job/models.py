@@ -9,6 +9,9 @@ class JobCategory(models.Model):
     """Contains job categories"""
     type = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.type
+
 class Job(models.Model):
     """The Job class contains all the variables that are needed to display a Job correctly.
     Jobs are made by Company users and can be applied to by Applicant users"""
