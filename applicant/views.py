@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from applicant.forms.application_step1_form import StepOneCreateForm
-from applicant.forms.application_step2_form import StepTwoCreateForm
+# from applicant.forms.application_step1_form import StepOneCreateForm
+# from applicant.forms.application_step2_form import StepTwoCreateForm
 from applicant.forms.application_step3_form import StepThreeCreateForm
 from applicant.forms.application_step4_form import StepFourCreateForm
 from applicant.forms.application_step5_form import StepFiveCreateForm
-from applicant.models import Applicant, ApplicantEduction
+from applicant.forms.change_company_profile import ChangeCompanyProfile
+from applicant.models import Applicant, ApplicantEducation
+from company.models import Company
 from job.models import Experience, Recommendation, Application
 from applicant.forms.changeprofile_step1_form import StepOneChangeProfile
 from applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
@@ -241,7 +243,7 @@ def changeProfiles1(request):
 
 def changeProfiles2(request):
     applicant = get_object_or_404(Applicant, id=request.user.id)
-    educationobj = ApplicantEduction.objects.filter(applicant=applicant).first()
+    educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
     form = StepTwoChangeProfile(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         # Get the Applicant object using the logged-in User's ID
@@ -264,11 +266,13 @@ def changeProfiles3(request):
         if form.is_valid():
             experience = form.save(commit=False)
             experience.applicant = applicant  # Set the applicant from the verified Applicant instance
-            experience.applied_job_id = 8 #Ekki viss um þetta en þetta er bara til að fá þetta til að virka
             experience.save()
             return redirect('user-profile')
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
+
+
+
 
 # Create your views here.

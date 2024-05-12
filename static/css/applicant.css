@@ -1,8 +1,9 @@
-#single_applicant{
+#single_applicant {
     margin: 5rem;
     padding: 1rem;
     border-color: #5dad24;
     border-style: solid;
+}
 
 #single_flex{
     display: flex;
@@ -19,9 +20,11 @@
     font-size: 1rem;
 
 }
+
 #applicant-image{
     height: 10rem;
     widt: 10rem;
 }
+
 
 

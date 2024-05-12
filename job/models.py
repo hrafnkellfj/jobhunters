@@ -75,7 +75,7 @@ class Experience(models.Model):
     start = models.DateField()
     end = models.DateField(blank=True, null=True)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
+    # applied_job = models.ForeignKey(Application, on_delete=models.CASCADE)
 
 
 

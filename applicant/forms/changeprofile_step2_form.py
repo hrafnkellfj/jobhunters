@@ -1,11 +1,11 @@
 
 from django.forms import ModelForm, widgets
-from applicant.models import ApplicantEduction
+from applicant.models import ApplicantEducation
 
 
 class StepTwoChangeProfile(ModelForm):
     class Meta:
-        model = ApplicantEduction
+        model = ApplicantEducation
         exclude = ['applicant']
         widgets = {
             'school': widgets.TextInput(attrs={'class': 'form-control'}),

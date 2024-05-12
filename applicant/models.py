@@ -29,7 +29,7 @@ class Applicant(models.Model):
     postalCode = models.CharField(max_length=255, blank=True, null=True)
 
 
-class ApplicantEduction(models.Model):
+class ApplicantEducation(models.Model):
     """This class holds information about the education of the applicant."""
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     school = models.CharField(max_length=255)
