@@ -5,7 +5,7 @@ from applicant.models import Applicant
 class StepOneCreateForm(ModelForm):
     class Meta:
         model = Applicant
-        exclude = ['photo', 'username', 'email', 'aboutMe', 'phone']
+        exclude = ['photo', 'email', 'aboutMe', 'phone']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'street': widgets.TextInput(attrs={'class': 'form-control'}),
