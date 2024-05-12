@@ -2,7 +2,7 @@ from django.forms import ModelForm, widgets
 from applicant.models import ApplicantEducation
 
 
-class StepThreeCreateForm(ModelForm):
+class EducationForm(ModelForm):
     class Meta:
         model = ApplicantEducation
         exclude = ['applicant']
