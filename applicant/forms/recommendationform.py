@@ -2,7 +2,7 @@ from django.forms import ModelForm, widgets
 from job.models import Recommendation
 
 
-class StepFiveCreateForm(ModelForm):
+class RecommendationForm(ModelForm):
     class Meta:
         model = Recommendation
         exclude = ['applicant', 'job']

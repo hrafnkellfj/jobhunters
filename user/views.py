@@ -1,4 +1,7 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+
+from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
 from user.models import applicantProfile, companyProfile
@@ -33,16 +36,21 @@ def company_signup(request):
         'form': CustomUserCreationForm2()
     })
 
+@login_required
 def profile(request):
-    a_user = applicantProfile.objects.filter(user=request.user).first()
+    a_user = get_object_or_404(applicantProfile, user=request.user)
     if a_user:
         applicant = a_user.applicant
+
         if request.method == "POST":
-            print(1)
+            pass
+            return redirect('user-profile')
+        form1 = ApplicantFormPrimary()
+        form2 = ApplicantFormSecondary()
         return render(request, 'user/applicant_profile.html', {
-            "form": "", "applicant": applicant
+            "form1": form1, 'form2': form2, "applicant": applicant
         })
-    c_user = companyProfile.objects.filter(user=request.user).first()
+    c_user = get_object_or_404(companyProfile, user=request.user)
     if c_user:
         company = c_user.company
         job_list = Job.objects.filter(company_id=company.id)

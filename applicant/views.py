@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from applicant.forms.step1_application_form import StepOneCreateForm
-from applicant.forms.step2_application_form import StepTwoCreateForm
+from django.contrib.auth.decorators import login_required
+from applicant.forms.applicantform import ApplicantFormPrimary
+from applicant.forms.applicationform import ApplicationForm
 from applicant.forms.step2_changep_form import StepTwoChangeProfile
-from applicant.forms.step3_application_form import StepThreeCreateForm
-from applicant.forms.step4_application_form import StepFourCreateForm
-from applicant.forms.step5_application_form import StepFiveCreateForm
+from applicant.forms.educationform import EducationForm
+from applicant.forms.experienceform import ExperienceForm
+from applicant.forms.recommendationform import RecommendationForm
 from applicant.models import Applicant, ApplicantEducation
 from job.models import Experience, Recommendation,Application, Job
 from applicant.forms.step1_changep_form import StepOneChangeProfile
-from applicant.models import ApplicantCountry
-from django.utils import timezone
 from user.models import applicantProfile
 from datetime import date
 
@@ -18,12 +17,15 @@ def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
 
+@login_required
 def application1(request, jobid):
     """ """
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     if applicant:
         if request.method == 'POST':
-            form = StepOneCreateForm(data=request.POST)
+            form = ApplicantFormPrimary(data=request.POST)
             if form.is_valid():
                 applicant.name = form.cleaned_data['name']
                 applicant.street = form.cleaned_data['street']
@@ -31,25 +33,28 @@ def application1(request, jobid):
                 applicant.city = form.cleaned_data['city']
                 applicant.postalCode = form.cleaned_data['postalCode']
                 applicant.country = form.cleaned_data['country']
+
                 applicant.save()
                 return redirect("/applicants/applications2/"+str(jobid))
         else:
-            form = StepOneCreateForm(instance=applicant)
+            form = ApplicantFormPrimary(instance=applicant)
             return render(request, 'applicant/applyToJob_step1.html', {
                 'form': form, 'job_id': jobid
             })
     return redirect('index')
 
-
+@login_required
 def application2(request, jobid):
     """"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = Application.objects.filter(applicant=applicant, job=job).first()
     if not application:
         application = Application()
     if request.method == 'POST':
-        form = StepTwoCreateForm(data=request.POST)
+        form = ApplicationForm(data=request.POST)
         if form.is_valid():
             coverLetter = form.cleaned_data["coverLetter"]
             application.applicant = applicant
@@ -60,20 +65,22 @@ def application2(request, jobid):
             application.save()
             return redirect("/applicants/applications3/"+str(jobid))
     else:
-        form = StepTwoCreateForm(instance=application)
+        form = ApplicationForm(instance=application)
 
     return render(request, 'applicant/applyToJob_step2.html', {
         'form': form, 'jobid':jobid
     })
 
-
+@login_required
 def application3(request, jobid):
     """"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     education_list = ApplicantEducation.objects.filter(applicant=applicant)
 
     if request.method == 'POST':
-        form = StepThreeCreateForm(data=request.POST)
+        form = EducationForm(data=request.POST)
         if form.is_valid():
             school = form.cleaned_data["school"]
             degree = form.cleaned_data["degree"]
@@ -97,19 +104,21 @@ def application3(request, jobid):
                     'form': form, 'education_list': education_list, 'jobid': jobid
                 })
     else:
-        form = StepThreeCreateForm()
+        form = EducationForm()
     return render(request, 'applicant/applyToJob_step3.html', {
         'form': form, 'education_list':education_list, 'jobid':jobid
     })
 
-
+@login_required
 def application4(request, jobid):
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     experience_list = Experience.objects.filter(applicant=applicant, job=job)
 
     if request.method == 'POST':
-        form = StepFourCreateForm(data=request.POST)
+        form = ExperienceForm(data=request.POST)
         if form.is_valid():
             company = form.cleaned_data["company"]
             role = form.cleaned_data["role"]
@@ -131,19 +140,21 @@ def application4(request, jobid):
                     'form': form, 'experience_list': experience_list, 'jobid': jobid
                 })
     else:
-        form = StepFourCreateForm()
+        form = ExperienceForm()
     return render(request, 'applicant/applyToJob_step4.html', {
         'form': form, 'experience_list': experience_list, 'jobid': jobid
     })
 
-
+@login_required
 def application5(request, jobid):
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
 
     if request.method == 'POST':
-        form = StepFiveCreateForm(data=request.POST)
+        form = RecommendationForm(data=request.POST)
         if form.is_valid():
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
@@ -171,12 +182,12 @@ def application5(request, jobid):
                     'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
                 })
     else:
-        form = StepFiveCreateForm()
+        form = RecommendationForm()
     return render(request, 'applicant/applyToJob_step5.html', {
         'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
     })
 
-
+@login_required
 def overview(request, jobid):
     """Allows the applicant to go over the application's status and if he's happy he
     can submit the application
@@ -185,6 +196,8 @@ def overview(request, jobid):
     if applicant cancels, delete all data related to application"""
 
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = get_object_or_404(Application, job=job, applicant=applicant)
     if request.method == "POST":
@@ -202,14 +215,18 @@ def overview(request, jobid):
         'recommendation_list': recommendation_list
     })
 
+@login_required
 def application_successful(request, jobid):
     """"""
     job_title = get_object_or_404(Job, pk=jobid).title
     return render(request, 'applicant/application_successful.html', {'title': job_title})
 
+@login_required
 def application_delete(request, jobid):
     """"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if not applicant:
+        return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = get_object_or_404(Application, job=job, applicant=applicant)
     experience_list = Experience.objects.filter(applicant=applicant, job=job)
@@ -250,11 +267,11 @@ def changeProfiles2(request):
 
 def changeProfiles3(request):
     if request.method == 'POST':
-        form = StepThreeCreateForm(data=request.POST)
+        form = EducationForm(data=request.POST)
         if form.is_valid():
             application = form.save()
     else:
-        form = StepThreeCreateForm()
+        form = EducationForm()
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
