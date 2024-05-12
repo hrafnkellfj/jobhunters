@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
+    <div id="tabs">
+        <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+        <a class="tab kynningarbreif">Kynningarbréf</a>
+        <a class="tab menntun">Menntun</a>
+        <a class="tab reynsla">Reynsla</a>
+        <a class="tab medmaelendur">Meðmælendur</a>
+        <a class="tab yfirfara active">Yfirfara</a>
+    </div>
+
+    <h3 class="application_form_heading">Yfirfara umsókn</h3>
+
+    <div class="application_list_form_container">
+        <div class="application_list_container">
+            <h5>Grunnupplýsingar</h5>
+            <div class="application_legend_info_container">
+                <div class="application_legend">
+                    <p>Nafn:</p>
+                    <p>Heimilisfang:</p>
+                    <p>Bæjarfélag:</p>
+                    <p>Land:</p>
+                </div>
+                <div class="application_information">
+                    <p>{{ applicant.name }}</p>
+                    <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
+                    <p>{{ applicant.postalCode }} {{ applicant.city  }} </p>
+                    <p>{{ applicant.country }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="application_list_container">
+            <h5>Kynningarbréf</h5>
+                <p>{{ application.coverLetter }}</p>
+        </div>
+
+
+            <div class="application_list_container">
+                <h5>Menntun</h5>
+                <div class="application_legend_info_container">
+                    {% for education in education_list %}
+                        <div class="application_legend_info_container_many">
+                            <div class="application_legend">
+                                <p>Skóli:</p>
+                                <p>Gráða:</p>
+                                <p>Svið:</p>
+                                <p>Byrjaði:</p>
+                                <p>Lauk:</p>
+                            </div>
+                            <div class="application_information">
+                                <p>{{ education.school }}</p>
+                                <p>{{ education.degree }}</p>
+                                <p>{{ education.fieldOfStudy }}</p>
+                                <p>{{ education.start }}</p>
+                                <p>{{ education.end }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+
+    <div class="application_list_form_container">
+        <div class="application_list_container">
+            <h5>Reynsla</h5>
+            <div class="application_legend_info_container">
+                {% for experience in experience_list %}
+                    <div class="application_legend_info_container_many">
+                        <div class="application_legend">
+                            <p>Fyrirtæki:</p>
+                            <p>Hlutverk:</p>
+                            <p>Byrjaði:</p>
+                            <p>Lauk:</p>
+                        </div>
+                        <div class="application_information">
+                            <p>{{ experience.company }}</p>
+                            <p>{{ experience.role }}</p>
+                            <p>{{ experience.start }}</p>
+                            <p>{{ experience.end }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="application_list_container">
+                    <h5>Meðmæli</h5>
+                    <div class="application_legend_info_container">
+                        {% for recommendation in recommendation_list %}
+                            <div class="application_legend_info_container_many">
+                                <div class="application_legend">
+                                    <p>Nafn:</p>
+                                    <p>Hlutverk:</p>
+                                    <p>Má hafa samband:</p>
+                                    {% if recommendation.email %}
+                                        <p>Netfang:</p>
+                                    {% endif %}
+                                    {% if recommendation.phone %}
+                                        <p>Sími:</p>
+                                    {% endif %}
+                                </div>
+                                <div class="application_information">
+                                    <p>{{ recommendation.name }}</p>
+                                    <p>{{ recommendation.role }}</p>
+                                    {% if recommendation.allowedToContact %}
+                                        <p>Já</p>
+                                    {% else %}
+                                        <p>Nei</p>
+                                    {% endif %}
+                                    {% if recommendation.email %}
+                                        <p>{{ recommendation.email }}</p>
+                                    {% endif %}
+                                    {% if recommendation.phone %}
+                                        <p>{{ recommendation.phone}}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+    </div>
+
+    <div id="overview_form_container">
+        <div id="overview_accept">
+            <form class="form form-horizontal" action="/applicants/applications6/{{ job.id }}" method="POST">
+                {%  csrf_token %}
+                <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+                <button type="submit" name="action" value="submit" class="btn btn-success">Staðfesta umsókn</button>
+            </form>
+        </div>
+        <div id="overview_cancel">
+            <form class="form form-horizontal" action="/applicants/applications/delete/{{ job.id }}" method="POST">
+                {%  csrf_token %}
+                <button type="submit" name="action" value="cancel" class="btn btn-danger">Hætta við</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

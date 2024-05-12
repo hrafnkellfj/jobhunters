@@ -177,20 +177,48 @@ def application5(request, jobid):
     })
 
 
-def overview(request):
+def overview(request, jobid):
+    """Allows the applicant to go over the application's status and if he's happy he
+    can submit the application
+
+    The application is already submitted, instead the isFinished field is set to True
+    if applicant cancels, delete all data related to application"""
+
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = get_object_or_404(Application, job=job, applicant=applicant)
+    if request.method == "POST":
+        if application:
+            application.isFinished = True
+            application.save()
+        return redirect("/applicants/applications/success/"+str(jobid))
+
+    education_list = ApplicantEducation.objects.filter(applicant=applicant)
+    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+
+    return render(request, 'applicant/overview.html', { 'applicant': applicant,
+        'job': job, 'application': application, 'education_list': education_list, 'experience_list': experience_list,
+        'recommendation_list': recommendation_list
+    })
+
+def application_successful(request, jobid):
     """"""
+    job_title = get_object_or_404(Job, pk=jobid).title
+    return render(request, 'applicant/application_successful.html', {'title': job_title})
 
-    pass
-
-
-    #return render(request, 'applicant/yfirfara.html', {'data': all_data})
-
-
-
-
-def mottekinUmsokn(request):
-    return render(request, 'applicant/mottekinUmsokn.html')
-
+def application_delete(request, jobid):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = get_object_or_404(Application, job=job, applicant=applicant)
+    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        application.delete()
+        experience_list.delete()
+        recommendation_list.delete()
+    return redirect("home-index")
 
 def profile(request):
     return render(request, 'user/applicant_profile.html')
