@@ -50,9 +50,10 @@ class Application(models.Model):
     country = models.ForeignKey(ApplicantCountry, on_delete=models.CASCADE)  # !Valið með select html úr lista
     postalCode = models.CharField(max_length=255)"""
     #Umsóknar meðhöndlun
-    status = models.CharField(max_length=8) #Pending / Hired / Rejected
+    status = models.CharField(max_length=8, default="Pending") #Pending / Hired / Rejected
     applyDate = models.DateField()
     resultDate = models.DateField(blank=True, null=True) #Dagsetning þegar status verður eitthvað annað en pending
+    isFinished = models.BooleanField(default=False)  #umsækjandi hefur yfirfarið og staðfest umsókn
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
@@ -63,7 +64,7 @@ class Recommendation(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
-    allowedToContact = models.BooleanField()
+    allowedToContact = models.BooleanField( )
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)

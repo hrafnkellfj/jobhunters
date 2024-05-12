@@ -1,9 +1,9 @@
-#single_applicant{
+#single_applicant {
     margin: 5rem;
     padding: 1rem;
     border-color: #5dad24;
     border-style: solid;
-
+}
 #single_flex{
     display: flex;
 }
@@ -19,9 +19,31 @@
     font-size: 1rem;
 
 }
-#applicant-image{
+#applicant-image {
     height: 10rem;
-    widt: 10rem;
+    width: 10rem;
+}
+
+/* application ferlið */
+
+.application_form_heading{
+    margin-top: 2rem;
+}
+
+.application_list_form_container{
+    display:flex;
+    margin: 2rem;
+}
+
+.applicant_list{
+    margin-right: 3rem;
+}
+
+.application_list_container{
+    border-style: solid;
+    border-color: #5dad24;
+    margin-bottom: 1rem;
+    padding: 1rem;
 }
 
 

@@ -32,8 +32,8 @@ class Applicant(models.Model):
 class ApplicantEducation(models.Model):
     """This class holds information about the education of the applicant."""
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    school = models.CharField(max_length=255)
-    degree = models.CharField(max_length=255)
-    fieldOfStudy = models.CharField(max_length=255,)
-    start = models.DateField()
-    end = models.DateField()
+    school = models.CharField(max_length=255, blank=True)
+    degree = models.CharField(max_length=255, blank=True)
+    fieldOfStudy = models.CharField(max_length=255, blank=True)
+    start = models.DateField(blank=True)
+    end = models.DateField(blank=True)
