@@ -5,58 +5,72 @@ from applicant.forms.step2_changep_form import StepTwoChangeProfile
 from applicant.forms.step3_application_form import StepThreeCreateForm
 from applicant.forms.step4_application_form import StepFourCreateForm
 from applicant.forms.step5_application_form import StepFiveCreateForm
-from applicant.models import Applicant, ApplicantEduction
-from job.models import Experience, Recommendation,Application
+from applicant.models import Applicant, ApplicantEducation
+from job.models import Experience, Recommendation,Application, Job
 from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from django.utils import timezone
+from user.models import applicantProfile
+from datetime import date
 
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
 
-def application1(request):
-    job_id = request.GET.get('job_id')
-    if job_id:
-        request.session['current_job_id'] = job_id
-
-    form = StepOneCreateForm(data=request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            country = form.cleaned_data['country']
-            # Store only the primary key of the country
-            request.session['applicant_country_pk'] = country.pk
-            # Create a copy of form.cleaned_data without non-serializable objects
-            step_one_data = form.cleaned_data.copy()
-            step_one_data['country'] = country.pk  # Replace the object with the primary key
-            request.session['step_one_data'] = step_one_data
-            return redirect('Step2')
-    else:
-
-        initial_data = request.session.get('step_one_data', {})
-        form = StepOneCreateForm(initial=initial_data)
-    return render(request, 'applicant/applyToJob_step1.html', {
-        'form': form
-    })
+def application1(request, jobid):
+    """ """
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if applicant:
+        if request.method == 'POST':
+            form = StepOneCreateForm(data=request.POST)
+            if form.is_valid():
+                applicant.name = form.cleaned_data['name']
+                applicant.street = form.cleaned_data['street']
+                applicant.houseNr = form.cleaned_data['houseNr']
+                applicant.city = form.cleaned_data['city']
+                applicant.postalCode = form.cleaned_data['postalCode']
+                applicant.country = form.cleaned_data['country']
+                applicant.save()
+                return redirect("/applicants/applications2/"+str(jobid))
+        else:
+            form = StepOneCreateForm(instance=applicant)
+            return render(request, 'applicant/applyToJob_step1.html', {
+                'form': form, 'job_id': jobid
+            })
+    return redirect('index')
 
 
-def application2(request):
+def application2(request, jobid):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = Application.objects.filter(applicant=applicant, job=job).first()
+    if not application:
+        application = Application()
     if request.method == 'POST':
         form = StepTwoCreateForm(data=request.POST)
         if form.is_valid():
-            request.session['step_two_data'] = form.cleaned_data
-            return redirect('Step3')
+            coverLetter = form.cleaned_data["coverLetter"]
+            application.applicant = applicant
+            application.job = job
+            application.coverLetter = coverLetter
+            application.applyDate = date.today()
+            application.status = "Pending"
+            application.save()
+            return redirect("/applicants/applications3/"+str(jobid))
     else:
-        initial_data = request.session.get('step_two_data', {})
-        form = StepTwoCreateForm(initial=initial_data)
+        form = StepTwoCreateForm(instance=application)
 
     return render(request, 'applicant/applyToJob_step2.html', {
-        'form': form
+        'form': form, 'jobid':jobid
     })
 
 
 def application3(request):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    education_list = ApplicantEducation(applicant=applicant)
     if request.method == 'POST':
 
         form = StepThreeCreateForm(data=request.POST)

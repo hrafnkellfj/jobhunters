@@ -32,7 +32,7 @@
    
         
     {% if user.is_authenticated  %}
-          <a href="{% url 'Step1' %}?job_id={{ job.id }}">
+          <a href="/applicants/applications/{{ job.id }}">
             <button>Sækja um starf</button>
           </a>
         
