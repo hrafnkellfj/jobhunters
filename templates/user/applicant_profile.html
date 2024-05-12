@@ -3,10 +3,12 @@
     <h1>Prófíllinn þinn {{ applicant.name }}</h1>
     
     <p>Um mig</p>
-    <textarea name="coverLetter" id="coverLetter" cols="30" rows="10" disabled></textarea>
+    <div id="about-me-profile">
+        <p> {{ applicant.about_me }} Virkar ekki?????</p>
+    </div>
     
     <a href="{% url 'changeProfile1' %}">
-        <button>Next</button>
+        <button>Breyta prófíl</button>
     </a>
     
 {% endblock %}
