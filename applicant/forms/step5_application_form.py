@@ -5,7 +5,7 @@ from job.models import Recommendation
 class StepFiveCreateForm(ModelForm):
     class Meta:
         model = Recommendation
-        exclude = ['applicant', 'applied_job']
+        exclude = ['applicant', 'job']
         widgets = {
             'name': widgets.TextInput(attrs={'class': 'form-control'}),
             'email': widgets.EmailInput(attrs={'class': 'form-control'}),

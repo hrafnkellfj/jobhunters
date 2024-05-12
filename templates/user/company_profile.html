@@ -2,10 +2,16 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
-    <h1>Prófíll fyrir {{ company.title }}</h1>
-    <a href="{% url 'changeProfile1' %}">
+    <div id="profile_title_button">
+        <h1>Prófíll fyrir {{ company.title }}</h1>
+        <div id="change_profile_button">
+        <a href="{% url 'changeProfile1' %}">
             <button>Breyta prófíl</button>
-    </a>
+        </a>
+        </div>
+    </div>
+    
+    
     <div id="company_detailed">
         <div id="company_title_add_desc">
             <h2>{{ company.title }}</h2>

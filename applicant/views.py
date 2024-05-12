@@ -5,218 +5,186 @@ from applicant.forms.step2_changep_form import StepTwoChangeProfile
 from applicant.forms.step3_application_form import StepThreeCreateForm
 from applicant.forms.step4_application_form import StepFourCreateForm
 from applicant.forms.step5_application_form import StepFiveCreateForm
-from applicant.models import Applicant, ApplicantEduction
-from job.models import Experience, Recommendation,Application
+from applicant.models import Applicant, ApplicantEducation
+from job.models import Experience, Recommendation,Application, Job
 from applicant.forms.step1_changep_form import StepOneChangeProfile
 from applicant.models import ApplicantCountry
 from django.utils import timezone
+from user.models import applicantProfile
+from datetime import date
 
 
 def index(request):
     all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
     return render(request, 'applicant/index.html', all_applicants)
 
-def application1(request):
-    job_id = request.GET.get('job_id')
-    if job_id:
-        request.session['current_job_id'] = job_id
-
-    form = StepOneCreateForm(data=request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            country = form.cleaned_data['country']
-            # Store only the primary key of the country
-            request.session['applicant_country_pk'] = country.pk
-            # Create a copy of form.cleaned_data without non-serializable objects
-            step_one_data = form.cleaned_data.copy()
-            step_one_data['country'] = country.pk  # Replace the object with the primary key
-            request.session['step_one_data'] = step_one_data
-            return redirect('Step2')
-    else:
-
-        initial_data = request.session.get('step_one_data', {})
-        form = StepOneCreateForm(initial=initial_data)
-    return render(request, 'applicant/applyToJob_step1.html', {
-        'form': form
-    })
+def application1(request, jobid):
+    """ """
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    if applicant:
+        if request.method == 'POST':
+            form = StepOneCreateForm(data=request.POST)
+            if form.is_valid():
+                applicant.name = form.cleaned_data['name']
+                applicant.street = form.cleaned_data['street']
+                applicant.houseNr = form.cleaned_data['houseNr']
+                applicant.city = form.cleaned_data['city']
+                applicant.postalCode = form.cleaned_data['postalCode']
+                applicant.country = form.cleaned_data['country']
+                applicant.save()
+                return redirect("/applicants/applications2/"+str(jobid))
+        else:
+            form = StepOneCreateForm(instance=applicant)
+            return render(request, 'applicant/applyToJob_step1.html', {
+                'form': form, 'job_id': jobid
+            })
+    return redirect('index')
 
 
-def application2(request):
+def application2(request, jobid):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    application = Application.objects.filter(applicant=applicant, job=job).first()
+    if not application:
+        application = Application()
     if request.method == 'POST':
         form = StepTwoCreateForm(data=request.POST)
         if form.is_valid():
-            request.session['step_two_data'] = form.cleaned_data
-            return redirect('Step3')
+            coverLetter = form.cleaned_data["coverLetter"]
+            application.applicant = applicant
+            application.job = job
+            application.coverLetter = coverLetter
+            application.applyDate = date.today()
+            application.status = "Pending"
+            application.save()
+            return redirect("/applicants/applications3/"+str(jobid))
     else:
-        initial_data = request.session.get('step_two_data', {})
-        form = StepTwoCreateForm(initial=initial_data)
+        form = StepTwoCreateForm(instance=application)
 
     return render(request, 'applicant/applyToJob_step2.html', {
-        'form': form
+        'form': form, 'jobid':jobid
     })
 
 
-def application3(request):
-    if request.method == 'POST':
+def application3(request, jobid):
+    """"""
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    education_list = ApplicantEducation.objects.filter(applicant=applicant)
 
+    if request.method == 'POST':
         form = StepThreeCreateForm(data=request.POST)
         if form.is_valid():
-            step_three_data = form.cleaned_data.copy()
-            # Handle the non-serializable fields (like dates)
-            for date_field in ['start', 'end']:  # Replace with your actual date fields
-                if date_field in step_three_data and step_three_data[date_field]:
-                    step_three_data[date_field] = step_three_data[date_field].strftime('%Y-%m-%d')
+            school = form.cleaned_data["school"]
+            degree = form.cleaned_data["degree"]
+            fieldofstudy = form.cleaned_data["fieldOfStudy"]
+            start = form.cleaned_data["start"]
+            end = form.cleaned_data["end"]
+            if school and degree and fieldofstudy and start and end:
+                new_education = ApplicantEducation()
+                new_education.school = school
+                new_education.degree = degree
+                new_education.fieldOfStudy = fieldofstudy
+                new_education.start = start
+                new_education.end = end
+                new_education.applicant=applicant
+                new_education.save()
+                return redirect('/applicants/applications3/' + str(jobid))
 
-            # Save the serializable data to the session
-            request.session['step_three_data'] = step_three_data
-            return redirect('Step4')
+            else:
+                request.method=""
+                return render(request, 'applicant/applyToJob_step3.html', {
+                    'form': form, 'education_list': education_list, 'jobid': jobid
+                })
     else:
-        initial_data = request.session.get('step_three_data', {})
-        form = StepThreeCreateForm(initial=initial_data)
+        form = StepThreeCreateForm()
     return render(request, 'applicant/applyToJob_step3.html', {
-        'form': form
+        'form': form, 'education_list':education_list, 'jobid':jobid
     })
 
 
-def application4(request):
+def application4(request, jobid):
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+
     if request.method == 'POST':
         form = StepFourCreateForm(data=request.POST)
         if form.is_valid():
-            step_four_data = form.cleaned_data.copy()
-            # Handle the non-serializable fields (like dates)
-            for date_field in ['start', 'end']:  # Replace with your actual date fields
-                if date_field in step_four_data and step_four_data[date_field]:
-                    step_four_data[date_field] = step_four_data[date_field].strftime('%Y-%m-%d')
-
-            # Save the serializable data to the session
-            request.session['step_four_data'] = step_four_data
-            return redirect('Step5')
+            company = form.cleaned_data["company"]
+            role = form.cleaned_data["role"]
+            start = form.cleaned_data["start"]
+            end = form.cleaned_data["end"]
+            if company and role and start and end:
+               new_experience = Experience()
+               new_experience.company = company
+               new_experience.role = role
+               new_experience.start = start
+               new_experience.end = end
+               new_experience.job = job
+               new_experience.applicant = applicant
+               new_experience.save()
+               return redirect('/applicants/applications4/' + str(jobid))
+            else:
+                request.method = ""
+                return render(request, 'applicant/applyToJob_step4.html', {
+                    'form': form, 'experience_list': experience_list, 'jobid': jobid
+                })
     else:
-        initial_data = request.session.get('step_four_data', {})
-        form = StepFourCreateForm(initial=initial_data)
+        form = StepFourCreateForm()
     return render(request, 'applicant/applyToJob_step4.html', {
-        'form': form
+        'form': form, 'experience_list': experience_list, 'jobid': jobid
     })
 
 
-def application5(request):
+def application5(request, jobid):
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
+    job = get_object_or_404(Job, pk=jobid)
+    recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+
     if request.method == 'POST':
         form = StepFiveCreateForm(data=request.POST)
         if form.is_valid():
-            request.session['step_five_data'] = form.cleaned_data
-            return redirect('yfirfara')
+            name = form.cleaned_data["name"]
+            email = form.cleaned_data["email"]
+            phone = form.cleaned_data["phone"]
+            role = form.cleaned_data["role"]
+            allow_contact = form.cleaned_data["allowedToContact"]
+            if name and allow_contact:
+                new_recommendation = Recommendation()
+                new_recommendation.name = name
+                new_recommendation.allowedToContact = allow_contact
+                new_recommendation.applicant = applicant
+                new_recommendation.job = job
+                if email:
+                    new_recommendation.email = email
+                if phone:
+                    new_recommendation.phone = phone
+                if role:
+                    new_recommendation.role = role
+                new_recommendation.save()
+                return redirect('/applicants/applications5/' + str(jobid))
+            else:
+                request.method = ""
+                #error = vantar eitthvað
+                return render(request, 'applicant/applyToJob_step5.html', {
+                    'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
+                })
     else:
-        initial_data = request.session.get('step_five_data', {})
-        form = StepFiveCreateForm(initial=initial_data)
+        form = StepFiveCreateForm()
     return render(request, 'applicant/applyToJob_step5.html', {
-        'form': form
+        'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
     })
 
 
-def yfirfara(request):
-    step_one_data = {**request.session.get('step_one_data', {})}
-    step_two_data = {**request.session.get('step_two_data', {})}
-    step_three_data = {**request.session.get('step_three_data', {})}
-    step_four_data = {**request.session.get('step_four_data', {})}
-    step_five_data = {**request.session.get('step_five_data', {})}
-    country_pk = step_one_data.get('country')
-    country_obj = ApplicantCountry.objects.filter(pk=country_pk).first()
-    step_one_data['country'] = country_obj.name
+def overview(request):
+    """"""
 
-    all_data = {**step_one_data,
-                **request.session.get('step_two_data', {}),
-                **request.session.get('step_three_data', {}),
-                }
-    experiences = {**request.session.get('step_four_data', {})}
-    recommendations = {**request.session.get('step_five_data', {})}
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        if action == 'submit':
-            # Retrieve the applicant using the update_or_create method or other logic
-            user_email = request.user.email
-
-            # Find the existing applicant or create a new one
-            applicant, created = Applicant.objects.update_or_create(
-                email=user_email,
-                defaults={
-                    'name': step_one_data.get('name'),
-                    'street': step_one_data.get('street'),
-                    'houseNr': step_one_data.get('houseNr'),
-                    'city': step_one_data.get('city'),
-                    'postalCode': step_one_data.get('postalCode'),
-                    'aboutMe': step_two_data.get('aboutMe')
-                }
-            )
-            job_id = request.session.get('current_job_id')
-            application, created = Application.objects.update_or_create(
-                applicant=applicant,  # This should be the field used to uniquely identify the record
-                defaults={
-                    'street': step_one_data.get('street'),
-                    'houseNr': step_one_data.get('houseNr'),
-                    'city': step_one_data.get('city'),
-                    'postalCode': step_one_data.get('postalCode'),
-                    'coverLetter': step_two_data.get('aboutMe'),
-                    'country': country_obj,
-                    'applyDate':timezone.now(),
-                    'job_id':job_id
-                }
-            )
-
-            # Now, create or update ApplicantEduction and pass the applicant instance
-            applicant_education_data = {
-                'applicant': applicant,  # Pass the applicant instance to the foreign key field
-                'school': step_three_data.get('school'),
-                'degree': step_three_data.get('degree'),
-                'fieldOfStudy': step_three_data.get('fieldOfStudy'),
-                'start': step_three_data.get('start'),
-                'end': step_three_data.get('end')
-            }
-            applied_job = application.id
-            # Use create or update_or_create to save the education record
-            applicant_education = ApplicantEduction.objects.update_or_create(**applicant_education_data)
-
-            experience_data = {
-                'applicant_id': applicant.id,
-                'company': step_four_data.get('company'),
-                'role': step_four_data.get('role'),
-                'start': step_four_data.get('start'),
-                'end': step_four_data.get('end'),
-                'applied_job_id': applied_job
-            }
-            experience = Experience.objects.update_or_create(**experience_data)
-            recommendation_data = {
-                'applicant': applicant,
-                'name': step_five_data.get('recommendation_name'),
-                'email': step_five_data.get('recommendation_email'),
-                'phone': step_five_data.get('recommendation_phone'),
-                'role': step_five_data.get('recommendation_role'),
-                'allowedToContact': True,
-                'applied_job_id': applied_job
-
-            }
-            recommendation = Recommendation.objects.update_or_create(**recommendation_data)
+    pass
 
 
+    #return render(request, 'applicant/yfirfara.html', {'data': all_data})
 
-
-            request.session.pop('step_one_data', None)
-            request.session.pop('step_two_data', None)
-            request.session.pop('step_three_data', None)
-            request.session.pop('step_four_data', None)
-            request.session.pop('step_five_data', None)
-
-            return redirect('mottekid')
-
-        elif action == 'cancel':
-            request.session.pop('step_one_data', None)
-            request.session.pop('step_two_data', None)
-            request.session.pop('step_three_data', None)
-            request.session.pop('step_four_data', None)
-            request.session.pop('step_five_data', None)
-            return redirect('/jobs/')
-
-
-    return render(request, 'applicant/yfirfara.html', {'data': all_data, 'experiences': experiences, 'recommendations': recommendations})
 
 
 

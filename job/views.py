@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render , get_object_or_404
 from job.models import Job, JobCategory
 from datetime import date
@@ -18,7 +19,8 @@ def index(request):
         "company": company_query
     }
     job_list = Job.apply_filters(query_dict, job_list)
-    return render(request, 'job/index.html', {'jobs': job_list, 'categories': categories} )
+    return render(request, 'job/index.html', {'jobs': job_list, 'categories': categories})
+
 
 def get_job_by_id(request, id):
     return  render(request, 'job/job_details.html', {
