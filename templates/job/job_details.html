@@ -29,37 +29,31 @@
     <p>{{ job.description }}</p>
     <p><b>Starfshlutfall:</b>  {{ job.percentage }}</p>
     <p><b>Staðsetning:</b>    {{ job.location }}</p>
-   
-        
-    {% if user.is_authenticated  %}
-        {% if not application %}
-          <a href="/applicants/applications/{{ job.id }}">
-            <button>Sækja um starf</button>
-          </a>
+    
+    {% if not company %}    
+        {% if user.is_authenticated  %}
+            {% if not application.isFinished %}
+              <a href="/applicants/applications/{{ job.id }}">
+                <button>Sækja um starf</button>
+              </a>
+            {% elif application.isFinished %}
+                <div id="application_status_container">
+                {% if application.status == "Hired" %}
+                    <h4 id="status_hired">Staða umsóknar: Samþykkt {{ application.resultDate }} </h4>
+                {% elif application.status == "Rejected"%}
+                    <h4 id="status_rejected">Staða umsóknar: Hafnað {{ application.resultDate }}</h4>
+                {% elif application.status == "Pending" %}
+                    <h4>Staða umsóknar: Í vinnslu</h4>                
+                {% endif %}
+                <h5>Sótt um: {{ application.applyDate }}</h5>
+                </div>
+            {% endif %}        
         {% else %}
-            <div id="application_status_container">
-
-
-
-            {% if application.status == "Hired" %}
-                <h4 id="status_hired">Staða umsóknar: Samþykkt {{ application.resultDate }} </h4>
-            {% elif application.status == "Rejected"%}
-                <h4 id="status_rejected">Staða umsóknar: Hafnað {{ application.resultDate }}</h4>
-            {% elif application.status == "Pending" %}
-                <h4>Staða umsóknar: Í vinnslu</h4>
-            {% endif %}
-            <h5>Sótt um: {{ application.applyDate }}</h5>
-
-            </div>
-        {% endif %}
-
-
-        
-    {% else %}
-        <p> Skráðu þig inn til að sækja um starf</p>
-        <a href="{% url 'user-login' %}"> 
-            <button>Innskrá</button>
-        </a>
-   {% endif %}
+            <p> Skráðu þig inn til að sækja um starf</p>
+            <a href="{% url 'user-login' %}"> 
+                <button>Innskrá</button>
+            </a>
+       {% endif %}
+    {% endif %}
 {% endblock %}
 

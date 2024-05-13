@@ -24,7 +24,7 @@ def index(request):
         applications = Application.objects.filter(applicant=applicant)
         applications = {application.job_id: application.status for application in applications if application.isFinished}
         user_login = True
-    except TypeError:
+    except applicantProfile.DoesNotExist:
         pass #User not logged in
     query_dict = {
         "title": title_query,
@@ -71,6 +71,7 @@ def get_job_by_id(request, id):
     """A detailed view of a job"""
     applicant = False
     application = False
+    company = False
     try:
         job = Job.objects.get(pk=id)
     except Job.DoesNotExist:
@@ -80,13 +81,18 @@ def get_job_by_id(request, id):
     except applicantProfile.DoesNotExist:
         pass #user not logged in
     try:
+        company = companyProfile.objects.get(user=request.user).company
+        company = True
+    except companyProfile.DoesNotExist:
+        pass
+    try:
         application = Application.objects.get(applicant=applicant, job=job)
     except Application.DoesNotExist:
         pass #applicant does not have an application
 
 
     return render(request, 'job/job_details.html', {
-      'job': job, 'applicant': applicant, 'application': application
+      'job': job, 'applicant': applicant, 'application': application, 'company':company
     })
 
 
