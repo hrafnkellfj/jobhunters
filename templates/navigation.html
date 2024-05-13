@@ -45,13 +45,14 @@
              </li>
         {% endif %}
       </ul>
-        
-        {% if user.is_authenticated %}
-            {% if company.logo %}
+
+       {% if user.is_authenticated %}
+            {% if user.companyprofile %}
                 {# company logo #}
-                <img id="profile-image-navbar" src="{{ company.logo }}"  alt="Company image" style="width: 50px; height: 50px; border-radius: 50%;">
+                <img id="profile-image-navbar" src="{{ user.companyprofile.company.logo }}" class="profile-image"  alt="Company image" style="width: 50px; height: 50px; border-radius: 50%;">
+            {% elif user.applicantprofile %}              
+                <img id="profile-image-navbar" src="{{ user.applicantprofile.applicant.photo }}" class="profile-image" alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
             {% else %}
-                <img id="profile-image-navbar" src="{{ applicant.photo }}"  alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
               {% endif %}  
         {% endif %}
     </div>
