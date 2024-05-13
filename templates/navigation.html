@@ -14,7 +14,7 @@
           <a class="nav-link" aria-current="page" href="{% url 'home-index' %}">Heim</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/jobs/">Skoða störf</a>
+          <a class="nav-link" href="/jobs/">Störf</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/companies/">Fyrirtæki</a>
@@ -22,7 +22,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/about_us/">Um okkur</a>
         </li>
-      
+
         {% if user.is_authenticated %}
             <li class="nav-item">
                 <form action="{% url 'user-logout' %}" method="post">
@@ -36,13 +36,13 @@
         {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'company-signup' %}">Nýskrá Fyrirtæki</a>
-             </li>
-             <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'user-signup' %}">Nýskrá</a>
-             </li>
-             <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{% url 'user-login' %}">Innskrá</a>
-             </li>
+            </li>
         {% endif %}
       </ul>
 
@@ -50,10 +50,10 @@
             {% if user.companyprofile %}
                 {# company logo #}
                 <img id="profile-image-navbar" src="{{ user.companyprofile.company.logo }}" class="profile-image"  alt="Company image" style="width: 50px; height: 50px; border-radius: 50%;">
-            {% elif user.applicantprofile %}              
+            {% elif user.applicantprofile %}
                 <img id="profile-image-navbar" src="{{ user.applicantprofile.applicant.photo }}" class="profile-image" alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
             {% else %}
-              {% endif %}  
+              {% endif %}
         {% endif %}
     </div>
   </div>
