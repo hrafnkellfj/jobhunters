@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
@@ -36,22 +37,27 @@ def company_signup(request):
         'form': CustomUserCreationForm2()
     })
 
-@login_required
+
 def profile(request):
-    a_user = get_object_or_404(applicantProfile, user=request.user)
-    if a_user:
+    try:
+        a_user = applicantProfile.objects.get(user=request.user)
         applicant = a_user.applicant
 
         return render(request, 'applicant/applicant_profile.html', {
             "applicant": applicant
         })
+    except applicantProfile.DoesNotExist:
+        pass  # Ignore and try for company profile
 
-    c_user = get_object_or_404(companyProfile, user=request.user)
-    if c_user:
+    try:
+        c_user = companyProfile.objects.get(user=request.user)
         company = c_user.company
-        job_list = Job.objects.filter(company_id=company.id)
-
-        return render(request, 'company/company_profile.html', {
+        job_list = Job.objects.filter(company=company)
+        if request.method == "POST":
+            pass  # your POST handling logic for company
+        return render(request, 'user/company_profile.html', {
             "form": "", "company": company, "jobs": job_list
         })
-    return redirect('home-index')
+    except companyProfile.DoesNotExist:
+        raise Http404("No profile available")
+        #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
