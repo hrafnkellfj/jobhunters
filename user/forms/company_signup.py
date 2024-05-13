@@ -14,7 +14,7 @@ from django.contrib import messages
 
 class CustomUserCreationForm2(UserCreationForm):
 
-    title = forms.CharField(label='Nafn Fyrirtækis', max_length=50)
+    title = forms.CharField(label='Heiti Fyrirtækis', max_length=50)
     email = forms.EmailField(label='Tölvupóstfang')
     username = forms.CharField(label='Notendanafn', min_length=5, max_length=150)
     password1 = forms.CharField(label='Lykilorð', widget=forms.PasswordInput)
