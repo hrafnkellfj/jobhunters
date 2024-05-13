@@ -1,3 +1,48 @@
+/*Profile*/
+#applicant_photo_aboutMe_container{
+    margin-top: 1rem;
+    display: flex;
+}
+#applicant_photo{
+    max-height: 10rem;
+    max-width: 10rem;
+    margin-right: 1rem;
+}
+#profile_aboutMe{
+    font-weight:bold;
+}
+
+#info_container{
+    display:flex;
+}
+#applicant_information{
+    display:flex;
+}
+#necessary_info{
+    margin: 1rem;
+    border-color: #5dad24;
+    border-style: solid;
+    padding: 1rem;
+}
+#obligatory_info{
+    margin: 1rem;
+    padding: 1rem;
+    border-color: #5dad24;
+    border-style: solid;
+}
+#necessary_legend_container{
+    font-weight: bold;
+    text-align:right;
+    margin-right: 1rem;
+}
+#obligatory_legend_container{
+    text-align:left;
+    font-weight: bold;
+}
+
+/*  */
+
+
 #single_applicant {
     margin: 5rem;
     padding: 1rem;
