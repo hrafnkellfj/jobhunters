@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from job.models import Job, JobCategory, apply_filters, Application
 from datetime import date
@@ -22,7 +22,7 @@ def index(request):
     try:
         applicant = applicantProfile.objects.get(user=request.user).applicant
         applications = Application.objects.filter(applicant=applicant)
-        applications = {application.job_id: application.status for application in applications}
+        applications = {application.job_id: application.status for application in applications if application.isFinished}
         user_login = True
     except TypeError:
         pass #User not logged in
@@ -68,8 +68,25 @@ def job_posted(request):
     return render(request, 'job/job_posted.html')
 
 def get_job_by_id(request, id):
-    return  render(request, 'job/job_details.html', {
-      'job': get_object_or_404(Job, pk=id)
+    """A detailed view of a job"""
+    applicant = False
+    application = False
+    try:
+        job = Job.objects.get(pk=id)
+    except Job.DoesNotExist:
+        raise Http404("Job not found")
+    try:
+        applicant = applicantProfile.objects.get(user=request.user).applicant
+    except applicantProfile.DoesNotExist:
+        pass #user not logged in
+    try:
+        application = Application.objects.get(applicant=applicant, job=job)
+    except Application.DoesNotExist:
+        pass #applicant does not have an application
+
+
+    return render(request, 'job/job_details.html', {
+      'job': job, 'applicant': applicant, 'application': application
     })
 
 
