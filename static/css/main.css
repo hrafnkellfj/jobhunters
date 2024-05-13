@@ -2,10 +2,17 @@
     background-color: aquamarine;
 }
 .navbar-brand .navbar-logo{
-    width: 60px;
-    height: 60px ;
+    width: 50px;
+    height: 50px ;
 }
 
+.bg-body-tertiary{
+    background-color: #cdf8af !important;
+    border-top: thin solid #1b1b1b !important;
+    border-bottom: thin solid #1b1b1b !important;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
 .tab {
     padding: 10px 20px;
     margin: 5px;
