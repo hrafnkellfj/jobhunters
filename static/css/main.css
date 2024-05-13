@@ -10,9 +10,13 @@
     width: 100%;
 
 }
-
+.right-nav-items2 {
+    margin-left: 57%;
+    display: flex;
+    justify-content: flex-end; /* Aligns children to the right */
+}
 .right-nav-items {
-    margin-left: 45%;
+    margin-left: 47%;
     display: flex;
     justify-content: flex-end; /* Aligns children to the right */
 }
@@ -24,7 +28,7 @@
     background-color: #cdf8af !important;
     border-top: thin solid #1b1b1b !important;
     border-bottom: thin solid #1b1b1b !important;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     font-weight: bold;
 }
 .tab {
