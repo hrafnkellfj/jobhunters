@@ -19,8 +19,8 @@ def signup(request):
         form = CustomUserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
-            applicant = Applicant.objects.create()
-            applicantProfile.objects.create(user=user,applicant=applicant)
+            applicant = Applicant.objects.create(email=user.email)
+            applicantProfile.objects.create(user=user, applicant=applicant)
             return redirect('user-login')
     return render(request, 'user/signup.html', {
         'form': CustomUserCreationForm()
@@ -37,7 +37,7 @@ def company_signup(request):
         'form': CustomUserCreationForm2()
     })
 
-
+@login_required()
 def profile(request):
     try:
         a_user = applicantProfile.objects.get(user=request.user)

@@ -3,7 +3,7 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
     <div id="profile_title_button">
-        <h1>Prófíll fyrir {{ company.title }}</h1>
+        <h1>Prófíll fyrir {{ company.title.capitalize }}</h1>
         <div id="change_profile_button">
         <a href="{% url 'ChangeCompanyProfile' %}">
             <button>Breyta prófíl</button>
@@ -14,7 +14,7 @@
     
     <div id="company_detailed">
         <div id="company_title_add_desc">
-            <h2>{{ company.title }}</h2>
+            <h2>{{ company.title.capitalize }}</h2>
             <p>{{ company.address }}</p>
             <p>{{ company.description }}</p>
         </div>
