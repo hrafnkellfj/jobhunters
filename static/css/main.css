@@ -2,10 +2,31 @@
     background-color: aquamarine;
 }
 .navbar-brand .navbar-logo{
-    width: 60px;
-    height: 60px ;
+    width: 50px;
+    height: 50px ;
+}
+.navbar-nav {
+    display: flex;
+    width: 100%;
+
 }
 
+.right-nav-items {
+    margin-left: 45%;
+    display: flex;
+    justify-content: flex-end; /* Aligns children to the right */
+}
+
+.nav-item2 {
+    padding-left: 10px; /* Adds spacing between items */
+}
+.bg-body-tertiary{
+    background-color: #cdf8af !important;
+    border-top: thin solid #1b1b1b !important;
+    border-bottom: thin solid #1b1b1b !important;
+    margin-bottom: 5%;
+    font-weight: bold;
+}
 .tab {
     padding: 10px 20px;
     margin: 5px;

@@ -60,6 +60,7 @@ h2 {
     margin-left: 20%;
     padding-left: 15%;
     padding-bottom: 3%;
+    transform: translate(-8%, -105%);
 }
 
 
@@ -67,9 +68,26 @@ h2 {
     margin-right: 20%;
     padding-left: 15%;
     padding-bottom: 3%;
+    transform: translate(-16%, -270%);
 }
 
 
+.container-decorative-image1 {
+    display: flex;
+    justify-content: center;
+    width: 220px;
+    height: 220px ;
+    margin-left: 10%;
+    transform: translate(-20%, 0%);
+}
 
 
+.container-decorative-image2 {
+    display: flex;
+    justify-content: center;
+    width: 220px;
+    height: 220px ;
+    margin-left: 10%;
+    transform: translate(340%, -100%);
+}
 
