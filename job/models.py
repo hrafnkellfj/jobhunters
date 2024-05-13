@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import get_object_or_404
-from applicant.models import Applicant, ApplicantCountry
+from applicant.models import Applicant
 from company.models import Company
 from datetime import date
 
@@ -26,20 +26,26 @@ class Job(models.Model):
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-    def apply_filters(query_dict, job_list):
-        """Gets a list of jobs and applies filters and search term to it."""
-        company = None
-        if query_dict["title"]:
-            job_list = job_list.filter(title__icontains=query_dict["title"])
-        if query_dict["orderby"]:
-            job_list = job_list.order_by(query_dict["orderby"])
-        if query_dict["category"]:
-            job_list = job_list.filter(category=query_dict["category"])
-        if query_dict["company"]:
-            company = get_object_or_404(Company, title__icontains=query_dict["company"])
-        if company:
-            job_list = job_list.filter(company_id=company.id)
-        return job_list
+def apply_filters( query_dict, job_list ):
+    """Gets a list of jobs and applies filters and search term to it."""
+    company = None
+    if query_dict["title"]:
+        job_list = job_list.filter(title__icontains=query_dict["title"])
+    if query_dict["orderby"]:
+        job_list = job_list.order_by(query_dict["orderby"])
+    if query_dict["category"]:
+        job_list = job_list.filter(category=query_dict["category"])
+    if query_dict["company"]:
+        company = get_object_or_404(Company, title__icontains=query_dict["company"])
+    if company:
+        job_list = job_list.filter(company_id=company.id)
+    if query_dict["applicant"] and query_dict['applied']:
+        applicant = query_dict["applicant"]
+        applications = Application.objects.filter(applicant=applicant)
+        job_filter_list = [application.job.id for application in applications]
+        job_list = job_list.filter(pk__in=job_filter_list)
+
+    return job_list
 
 class Application(models.Model):
     """This class links an Applicant to a Job when the Applicant has applied for that Job.
@@ -49,8 +55,8 @@ class Application(models.Model):
     
     #Umsóknar meðhöndlun
     status = models.CharField(max_length=8, default="Pending") #Pending / Hired / Rejected
-    applyDate = models.DateField()
-    resultDate = models.DateField(blank=True, null=True) #Dagsetning þegar status verður eitthvað annað en pending
+    applyDate = models.DateField(null=True)
+    resultDate = models.DateField(null=True) #Dagsetning þegar status verður eitthvað annað en pending
     isFinished = models.BooleanField(default=False)  #umsækjandi hefur yfirfarið og staðfest umsókn
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)

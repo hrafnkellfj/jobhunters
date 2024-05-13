@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-
 from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
@@ -12,7 +11,6 @@ from company.models import Company
 
 def login(request):
     return render(request, 'user/login.html')
-
 
 def signup(request):
     if request.method == 'POST':
@@ -42,13 +40,8 @@ def profile(request):
     try:
         a_user = applicantProfile.objects.get(user=request.user)
         applicant = a_user.applicant
-        if request.method == "POST":
-            pass  # your POST handling logic for applicant
-            return redirect('user-profile')
-        form1 = ApplicantFormPrimary()
-        form2 = ApplicantFormSecondary()
-        return render(request, 'user/applicant_profile.html', {
-            "form1": form1, 'form2': form2, "applicant": applicant
+        return render(request, 'applicant/applicant_profile.html', {
+            "applicant": applicant
         })
     except applicantProfile.DoesNotExist:
         pass  # Ignore and try for company profile
@@ -59,7 +52,7 @@ def profile(request):
         job_list = Job.objects.filter(company=company)
         if request.method == "POST":
             pass  # your POST handling logic for company
-        return render(request, 'user/company_profile.html', {
+        return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "jobs": job_list
         })
     except companyProfile.DoesNotExist:
