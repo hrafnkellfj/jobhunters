@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-
 from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
@@ -36,27 +36,26 @@ def company_signup(request):
         'form': CustomUserCreationForm2()
     })
 
-@login_required
-def profile(request):
-    a_user = get_object_or_404(applicantProfile, user=request.user)
-    if a_user:
-        applicant = a_user.applicant
 
-        if request.method == "POST":
-            pass
-            return redirect('user-profile')
-        form1 = ApplicantFormPrimary()
-        form2 = ApplicantFormSecondary()
-        return render(request, 'user/applicant_profile.html', {
-            "form1": form1, 'form2': form2, "applicant": applicant
+def profile(request):
+    try:
+        a_user = applicantProfile.objects.get(user=request.user)
+        applicant = a_user.applicant
+        return render(request, 'applicant/applicant_profile.html', {
+            "applicant": applicant
         })
-    c_user = get_object_or_404(companyProfile, user=request.user)
-    if c_user:
+    except applicantProfile.DoesNotExist:
+        pass  # Ignore and try for company profile
+
+    try:
+        c_user = companyProfile.objects.get(user=request.user)
         company = c_user.company
-        job_list = Job.objects.filter(company_id=company.id)
+        job_list = Job.objects.filter(company=company)
         if request.method == "POST":
-            print(2)
-        return render(request, 'user/company_profile.html', {
+            pass  # your POST handling logic for company
+        return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "jobs": job_list
         })
-    #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
+    except companyProfile.DoesNotExist:
+        raise Http404("No profile available")
+        #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna

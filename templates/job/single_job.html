@@ -11,7 +11,27 @@
     <p>{{ job.description }}</p>
     <p>Birtingardagur : {{ job.postDate }}</p>
     <p>Umsóknarfrestur: {{ job.dueDate }}</p>
-    <a href="{{ job.id }}">
-    <button>Skoða nánar</button>
-    </a>
+
+    <div id="button_status_container">
+        <div id="check_job_button">
+        <a href="{{ job.id }}">
+        <button>Skoða nánar</button>
+        </a>
+        </div>
+        
+        <div id="status_container">
+        {% if status == "Pending" %}
+            <h5 id="pending_heading">Umsókn í vinnslu</h5>
+        {% elif status == "Hired" %}           
+            <h5 id="hired_heading">Umsókn samþykkt!</h5>
+        {% elif status == "Rejected" %}
+            <h5 id="rejected_heading">Umsókn hafnað</h5>
+        {% endif %}
+        </div>
+        
+    </div>
+
+
+
+
 </div>

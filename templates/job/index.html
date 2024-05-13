@@ -42,8 +42,8 @@
         </div>
         
         <div class="jobs">
-            {% for job in jobs %}
-                {% include 'job/single_job.html' with job=job %}        
+            {% for key, value in jobs.items %}
+                {% include 'job/single_job.html' with job=key status=value %}
             {% endfor %}    
         </div>
     </div>

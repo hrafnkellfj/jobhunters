@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
+    <h1>Prófíllinn þinn {{ applicant.name }}</h1>
+
+    <div id="applicant_photo_aboutMe_container">
+        <div id="photo_email_container">
+            <img id="applicant_photo" src="{{ applicant.photo }}" alt="Prófíl mynd af notanda">
+
+        </div>
+        <div>
+            <h5 id="profile_aboutMe">Um mig:</h5>
+            <p>{{ applicant.aboutMe }}</p>
+        </div>
+
+    </div>
+    <div id="info_container">
+        <div id="necessary_info">
+            <h6>Nauðsynlegar upplýsingar til að sækja um starf</h6>
+            <div id="applicant_information">
+                <div id="necessary_legend_container">
+                    <p>Netfang:</p>
+                    <p>Heimilisfang:</p>
+                    <p>Borg:</p>
+                    <p>Land:</p>
+                </div>
+                 <div>
+                     <p>{{ applicant.email }}</p>
+                    <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
+                    <p>{{ applicant.postalCode }} {{ applicant.city }}</p>
+                    <p>{{ applicant.country }}</p>
+                 </div>
+            </div>
+        </div>
+
+        <div id="obligatory_info">
+            <h6>Valkvæðar upplýsingar</h6>
+            <div id="applicant_information">
+                <div id="obligatory_legend_container">
+                    {% if  applicant.phone  %}
+                        <p>Sími: {{ applicant.phone }}</p>
+                    {% else %}
+                        <p>Sími: </p>
+                    {% endif %}
+                    <p>Um mig dálkur þar sem notandi skrifar eitthvað um sig.</p>
+                    <p>Mynd af notanda</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <a href="{% url 'changeProfile1' %}">
+        <button>Breyta prófíl</button>
+    </a>
+    
+    <h5>Við viljum benda á að fyrirtæki sem skoða umsóknir ykkar hafa aðgang að öllum þeim upplýsingum sem hér eru að finna.</h5>
+    
+{% endblock %}
