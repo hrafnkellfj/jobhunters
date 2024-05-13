@@ -12,6 +12,8 @@
 #change_profile_button{
     margin-left: 2rem;
 }
+
+/* Company detail síða   */
 #company_detailed{
     display:flex;
 }
@@ -76,6 +78,11 @@
 }
 
 /* Applicant details */
+#application_status_container{
+    border-style: solid;
+    border-color: #5dad24;
+    padding: 1rem;
+}
 #applicant_photo_aboutMe_container{
     margin-top: 1rem;
     display: flex;

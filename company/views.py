@@ -9,6 +9,7 @@ from user.models import companyProfile
 
 
 
+
 def index(request):
     """Gets a list of all companies and sends them to be rendered in html"""
     all_companies = {'companies': Company.objects.all().order_by('title')}
@@ -44,9 +45,22 @@ def application_details(request, jobid, appid):
     applicant = application.applicant
     recommendations = Recommendation.objects.filter(applicant=applicant, job=job)
     experiences = Experience.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        if "Rejected" in request.POST:
+            application.status = "Rejected"
+            application.resultDate = date.today()
+            application.save()
+        if "Pending" in request.POST:
+            application.status = "Pending"
+            application.resultDate = None
+            application.save()
+        if "Hired" in request.POST:
+            application.status = "Hired"
+            application.resultDate = date.today()
+            application.save()
 
     return render(request, 'company/application_details.html', {
-        'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences
+        'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences,
     })
 
 

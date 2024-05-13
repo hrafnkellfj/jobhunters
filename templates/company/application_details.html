@@ -2,6 +2,24 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
+    <div id="application_status_container">
+        {% if application.status == "Pending" %}
+            <h2>Staða umsóknar: Í vinnslu</h2>
+        {% elif application.status == "Hired" %}
+            <h2>Staða umsóknar: Samþykkt</h2>
+        {% elif application.status == "Rejected" %}
+            <h2>Staða umsóknar: Hafnað</h2>
+        {% endif %}
+        <h4>Breyta stöðu:</h4>
+        <form class="form form-horizontal" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Hafna" name="Rejected"  class="btn btn-danger pull-right" style="clear:both; margin:10px 0" >
+            <input type="submit" value="Í vinnslu" name="Pending" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+            <input type="submit" value="Samþykkt" name="Hired" class="btn btn-success pull-right" style="clear:both; margin:10px 0">
+        </form>
+    </div>
+
+
     <h3><b>Umsækjandi:</b> {{ applicant.name }}</h3>
 
     <div id="applicant_photo_aboutMe_container">
