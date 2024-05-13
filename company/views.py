@@ -1,7 +1,7 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from applicant.forms.change_company_profile import ChangeCompanyProfile
+from company.forms.change_company_profiles import ChangeCompanyProfile
 from company.models import Company
 from job.models import Job, Application, Recommendation, Experience
 from datetime import date

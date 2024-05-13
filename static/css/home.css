@@ -1,4 +1,16 @@
-p{
-    text-align: center;
-    color: red;
+body {
+    background-color: #cdf8af;
 }
+
+
+.paragraph-one-box .paragraph-one-text {
+    text-align: left;
+}
+
+
+.paragraph-one-box {
+
+    border-style: solid;
+    border-color: #5dad24;
+}
+
