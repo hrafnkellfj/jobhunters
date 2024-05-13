@@ -119,3 +119,29 @@
     margin-right: 2rem;
 }
 
+/* applications listi */
+#single_application{
+    border-style: solid;
+    border-color: #5dad24;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+#logo_title_container{
+    display:flex;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+#application_company_logo{
+    height: 3rem;
+    width: 3rem;
+}
+#company_title{
+    font-size: 2rem;
+}
+
+#rejected_heading{
+    color: red;
+}
+#hired_heading{
+    color: green;
+}

@@ -15,8 +15,20 @@ from datetime import date
 
 
 def index(request):
-    all_applicants = {'applicants': Applicant.objects.all().order_by('name')}
-    return render(request, 'applicant/index.html', all_applicants)
+    """"""
+    return redirect('user-profile')
+
+
+@login_required
+def applications(request):
+    """Shows a list of all applications belonging to a logged-in user"""
+    if request.user.applicantprofile:
+        application_list = Application.objects.filter(applicant=request.user.applicantprofile.applicant)
+        return render(request, 'applicant/applicant_applications.html', {'application_list': application_list})
+
+    if request.user.companyprofile:
+        return redirect('user-profile')
+    return redirect('home-index')
 
 @login_required
 def application1(request, jobid):

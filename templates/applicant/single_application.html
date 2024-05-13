@@ -1,0 +1,23 @@
+<div id="single_application">
+
+    <div id="logo_title_container">
+        <img id="application_company_logo" src="{{ application.job.company.logo }}"  alt="Company logo"/>
+        <h2 id="company_title">{{ application.job.company.title }}</h2>
+    </div>
+
+    <h3>{{ application.job.title }}</h3>
+    <p>{{ job.description }}</p>
+    <p>Sótt um: {{ application.applyDate }}</p>
+    <p>Umsóknarfrestur: {{ application.job.dueDate }}</p>
+
+
+    <div id="status_container">
+        {% if application.status == "Pending" %}
+            <h5 id="pending_heading">Umsókn í vinnslu</h5>
+        {% elif application.status == "Hired" %}
+            <h5 id="hired_heading">Umsókn samþykkt {{ application.resultDate }}!</h5>
+        {% elif application.status == "Rejected" %}
+            <h5 id="rejected_heading">Umsókn hafnað {{ application.resultDate }}</h5>
+        {% endif %}
+    </div>
+</div>

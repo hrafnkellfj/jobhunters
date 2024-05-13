@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
+    <h2>{{ request.user.applicantprofile.applicant.name }}</h2>
+    <h3>Starfsumsóknir</h3>
+    {% for application in application_list %}
+        {% include 'applicant/single_application.html' with application=application %}
+    {% endfor %}
+
+    <a href="{% url 'home-index' %}">
+        <button>Heim</button>
+    </a>
+
+{% endblock %}
