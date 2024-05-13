@@ -38,6 +38,7 @@ def company_job_applications(request, jobid):
 
     return redirect('/user/profile')
 
+@login_required
 def application_details(request, jobid, appid):
     """A company user can see detailed information about this application"""
     job = get_object_or_404(Job, pk=jobid)
@@ -65,7 +66,7 @@ def application_details(request, jobid, appid):
 
 
 
-
+@login_required
 def change_company_profiles(request):
     company = get_object_or_404(Company, id=request.user.id)
     form = ChangeCompanyProfile(instance=company, data=request.POST if request.method == 'POST' else None)

@@ -3,7 +3,9 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/job.css' %}">
-    <h2>Störf í boði</h2>
+    <div id="job_list_title">
+        <h2 >Störf í boði</h2>
+    </div>
     
     <div id="jobs_container">
     
@@ -45,13 +47,10 @@
             </form>        
         </div>
 
-        <div id="job_list_container">
+        <div class="container">
             {% for key, value in job_list.items %}
                 {% if forloop.counter0|divisibleby:3 %} <div class="row text-center">{% endif %}
-                        <div class="col-md-4">
-                            {% include 'job/single_job.html' with job=key status=value %}
-                        </div>
-              
+                        {% include 'job/single_job.html' with job=key status=value %}
             {% if forloop.counter|divisibleby:3 or forloop.last %}</div>{% endif %}
             {% endfor %}
         </div>
