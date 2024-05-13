@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
-
 from applicant.forms.change_company_profile import ChangeCompanyProfile
 from company.models import Company
 from job.models import Job, Application, Recommendation, Experience
 from datetime import date
 from user.models import companyProfile
+
 
 
 
@@ -44,9 +44,22 @@ def application_details(request, jobid, appid):
     applicant = application.applicant
     recommendations = Recommendation.objects.filter(applicant=applicant, job=job)
     experiences = Experience.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        if "Rejected" in request.POST:
+            application.status = "Rejected"
+            application.resultDate = date.today()
+            application.save()
+        if "Pending" in request.POST:
+            application.status = "Pending"
+            application.resultDate = None
+            application.save()
+        if "Hired" in request.POST:
+            application.status = "Hired"
+            application.resultDate = date.today()
+            application.save()
 
     return render(request, 'company/application_details.html', {
-        'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences
+        'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences,
     })
 
 

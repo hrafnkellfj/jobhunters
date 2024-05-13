@@ -5,7 +5,7 @@ from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSec
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
 from user.models import applicantProfile, companyProfile
-from job.models import Job
+from job.models import Job, Application
 from applicant.models import Applicant
 from company.models import Company
 
@@ -50,10 +50,11 @@ def profile(request):
         c_user = companyProfile.objects.get(user=request.user)
         company = c_user.company
         job_list = Job.objects.filter(company=company)
+        job_dict = {job:len((Application.objects.filter(job=job))) for job in job_list }
         if request.method == "POST":
             pass  # your POST handling logic for company
         return render(request, 'company/company_profile.html', {
-            "form": "", "company": company, "jobs": job_list
+            "form": "", "company": company, "job_dict": job_dict
         })
     except companyProfile.DoesNotExist:
         raise Http404("No profile available")

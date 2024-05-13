@@ -7,9 +7,6 @@ from applicant.forms.experienceform import ExperienceForm
 from applicant.forms.recommendationform import RecommendationForm
 from applicant.models import Applicant, ApplicantEducation
 from job.models import Experience, Recommendation,Application, Job
-from applicant.forms.changeprofile_step1_form import StepOneChangeProfile
-from applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
-from applicant.forms.changeprofile_step3_form import StepThreeChangeProfile
 from user.models import applicantProfile
 from datetime import date
 
