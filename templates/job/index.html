@@ -33,18 +33,22 @@
                     <input type="radio" id="dueDateRadio" name="orderby" value="dueDate">
                     <label for="postDate">Umsóknarfresti</label> </br>
                 </div>
-                <div id="alreadyAppliedDiv">
-                    <input type="checkbox" id="alreadyApplied" name="applied" value="applied">
-                    <label for="applied">Sótt um</label> </br>
-                </div>
+                {% if user_login %}
+                    <div id="alreadyAppliedDiv">
+                        <input type="checkbox" id="alreadyApplied" name="applied" value="applied">
+                        <label for="applied">Sótt um</label> </br>
+                    </div>
+                {% else %}
+                    <p>Skráðu þig inn til að sía eftir störfum sem þú hefur sótt um</p>
+                {% endif %}
                 <input type="submit" value="Leita"> </br>
             </form>        
         </div>
         
         <div class="jobs">
-            {% for key, value in jobs.items %}
+            {% for key, value in job_list.items %}
                 {% include 'job/single_job.html' with job=key status=value %}
-            {% endfor %}    
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

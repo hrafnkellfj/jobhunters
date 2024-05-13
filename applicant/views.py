@@ -61,8 +61,6 @@ def application2(request, jobid):
             application.applicant = applicant
             application.job = job
             application.coverLetter = coverLetter
-            application.applyDate = date.today()
-            application.status = "Pending"
             application.save()
             return redirect("/applicants/applications3/"+str(jobid))
     else:
@@ -204,6 +202,7 @@ def overview(request, jobid):
     if request.method == "POST":
         if application:
             application.isFinished = True
+            application.applyDate = date.today()
             application.save()
         return redirect("/applicants/applications/success/"+str(jobid))
 

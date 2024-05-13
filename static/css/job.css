@@ -63,13 +63,24 @@
     max-height: 7rem;
     max-width: 7rem;
 }
-
 #extra_info_container{
     display:flex;
     margin-left: 1rem;
 }
 #upper_legend{
     font-weight: bold;
-
     margin-right: 1rem;
+}
+
+#application_status_container{
+    border-style: solid;
+    border-color: #5dad24;
+    padding: 1rem;
+    width:50%;
+}
+#status_hired{
+    color:green;
+}
+#status_rejected{
+    color:red;
 }

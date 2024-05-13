@@ -12,7 +12,6 @@ from company.models import Company
 def login(request):
     return render(request, 'user/login.html')
 
-
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(data=request.POST)
@@ -36,7 +35,7 @@ def company_signup(request):
         'form': CustomUserCreationForm2()
     })
 
-
+@login_required()
 def profile(request):
     try:
         a_user = applicantProfile.objects.get(user=request.user)

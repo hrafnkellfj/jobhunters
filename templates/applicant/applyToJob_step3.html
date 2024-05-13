@@ -5,6 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
+    
     <div id="tabs">
         <a class="tab grunnupplysingar">Grunnupplýsingar</a>
         <a class="tab kynningarbreif">Kynningarbréf</a>
@@ -36,12 +37,7 @@
                 {{ form }}
                 <button type="submit" id="add-experience" class="btn btn-info">Bæta við námi</button>
             </form>
-
-            <form class="form form-horizontal" action="/applicants/applications4/{{ jobid }}" >
-                <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
-                <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
-            </form>
-            <script>
+           <script>
                 $(document).ready(function () {
                     $('.datepicker').datepicker({
                         format: 'yyyy-mm-dd',
@@ -50,6 +46,12 @@
                     });
                 });
             </script>
+
+            <form class="form form-horizontal" action="/applicants/applications4/{{ jobid }}" >
+                <input type="button" value="Tilbaka"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+                <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
+            </form>
+            
        </div>
     </div>
 

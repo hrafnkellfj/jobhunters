@@ -55,8 +55,8 @@ class Application(models.Model):
     
     #Umsóknar meðhöndlun
     status = models.CharField(max_length=8, default="Pending") #Pending / Hired / Rejected
-    applyDate = models.DateField()
-    resultDate = models.DateField(blank=True, null=True) #Dagsetning þegar status verður eitthvað annað en pending
+    applyDate = models.DateField(null=True)
+    resultDate = models.DateField(null=True) #Dagsetning þegar status verður eitthvað annað en pending
     isFinished = models.BooleanField(default=False)  #umsækjandi hefur yfirfarið og staðfest umsókn
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
