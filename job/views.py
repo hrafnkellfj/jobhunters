@@ -18,11 +18,14 @@ def index(request):
     applied_query = request.GET.get('applied')
     applicant = False
     applications = False
-    if request.user:
-        applicant = get_object_or_404(applicantProfile).applicant
-        if applicant:
-            applications = Application.objects.filter(applicant=applicant)
-            applications = {application.job_id: application.status for application in applications}
+    user_login = False
+    try:
+        applicant = applicantProfile.objects.get(user=request.user).applicant
+        applications = Application.objects.filter(applicant=applicant)
+        applications = {application.job_id: application.status for application in applications}
+        user_login = True
+    except TypeError:
+        pass #User not logged in
     query_dict = {
         "title": title_query,
         "orderby": orderby_query,
@@ -34,7 +37,10 @@ def index(request):
     job_list = apply_filters(query_dict, job_list)
     if applications:
         job_list = {job: applications[job.id] if job.id in applications else {job:False} for job in job_list}
-    return render(request, 'job/index.html', {'jobs': job_list, 'categories': categories})
+    else:
+        job_list = {job:False for job in job_list}
+    return render(request, 'job/index.html', {'job_list': job_list, 'categories': categories,
+                                              'user_login': user_login})
 
 def post_job(request):
     company_profile = companyProfile.objects.get(user=request.user)
