@@ -1,12 +1,11 @@
-<div id="single_job">
+<div id="single_job" class="col-xs-12 col-sm-6 col-md-3">
 
     <div id="logo_title_container">
         <img id="job_company_logo" src="{{ job.company.logo }}"  alt="Company logo"/>
-        <h2>{{ job.company.title }}</h2>
+        <h3>{{ job.company.title }}</h3>
     </div>
 
-    <h3>{{ job.title }}</h3>
-    <p>{{ job.description }}</p>
+    <h4>{{ job.title }}</h4>
     <p>Birtingardagur : {{ job.postDate }}</p>
     <p>Umsóknarfrestur: {{ job.dueDate }}</p>
 
@@ -28,8 +27,7 @@
         </div>
         
     </div>
-
-
-
-
 </div>
+
+
+

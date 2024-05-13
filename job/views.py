@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from job.models import Job, JobCategory, apply_filters, Application
@@ -7,7 +8,7 @@ from user.models import companyProfile, applicantProfile
 from company.models import Company
 
 def index(request):
-    """"""
+    """Allows a user to see a list of available jobs."""
     job_list = Job.objects.filter(dueDate__gt=date.today())
     categories = JobCategory.objects.all()
 
@@ -24,7 +25,7 @@ def index(request):
         applications = Application.objects.filter(applicant=applicant)
         applications = {application.job_id: application.status for application in applications if application.isFinished}
         user_login = True
-    except applicantProfile.DoesNotExist and TypeError:
+    except applicantProfile.DoesNotExist or TypeError:
         pass #User not logged in
     query_dict = {
         "title": title_query,
@@ -42,7 +43,9 @@ def index(request):
     return render(request, 'job/index.html', {'job_list': job_list, 'categories': categories,
                                               'user_login': user_login})
 
+@login_required
 def post_job(request):
+    """Allows a company user to make a new job offering"""
     company_profile = companyProfile.objects.get(user=request.user)
     company = company_profile.company
     if request.method == 'POST':
@@ -65,10 +68,12 @@ def post_job(request):
     })
 
 def job_posted(request):
+    """Delivers a notification to the user that the job posting was successful"""
     return render(request, 'job/job_posted.html')
 
+
 def get_job_by_id(request, id):
-    """A detailed view of a job"""
+    """Delivers a detailed look at the job with the given id"""
     applicant = False
     application = False
     company = False
@@ -78,12 +83,12 @@ def get_job_by_id(request, id):
         raise Http404("Job not found")
     try:
         applicant = applicantProfile.objects.get(user=request.user).applicant
-    except applicantProfile.DoesNotExist and TypeError:
+    except applicantProfile.DoesNotExist or TypeError:
         pass #user not logged in
     try:
         company = companyProfile.objects.get(user=request.user).company
         company = True
-    except companyProfile.DoesNotExist and TypeError:
+    except companyProfile.DoesNotExist or TypeError:
         pass
     try:
         application = Application.objects.get(applicant=applicant, job=job)
