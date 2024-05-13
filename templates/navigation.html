@@ -37,15 +37,17 @@
                 <a class="nav-link" href="{% url 'user-profile' %}">Prófíll</a>
             </li>
         {% else %}
-            <li class="nav-item">
+            <div class="right-nav-items">
+            <li class="nav-item2">
                 <a class="nav-link" href="{% url 'company-signup' %}">Nýskrá Fyrirtæki</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item2">
                 <a class="nav-link" href="{% url 'user-signup' %}">Nýskrá</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item2">
                 <a class="nav-link" href="{% url 'user-login' %}">Innskrá</a>
             </li>
+            </div>
         {% endif %}
       </ul>
 
