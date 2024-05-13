@@ -53,7 +53,7 @@ def profile(request):
         job_list = Job.objects.filter(company=company)
         if request.method == "POST":
             pass  # your POST handling logic for company
-        return render(request, 'user/company_profile.html', {
+        return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "jobs": job_list
         })
     except companyProfile.DoesNotExist:
