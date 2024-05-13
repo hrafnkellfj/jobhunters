@@ -78,12 +78,12 @@ def get_job_by_id(request, id):
         raise Http404("Job not found")
     try:
         applicant = applicantProfile.objects.get(user=request.user).applicant
-    except applicantProfile.DoesNotExist:
+    except applicantProfile.DoesNotExist and TypeError:
         pass #user not logged in
     try:
         company = companyProfile.objects.get(user=request.user).company
         company = True
-    except companyProfile.DoesNotExist:
+    except companyProfile.DoesNotExist and TypeError:
         pass
     try:
         application = Application.objects.get(applicant=applicant, job=job)
