@@ -18,7 +18,7 @@ class CustomUserCreationForm2(UserCreationForm):
     password2 = forms.CharField(label='Staðfesta lykilorð', widget=forms.PasswordInput)
 
     def clean_title(self):
-        title = self.cleaned_data.get('title', '').lower()
+        title = self.cleaned_data.get('title', '')
         if Company.objects.filter(title=title).exists():
             raise ValidationError("Fyrirtæki með þetta nafn nú þegar til")
         return title
@@ -50,6 +50,6 @@ class CustomUserCreationForm2(UserCreationForm):
                 password=self.cleaned_data['password1']
             )
             company = Company.objects.create(
-                title=self.cleaned_data['title']
+                title=self.cleaned_data['title'].capitalize()
             )
             return user, company
