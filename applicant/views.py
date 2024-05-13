@@ -6,7 +6,7 @@ from applicant.forms.educationform import EducationForm
 from applicant.forms.experienceform import ExperienceForm
 from applicant.forms.recommendationform import RecommendationForm
 from applicant.models import Applicant, ApplicantEducation
-from job.models import Experience, Recommendation,Application, Job
+from job.models import Experience, Recommendation, Application, Job
 from applicant.forms.changeprofile_step1_form import StepOneChangeProfile
 from applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
 from applicant.forms.changeprofile_step3_form import StepThreeChangeProfile
@@ -238,7 +238,7 @@ def application_delete(request, jobid):
     return redirect("home-index")
 
 def changeProfiles1(request):
-    applicant = get_object_or_404(Applicant, id=request.user.id)
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     # Initialize the form with the applicant instance directly
     form = ApplicantFormAll(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
@@ -251,7 +251,7 @@ def changeProfiles1(request):
 
 
 def changeProfiles2(request):
-    applicant = get_object_or_404(Applicant, id=request.user.id)
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
     form = EducationForm(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
@@ -268,7 +268,7 @@ def changeProfiles2(request):
 
 
 def changeProfiles3(request):
-    applicant = get_object_or_404(Applicant, id=request.user.id)
+    applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     experienceobject = Experience.objects.filter(applicant=applicant).first()
     form = EducationForm(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':

@@ -25,14 +25,14 @@
 
     </div>
 
-    <p>Starfsauglýsingar ykkar:</p>
+    <h4>Starfsauglýsingar ykkar:</h4>
     <a href="{% url 'post-job' %}">
         <button>Búa til nýtt starf</button>
     </a>
     
     <div class="company_single_jobs">
-            {% for job in jobs %}
-                {% include 'company/company_single_job.html' with job=job company=company%}
+            {% for key, value in job_dict.items %}
+                {% include 'company/company_single_job.html' with job=key applications=value company=company%}
             {% endfor %}
     </div>
 

@@ -2,9 +2,15 @@
 
     <div id="job_title_container">
         <h3 id="job_title">{{ job.title }}</h3>
-        <a href="/companies/applications/{{ job.id }}">
-            <button>Skoða umsækjendur</button>
-        </a>
+        {% if applications > 0 %}
+            <a href="/companies/applications/{{ job.id }}">
+            <button>Skoða {{ applications }} umsækjendur</button>
+            </a>
+        {% else %}
+            <p>Engir umsækjendur</p>
+        {% endif %}
+        
+        
         <p>Birtingardagur : {{ job.postDate }}</p>
         <p>Umsóknarfrestur: {{ job.dueDate }}</p>
     </div>

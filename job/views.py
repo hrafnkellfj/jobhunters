@@ -24,7 +24,7 @@ def index(request):
         applications = Application.objects.filter(applicant=applicant)
         applications = {application.job_id: application.status for application in applications if application.isFinished}
         user_login = True
-    except applicantProfile.DoesNotExist:
+    except applicantProfile.DoesNotExist and TypeError:
         pass #User not logged in
     query_dict = {
         "title": title_query,

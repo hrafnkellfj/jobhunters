@@ -11,14 +11,20 @@
         <div id="extra_info_container">
             <div id="upper_legend">
                 <p>Fyrirtæki:</p>
+                <a href="/companies/{{ job.company.id }}">
+                    <p>Síða fyrirtækis</p>
+                </a>
                 <p>Starf auglýst:</p>
                 <p>Umsóknarfrestur:</p>
+                <p>Fyrsti dagur:</p>
                 <p>Starfstegund:</p>                
             </div>
             <div id="upper_data">
                 <p>{{ job.company.title }}</p>
+                <p> &nbsp </p>
                 <p>{{ job.postDate }}</p>
                 <p>{{ job.dueDate }}</p>
+                <p>{{ job.startDate }}</p>
                 <p>{{ job.category.type }}</p>                
             </div>
             

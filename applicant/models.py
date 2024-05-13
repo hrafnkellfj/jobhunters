@@ -33,5 +33,5 @@ class ApplicantEducation(models.Model):
     school = models.CharField(max_length=255, blank=True)
     degree = models.CharField(max_length=255, blank=True)
     fieldOfStudy = models.CharField(max_length=255, blank=True)
-    start = models.DateField(blank=True)
-    end = models.DateField(blank=True)
+    start = models.DateField(blank=True, null=True)
+    end = models.DateField(blank=True, null=True)

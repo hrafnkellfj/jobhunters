@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/home">
-        <img src="{% static 'images/jobhunterslogo.png' %}" alt="JobHunters Logo" class="navbar-logo">
+        <img src="{% static 'images/Rectangle 64-Photoroom.png-Photoroom.png' %}" alt="JobHunters Logo" class="navbar-logo">
         JobHunters
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,9 +45,15 @@
              </li>
         {% endif %}
       </ul>
-        
-        {% if user.is_authenticated %}
-            <img id="profile-image-navbar" src="{{ applicant.photo }}"  alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
+
+       {% if user.is_authenticated %}
+            {% if user.companyprofile %}
+                {# company logo #}
+                <img id="profile-image-navbar" src="{{ user.companyprofile.company.logo }}" class="profile-image"  alt="Company image" style="width: 50px; height: 50px; border-radius: 50%;">
+            {% elif user.applicantprofile %}              
+                <img id="profile-image-navbar" src="{{ user.applicantprofile.applicant.photo }}" class="profile-image" alt="Applicant image" style="width: 50px; height: 50px; border-radius: 50%;">
+            {% else %}
+              {% endif %}  
         {% endif %}
     </div>
   </div>
