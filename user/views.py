@@ -20,6 +20,8 @@ def signup(request):
             applicant = Applicant.objects.create(email=user.email)
             applicantProfile.objects.create(user=user, applicant=applicant)
             return redirect('user-login')
+        else:
+            return render(request, 'user/signup.html', {'form': form})
     return render(request, 'user/signup.html', {
         'form': CustomUserCreationForm()
     })
@@ -31,6 +33,8 @@ def company_signup(request):
             user, company = form.save()
             companyProfile.objects.create(user=user, company=company)
             return redirect('user-login')
+        else:
+            return render(request, 'user/company_signup.html', {'form': form})
     return render(request, 'user/company_signup.html', {
         'form': CustomUserCreationForm2()
     })
