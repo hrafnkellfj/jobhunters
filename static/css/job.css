@@ -37,7 +37,16 @@
     height: 3rem;
     width: 3rem;
 }
-
+#button_status_container{
+    display:flex;
+    justify-content: space-between
+}
+#rejected_heading{
+    color: red;
+}
+#hired_heading{
+    color: green;
+}
 /* job_details.html */
 #job_detailed_upper{
     display:flex;

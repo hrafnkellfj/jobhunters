@@ -42,21 +42,16 @@ def profile(request):
     if a_user:
         applicant = a_user.applicant
 
-        if request.method == "POST":
-            pass
-            return redirect('user-profile')
-        form1 = ApplicantFormPrimary()
-        form2 = ApplicantFormSecondary()
-        return render(request, 'user/applicant_profile.html', {
-            "form1": form1, 'form2': form2, "applicant": applicant
+        return render(request, 'applicant/applicant_profile.html', {
+            "applicant": applicant
         })
+
     c_user = get_object_or_404(companyProfile, user=request.user)
     if c_user:
         company = c_user.company
         job_list = Job.objects.filter(company_id=company.id)
-        if request.method == "POST":
-            print(2)
-        return render(request, 'user/company_profile.html', {
+
+        return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "jobs": job_list
         })
-    #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna
+    return redirect('home-index')
