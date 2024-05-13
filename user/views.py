@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-
 from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
@@ -42,7 +41,6 @@ def profile(request):
     try:
         a_user = applicantProfile.objects.get(user=request.user)
         applicant = a_user.applicant
-
         return render(request, 'applicant/applicant_profile.html', {
             "applicant": applicant
         })
