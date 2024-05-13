@@ -44,11 +44,18 @@
                 <input type="submit" value="Leita"> </br>
             </form>        
         </div>
-        
-        <div class="jobs">
+
+        <div id="job_list_container">
             {% for key, value in job_list.items %}
-                {% include 'job/single_job.html' with job=key status=value %}
+                {% if forloop.counter0|divisibleby:3 %} <div class="row text-center">{% endif %}
+                        <div class="col-md-4">
+                            {% include 'job/single_job.html' with job=key status=value %}
+                        </div>
+              
+            {% if forloop.counter|divisibleby:3 or forloop.last %}</div>{% endif %}
             {% endfor %}
         </div>
+
+
     </div>
 {% endblock %}

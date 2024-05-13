@@ -125,11 +125,15 @@
     border-color: #5dad24;
     padding: 1rem;
     margin-bottom: 2rem;
+
 }
 #logo_title_container{
     display:flex;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    align-content: center;
+    justify-content: center;
+    width: 100%
 }
 #application_company_logo{
     height: 3rem;

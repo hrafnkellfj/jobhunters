@@ -32,6 +32,8 @@
     display:flex;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    justify-content: center;
+    align-content: center;
 }
 #job_company_logo{
     height: 3rem;
