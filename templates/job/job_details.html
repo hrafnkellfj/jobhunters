@@ -40,7 +40,7 @@
         {% if user.is_authenticated  %}
             {% if not application.isFinished %}
               <a href="/applicants/applications/{{ job.id }}">
-                <button>Sækja um starf</button>
+                <button class="btn btn-primary">Sækja um starf</button>
               </a>
             {% elif application.isFinished %}
                 <div id="application_status_container">

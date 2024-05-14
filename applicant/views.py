@@ -15,7 +15,7 @@ from datetime import date
 
 
 def index(request):
-    """"""
+    """The index class for applicants, used as a redirect for the user-profile"""
     return redirect('user-profile')
 
 
@@ -35,7 +35,7 @@ def applications(request):
 
 @login_required
 def application1(request, jobid):
-    """ """
+    """The first step in the create application process: Contact information"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -61,7 +61,7 @@ def application1(request, jobid):
 
 @login_required
 def application2(request, jobid):
-    """"""
+    """The second step in the application process: Writing the cover letter"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -87,7 +87,7 @@ def application2(request, jobid):
 
 @login_required
 def application3(request, jobid):
-    """"""
+    """The third step in the application process: Applicant education history"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -125,6 +125,7 @@ def application3(request, jobid):
 
 @login_required
 def application4(request, jobid):
+    """The fourth step in the application process: Applicant job experiecnes"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -161,6 +162,7 @@ def application4(request, jobid):
 
 @login_required
 def application5(request, jobid):
+    """The fifth step in the application process: Applicant recommendations"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -203,12 +205,11 @@ def application5(request, jobid):
 
 @login_required
 def overview(request, jobid):
-    """Allows the applicant to go over the application's status and if he's happy he
-    can submit the application
+    """The final step in the application process. Allows the applicant to go over the application's status and if he's
+     happy he can submit the application, if not he can delete the application and all objects related  to it.
 
     The application is already submitted, instead the isFinished field is set to True
     if applicant cancels, delete all data related to application"""
-
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -232,13 +233,15 @@ def overview(request, jobid):
 
 @login_required
 def application_successful(request, jobid):
-    """"""
+    """A success screen if a job application is successful"""
     job_title = get_object_or_404(Job, pk=jobid).title
     return render(request, 'applicant/application_successful.html', {'title': job_title})
 
 @login_required
 def application_delete(request, jobid):
-    """"""
+    """This view deletes the application and all related objects
+
+    Put in its own view so we can call it from other places than just the overview"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
