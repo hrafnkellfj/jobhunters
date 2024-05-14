@@ -64,10 +64,11 @@
     font-size: 1rem;
 
 }
-#applicant-image {
-    height: 10rem;
-    width: 10rem;
+
+#applicant_photo {
+    border-radius: 50%;
 }
+
 
 /* application ferlið */
 
@@ -150,3 +151,7 @@
 #hired_heading{
     color: green;
 }
+
+
+/* profile image */
+

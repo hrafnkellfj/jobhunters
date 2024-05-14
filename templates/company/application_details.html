@@ -25,7 +25,7 @@
     <div id="applicant_photo_aboutMe_container">
         <div id="photo_email_container">
             <img id="applicant_photo" src="{{ applicant.photo }}">
-            <p>{{ applicant.email }}.........</p>
+            
         </div>
        <p>{{ applicant.aboutMe }}</p>
     </div>
@@ -34,11 +34,13 @@
             <p>Heimilisfang:</p>
             <p>Borg:</p>
             <p>Land:</p>
+            <p>Netfang:</p>
         </div>
          <div>
             <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
             <p>{{ applicant.postalCode }} {{ applicant.city }}</p>
             <p>{{ applicant.country }}</p>
+             <p>{{ applicant.email }}</p>
          </div>
     </div>
 

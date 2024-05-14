@@ -285,9 +285,9 @@ def changeProfiles2(request):
 def changeProfiles3(request):
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     experienceobject = Experience.objects.filter(applicant=applicant).first()
-    form = EducationForm(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
+    form = StepThreeChangeProfile(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = EducationForm(data=request.POST)
+        form = StepThreeChangeProfile(data=request.POST)
         if form.is_valid():
             experience = form.save(commit=False)
             experience.applicant = applicant  # Set the applicant from the verified Applicant instance
