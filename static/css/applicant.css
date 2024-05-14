@@ -139,17 +139,22 @@
 }
 
 /* applications listi */
+#application_container{
+    justify-content: center;
+    text-align: center;
+}
 #application_title_container{
     text-align: center;
     border-bottom-style: solid;
     border-color: #5dad24;
     margin-bottom: 2rem;
+
 }
 #single_application{
     border-style: solid;
     border-color: #5dad24;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem;
     overflow: hidden;
     border-radius: 25px;
     width: 300px;

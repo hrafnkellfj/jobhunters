@@ -43,22 +43,7 @@
                 <h5>Menntun</h5>
                 <div class="application_legend_info_container">
                     {% for education in education_list %}
-                        <div class="application_legend_info_container_many">
-                            <div class="application_legend">
-                                <p>Skóli:</p>
-                                <p>Gráða:</p>
-                                <p>Svið:</p>
-                                <p>Byrjaði:</p>
-                                <p>Lauk:</p>
-                            </div>
-                            <div class="application_information">
-                                <p>{{ education.school }}</p>
-                                <p>{{ education.degree }}</p>
-                                <p>{{ education.fieldOfStudy }}</p>
-                                <p>{{ education.start }}</p>
-                                <p>{{ education.end }}</p>
-                            </div>
-                        </div>
+                       {% include 'applicant/single_education.html' with education=education %}
                     {% endfor %}
                 </div>
             </div>
@@ -69,20 +54,7 @@
             <h5>Reynsla</h5>
             <div class="application_legend_info_container">
                 {% for experience in experience_list %}
-                    <div class="application_legend_info_container_many">
-                        <div class="application_legend">
-                            <p>Fyrirtæki:</p>
-                            <p>Hlutverk:</p>
-                            <p>Byrjaði:</p>
-                            <p>Lauk:</p>
-                        </div>
-                        <div class="application_information">
-                            <p>{{ experience.company }}</p>
-                            <p>{{ experience.role }}</p>
-                            <p>{{ experience.start }}</p>
-                            <p>{{ experience.end }}</p>
-                        </div>
-                    </div>
+                   {% include 'applicant/single_experience.html' with experience=experience %}
                 {% endfor %}
             </div>
         </div>
