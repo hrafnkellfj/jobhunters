@@ -8,21 +8,17 @@
 .navbar-nav {
     display: flex;
     width: 100%;
+    justify-content: space-between; /* Adjust this as needed */
+}
 
-}
-.right-nav-items2 {
-    margin-left: 37%;
+.right-nav-items, .right-nav-items2 {
     display: flex;
-    justify-content: flex-end; /* Aligns children to the right */
-}
-.right-nav-items {
-    margin-left: 47%;
-    display: flex;
-    justify-content: flex-end; /* Aligns children to the right */
+    justify-content: flex-end; /* Keeps right items aligned to the right */
+    flex-grow: 1; /* Allows the container to expand with the available space */
 }
 
 .nav-item2 {
-    padding-left: 10px; /* Adds spacing between items */
+    padding-left: 10px;
 }
 .bg-body-tertiary{
     background-color: #cdf8af !important;
