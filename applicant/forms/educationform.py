@@ -13,3 +13,10 @@ class EducationForm(ModelForm):
             'start': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'end': widgets.TextInput(attrs={'class': 'form-control datepicker'})
         }
+        labels= {
+            'school': 'Skóli',
+            'degree': 'Gráða',
+            'fieldOfStudy': 'Námssvið',
+            'start': 'Upphaf náms',
+            'end': 'Lok náms'
+        }
