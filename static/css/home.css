@@ -84,10 +84,10 @@ h2 {
 
 .container-decorative-image2 {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     width: 220px;
     height: 220px ;
     margin-left: 10%;
-    transform: translate(340%, -100%);
+    transform: translate(50rem, -20rem);
 }
 

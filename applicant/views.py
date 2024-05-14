@@ -27,8 +27,10 @@ def applications(request):
         return render(request, 'applicant/applicant_applications.html', {'application_list': application_list})
 
     if hasattr(request.user, 'companyprofile'):
-        application_list = Application.objects.filter(applicant=request.user.companyprofile.company_id)
-        return redirect('company_job_applications', {'application_list':application_list})
+        company = request.user.companyprofile.company
+        job_list = Job.objects.filter(company=company)
+        job_dict = {job: len((Application.objects.filter(job=job))) for job in job_list}
+        return render(request,'company/job_applications_company.html',{'job_dict': job_dict})
     return redirect('home-index')
 
 @login_required
