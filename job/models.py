@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from applicant.models import Applicant
 from company.models import Company
-from datetime import date
+
 
 # Create your models here.
 class JobCategory(models.Model):
@@ -36,15 +36,11 @@ def apply_filters( query_dict, job_list ):
     if query_dict["category"]:
         job_list = job_list.filter(category=query_dict["category"])
     if query_dict["company"]:
-        company = get_object_or_404(Company, title__icontains=query_dict["company"])
-    if company:
-        job_list = job_list.filter(company_id=company.id)
-    if query_dict["applicant"] and query_dict['applied']:
-        applicant = query_dict["applicant"]
-        applications = Application.objects.filter(applicant=applicant)
-        job_filter_list = [application.job.id for application in applications]
-        job_list = job_list.filter(pk__in=job_filter_list)
-
+        companies = Company.objects.filter(title__icontains=query_dict["company"])
+        job_list = job_list.filter(company__in=companies)
+    if query_dict["applied"] and query_dict["applications"]:
+        applications = [application.job.id for application in query_dict["applications"] if application.isFinished]
+        job_list = [job for job in job_list if job.id in applications]
     return job_list
 
 class Application(models.Model):

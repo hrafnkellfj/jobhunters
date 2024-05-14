@@ -12,33 +12,35 @@ def index(request):
     job_list = Job.objects.filter(dueDate__gt=date.today())
     categories = JobCategory.objects.all()
 
-    title_query = request.GET.get('title')
+    title_query = request.GET.get('search_title')
     orderby_query = request.GET.get('orderby')
     category_query = request.GET.get('category')
-    company_query = request.GET.get('company')
-    applied_query = request.GET.get('applied')
-    applicant = False
+    company_query = request.GET.get('search_company')
     applications = False
+    applied_query = False
     user_login = False
     if request.user.is_authenticated:
         try:
-            applicant = applicantProfile.objects.get(user=request.user).applicant
+            applicant = request.user.applicantprofile.applicant
             applications = Application.objects.filter(applicant=applicant)
-            applications = {application.job_id: application.status for application in applications if application.isFinished}
             user_login = True
         except applicantProfile.DoesNotExist or TypeError:
-            pass #User not logged in
+            pass #applicant user not logged in
+    if user_login:
+        applied_query = request.GET.get('applied')
     query_dict = {
         "title": title_query,
         "orderby": orderby_query,
         "category": category_query,
         "company": company_query,
         'applied': applied_query,
-        'applicant': applicant
+        'applications': applications
     }
     job_list = apply_filters(query_dict, job_list)
     if applications:
-        job_list = {job: applications[job.id] if job.id in applications else {job:False} for job in job_list}
+        applications = {application.job: application.status for application in applications if
+                        application.isFinished}
+        job_list = {job: applications[job] if job in applications.keys() else {job:False} for job in job_list}
     else:
         job_list = {job:False for job in job_list}
     return render(request, 'job/index.html', {'job_list': job_list, 'categories': categories,
