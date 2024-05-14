@@ -25,6 +25,8 @@
     align-content: center;
     text-align: center;
     margin-bottom: 2rem;
+    border-bottom-style:solid;
+    border-color: #5dad24;
 }
 
 /* single_job.html */

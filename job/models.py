@@ -68,17 +68,3 @@ class Recommendation(models.Model):
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-
-class Experience(models.Model):
-    """A work related experience that belongs to an Applicant"""
-    company = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
-    start = models.DateField()
-    end = models.DateField(blank=True, null=True)
-    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-
-
-
-
-
