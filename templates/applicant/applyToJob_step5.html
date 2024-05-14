@@ -13,19 +13,6 @@
     </div>
     <h3 class="application_form_heading">Meðmæli</h3>
     <div class="application_list_form_container">
-        <div class="applicant_list">
-            <h5>Nú þegar skráð:</h5>
-            {% for recommendation in recommendation_list  %}
-                    <div class="application_list_container" >
-                        <p>Nafn: {{ recommendation.name }}</p>
-                        <p>Netfang: {{ recommendation.email }}</p>
-                        <p>Sími: {{ recommendation.phone }}</p>
-                        <p>Hlutverk: {{ recommendation.role }}</p>
-                        <p>Má hafa samband: {{ recommendation.allowedToContact }}</p>
-                    </div>
-            {% endfor %}
-        </div>
-
         <div>
             <form class="form form-horizontal" action="/applicants/applications5/{{ jobid }}" method="POST">
                 {% csrf_token %}
@@ -40,5 +27,17 @@
                 <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
             </form>
         </div>
+            <div class="applicant_list">
+                <h5>Nú þegar skráð:</h5>
+                {% for recommendation in recommendation_list  %}
+                        <div class="application_list_container" >
+                            <p>Nafn: {{ recommendation.name }}</p>
+                            <p>Netfang: {{ recommendation.email }}</p>
+                            <p>Sími: {{ recommendation.phone }}</p>
+                            <p>Hlutverk: {{ recommendation.role }}</p>
+                            <p>Má hafa samband: {{ recommendation.allowedToContact }}</p>
+                        </div>
+                {% endfor %}
+            </div>
     </div>
 {% endblock %}

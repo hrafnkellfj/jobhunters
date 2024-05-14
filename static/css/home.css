@@ -12,6 +12,8 @@ body {
     gap: 10px;
 }
 
+
+
 .container-home-logo::after {
     content: "";
     position: absolute;
@@ -109,3 +111,5 @@ h2 {
         height: 100px;
     }
 }
+
+
