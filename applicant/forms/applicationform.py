@@ -9,3 +9,7 @@ class ApplicationForm(ModelForm):
         widgets = {
             'coverLetter': widgets.Textarea(attrs={'class': 'form-control'})
         }
+        labels={
+            'coverLetter': 'Kynningarbréf'
+
+        }

@@ -18,7 +18,18 @@ class ApplicantFormAll(ModelForm):
             'photo': widgets.TextInput(attrs={'class': 'form-control'}),
             'email': widgets.EmailInput(attrs={'class': 'form-control'})
         }
-
+        labels = {
+            'name': 'Nafn',
+            'street': 'Götuheiti',
+            'houseNr': 'Húsnúmer',
+            'city': 'Bæjarfélag',
+            'postalCode': 'Póstnúmer',
+            'country': 'Land',
+            'phone': 'Símanúmer',
+            'aboutMe': 'Um mig',
+            'photo': 'Prófílmynd',
+            'email': 'Netfang'
+        }
 
 class ApplicantFormPrimary(ModelForm):
     class Meta:
@@ -34,6 +45,16 @@ class ApplicantFormPrimary(ModelForm):
             #'email': widgets.EmailInput(attrs={'class': 'form-control'}),
         }
 
+        labels = {
+            'name': 'Nafn',
+            'street': 'Götuheiti',
+            'houseNr': 'Húsnúmer',
+            'city': 'Bæjarfélag',
+            'postalCode': 'Póstnúmer',
+            'country': 'Land',
+
+        }
+
 class ApplicantFormSecondary(ModelForm):
     class Meta:
         model = Applicant
@@ -43,4 +64,10 @@ class ApplicantFormSecondary(ModelForm):
             'aboutMe': widgets.Textarea(attrs={'class': 'form-control'}),
             'photo': widgets.TextInput(attrs={'class': 'form-control'}),
             'email': widgets.EmailInput(attrs={'class': 'form-control'})
+        }
+        labels = {
+            'phone': 'Símanúmer',
+            'aboutMe': 'Um mig',
+            'photo': 'Prófílmynd',
+            'email': 'Netfang'
         }

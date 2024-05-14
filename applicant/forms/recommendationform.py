@@ -11,5 +11,13 @@ class RecommendationForm(ModelForm):
             'email': widgets.EmailInput(attrs={'class': 'form-control'}),
             'phone': widgets.NumberInput(attrs={'class': 'form-control'}),
             'role': widgets.TextInput(attrs={'class': 'form-control'}),
-            'allow_contact': widgets.CheckboxInput(attrs={'class': 'form-control'})
+            'allowedToContact': widgets.CheckboxInput()
+        }
+
+        labels = {
+            'name': 'Nafn meðmælenda',
+            'email': 'Tölvpóstfang',
+            'phone': 'Sími',
+            'role': 'Staða',
+            'allowedToContact': 'Má hafa samband'
         }

@@ -13,3 +13,9 @@ class ExperienceForm(ModelForm):
             'end': widgets.TextInput(attrs={'class': 'form-control datepicker'})
         }
 
+        labels = {
+            'company': 'Fyrirtæki',
+            'role': 'Staða',
+            'start': 'Upphaf starfs',
+            'end': 'Lok starfs'
+        }
