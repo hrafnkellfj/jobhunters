@@ -18,12 +18,13 @@
 #applicant_information{
     display:flex;
 }
-#necessary_info{
+#necessary_info {
     margin: 1rem;
-    border-color: #5dad24;
-    border-style: solid;
+    border-top: solid #5dad24;
     padding: 1rem;
+    width: 100%;
 }
+
 #obligatory_info{
     margin: 1rem;
     padding: 1rem;
@@ -32,7 +33,7 @@
 }
 #necessary_legend_container{
     font-weight: bold;
-    text-align:right;
+    text-align: left;
     margin-right: 1rem;
 }
 #obligatory_legend_container{
@@ -40,8 +41,25 @@
     font-weight: bold;
 }
 
-/*  */
+#change-profile-box {
+    margin-left: 45rem;
+    display: flex;
+    flex-wrap: nowrap;
+}
 
+#change-profile-button {
+    width: 8rem;
+    text-align: left;
+    background-color: #cdf8af;
+    border: solid thin black;
+    border-radius: 5px;
+}
+
+#change-profile-photo {
+    height: 25px;
+    width: 25px;
+    transform: translate(-1.8rem, 0.1rem);
+}
 
 #single_applicant {
     margin: 5rem;
@@ -152,6 +170,9 @@
     color: green;
 }
 
-
+#info {
+    text-align: center;
+    color: gray;
+}
 /* profile image */
 
