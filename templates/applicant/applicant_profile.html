@@ -17,7 +17,7 @@
     
     <div id="info_container">
         <div id="necessary_info">
-            <h6>Nauðsynlegar upplýsingar til að sækja um starf</h6>
+            <h6>Tengiliðaupplýsingar</h6>
             <div id="applicant_information">
                 <div id="necessary_legend_container">
                     <p>Netfang:</p>
@@ -33,28 +33,20 @@
                     <p>{{ applicant.country }}</p>
                      <p>{{ applicant.phone }}</p>
                  </div>
-            </div>
-        </div>
-
-        <div id="obligatory_info">
-            <h6>Valkvæðar upplýsingar</h6>
-            <div id="applicant_information">
-                <div id="obligatory_legend_container">
-                    {% if  applicant.phone  %}
-                        <p>Sími: {{ applicant.phone }}</p>
-                    {% else %}
-                        <p>Sími: </p>
-                    {% endif %}
+                <div id="change-profile-box">
+                    <a href="{% url 'changeProfile1' %}">
+                        <button id="change-profile-button">Breyta prófíl</button>
+                    </a>
+                    <img id="change-profile-photo" src="{% static 'images/penni.jpg' %}" alt="edit-profile-image">
                 </div>
+
             </div>
         </div>
     </div>
     
     
-    <a href="{% url 'changeProfile1' %}">
-        <button>Breyta prófíl</button>
-    </a>
-    
-    <h5>Við viljum benda á að fyrirtæki sem skoða umsóknir ykkar hafa aðgang að öllum þeim upplýsingum sem hér eru að finna.</h5>
+
+     
+    <p id="info">Við viljum benda á að fyrirtæki sem skoða umsóknir ykkar hafa aðgang að öllum þeim upplýsingum sem hér eru að finna.</p>
     
 {% endblock %}
