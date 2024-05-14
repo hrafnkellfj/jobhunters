@@ -22,12 +22,13 @@ def index(request):
 @login_required
 def applications(request):
     """Shows a list of all applications belonging to a logged-in user"""
-    if request.user.applicantprofile:
+    if hasattr(request.user, 'applicantprofile'):
         application_list = Application.objects.filter(applicant=request.user.applicantprofile.applicant)
         return render(request, 'applicant/applicant_applications.html', {'application_list': application_list})
 
-    if request.user.companyprofile:
-        return redirect('user-profile')
+    if hasattr(request.user, 'companyprofile'):
+        application_list = Application.objects.filter(applicant=request.user.companyprofile.company_id)
+        return redirect('company_job_applications', {'application_list':application_list})
     return redirect('home-index')
 
 @login_required
