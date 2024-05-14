@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+    <div>
+    <link rel="stylesheet" href="{% static 'css/multistepforms.css' %}">
     <div id="tabs">
             <a class="tab grunnupplysingar">Grunnupplýsingar</a>
             <a class="tab kynningarbreif active">Kynningarbréf</a>

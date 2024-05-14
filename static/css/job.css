@@ -20,18 +20,27 @@
 #searchDiv{
     padding: 1rem;
 }
+#job_list_title{
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin-bottom: 2rem;
+}
 
 /* single_job.html */
 #single_job{
     border-style: solid;
     border-color: #5dad24;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem;
+    overflow: hidden;
 }
 #logo_title_container{
     display:flex;
     margin-top: 2rem;
     margin-bottom: 1rem;
+    justify-content: center;
+    align-content: center;
 }
 #job_company_logo{
     height: 3rem;
