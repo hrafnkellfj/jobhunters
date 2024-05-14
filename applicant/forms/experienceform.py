@@ -1,11 +1,11 @@
 from django.forms import ModelForm, widgets
-from job.models import Experience
+from applicant.models import Experience
 
 
 class ExperienceForm(ModelForm):
     class Meta:
         model = Experience
-        exclude = ['applicant', 'job']
+        exclude = ['applicant']
         widgets = {
             'company': widgets.TextInput(attrs={'class': 'form-control'}),
             'role': widgets.TextInput(attrs={'class': 'form-control'}),

@@ -1,10 +1,10 @@
 from django.forms import ModelForm, widgets
-from applicant.models import ApplicantEducation
+from applicant.models import Education
 
 
 class EducationForm(ModelForm):
     class Meta:
-        model = ApplicantEducation
+        model = Education
         exclude = ['applicant']
         widgets = {
             'school': widgets.TextInput(attrs={'class': 'form-control'}),

@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-
 from company.forms.change_company_profiles import ChangeCompanyProfile
 from company.models import Company
-from job.models import Job, Application, Recommendation, Experience
+from job.models import Job, Application, Recommendation
+from applicant.models import Experience
 from datetime import date
 from user.models import companyProfile
 
@@ -45,7 +45,7 @@ def application_details(request, jobid, appid):
     application = Application.objects.filter(pk=appid).first()
     applicant = application.applicant
     recommendations = Recommendation.objects.filter(applicant=applicant, job=job)
-    experiences = Experience.objects.filter(applicant=applicant, job=job)
+    experiences = Experience.objects.filter(applicant=applicant)
     if request.method == "POST":
         if "Rejected" in request.POST:
             application.status = "Rejected"
