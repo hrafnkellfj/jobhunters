@@ -75,3 +75,14 @@ footer {
 .footer-content p {
     margin: 0 10px; /* Adds spacing between each piece of information */
 }
+
+
+#um_okkur {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 28rem;
+    border-bottom: #8ec969 solid 2px;
+    padding-bottom: 3rem;
+    width: 20%;
+}
