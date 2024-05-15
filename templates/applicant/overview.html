@@ -1,97 +1,80 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-    <link rel="stylesheet" href="{% static 'css/multistepforms.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
-    <div id="tabs">
-        <a class="tab grunnupplysingar">Grunnupplýsingar</a>
-        <a class="tab kynningarbreif">Kynningarbréf</a>
-        <a class="tab menntun">Menntun</a>
-        <a class="tab reynsla">Reynsla</a>
-        <a class="tab medmaelendur">Meðmælendur</a>
-        <a class="tab yfirfara active">Yfirfara</a>
-    </div>
-
-    <h3 class="application_form_heading">Yfirfara umsókn</h3>
-
-    <div class="application_list_form_container">
-        <div class="application_list_container">
-            <h5>Grunnupplýsingar</h5>
-            <div class="application_legend_info_container">
-                <div class="application_legend">
-                    <p>Nafn:</p>
-                    <p>Heimilisfang:</p>
-                    <p>Bæjarfélag:</p>
-                    <p>Land:</p>
-                </div>
-                <div class="application_information">
-                    <p>{{ applicant.name }}</p>
-                    <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
-                    <p>{{ applicant.postalCode }} {{ applicant.city  }} </p>
-                    <p>{{ applicant.country }}</p>
+    {% extends 'base.html' %}
+    {% load static %}
+    {% block content %}
+        <link rel="stylesheet" href="{% static 'css/multistepforms.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
+        <div id="tabs">
+            <a class="tab grunnupplysingar">Grunnupplýsingar</a>
+            <a class="tab kynningarbreif">Kynningarbréf</a>
+            <a class="tab menntun">Menntun</a>
+            <a class="tab reynsla">Reynsla</a>
+            <a class="tab medmaelendur">Meðmælendur</a>
+            <a class="tab yfirfara active">Yfirfara</a>
+        </div>
+    
+        <h3 class="application_form_heading">Yfirfara umsókn</h3>
+        
+        <div id="info-container">
+            <div id="necessary_info">
+                <h5>Grunnupplýsingar</h5>
+                <div id="applicant_information">
+                    <div id="necessary_legend_container">
+                        <p>Nafn:</p>
+                        <p>Heimilisfang:</p>
+                        <p>Bæjarfélag:</p>
+                        <p>Land:</p>
+                    </div>
+                    
+                    <div>
+                        <p>{{ applicant.name }}</p>
+                        <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
+                        <p>{{ applicant.postalCode }} {{ applicant.city  }} </p>
+                        <p>{{ applicant.country }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="application_list_container">
-            <h5>Kynningarbréf</h5>
-                <p>{{ application.coverLetter }}</p>
+    
+        <div id="info-container">
+            <div id="necessary_info">
+                <h5>Kynningarbréf</h5>
+                <div id="application-coverletter">
+                    <p>{{ application.coverLetter }}</p>
+                </div>
+            </div>
         </div>
-
-
-            <div class="application_list_container">
+    
+        
+        <div id="info-container">
+            <div id="necessary_info">
                 <h5>Menntun</h5>
-                <div class="application_legend_info_container">
+                <div id="applicant_information">
                     {% for education in education_list %}
-                       {% include 'applicant/single_education.html' with education=education %}
+                        {% include 'applicant/overview_single_education.html' with education=education %}
                     {% endfor %}
                 </div>
             </div>
-    </div>
-
-    <div class="application_list_form_container">
-        <div class="application_list_container">
-            <h5>Reynsla</h5>
-            <div class="application_legend_info_container">
-                {% for experience in experience_list %}
-                   {% include 'applicant/single_experience.html' with experience=experience %}
-                {% endfor %}
+        </div>
+    
+        <div id="info-container">
+            <div id="necessary_info">
+                <h5>Reynsla</h5>
+                <div id="applicant_information">
+                    {% for experience in experience_list %}
+                       {% include 'applicant/overview_single_experience.html' with experience=experience %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-
-        <div class="application_list_container">
-            <h5>Meðmæli</h5>
-            <div class="application_legend_info_container">
-                {% for recommendation in recommendation_list %}
-                    <div class="application_legend_info_container_many">
-                        <div class="application_legend">
-                            <p>Nafn:</p>
-                            <p>Hlutverk:</p>
-                            <p>Má hafa samband:</p>
-                            {% if recommendation.email %}
-                                <p>Netfang:</p>
-                            {% endif %}
-                            {% if recommendation.phone %}
-                                <p>Sími:</p>
-                            {% endif %}
-                        </div>
-                        <div class="application_information">
-                            <p>{{ recommendation.name }}</p>
-                            <p>{{ recommendation.role }}</p>
-                            {% if recommendation.allowedToContact %}
-                                <p>Já</p>
-                            {% else %}
-                                <p>Nei</p>
-                            {% endif %}
-                            {% if recommendation.email %}
-                                <p>{{ recommendation.email }}</p>
-                            {% endif %}
-                            {% if recommendation.phone %}
-                                <p>{{ recommendation.phone}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
+    
+        <div id="info-container">
+            <div id="necessary_info">
+                <h5>Meðmælendur</h5>
+                <div id="applicant_information">
+                     {% for recommendation in recommendation_list %}
+                       {% include 'applicant/single_recomendation.html' with recommendation=recommendation %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
 

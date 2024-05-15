@@ -18,18 +18,6 @@
 
     <h3 class="application_form_heading">Námsferill</h3>
     <div class="application_list_form_container">
-        <div class="applicant_list">
-        <h5>Nú þegar skráð:</h5>
-        {% for education in education_list  %}
-                <div class="application_list_container" >
-                    <p>Skóli: {{ education.school }}</p>
-                    <p>Gráða: {{ education.degree }}</p>
-                    <p>Svið: {{ education.fieldOfStudy }}</p>
-                    <p>Byrjaði: {{ education.start }}</p>
-                    <p>Lauk: {{ education.end }}</p>
-                </div>
-        {% endfor %}
-        </div>
 
        <div>
 
@@ -54,6 +42,19 @@
             </form>
             
        </div>
+        
+            <div class="applicant_list">
+                <h5>Nú þegar skráð:</h5>
+                {% for education in education_list  %}
+                        <div class="application_list_container" >
+                            <p>Skóli: {{ education.school }}</p>
+                            <p>Gráða: {{ education.degree }}</p>
+                            <p>Svið: {{ education.fieldOfStudy }}</p>
+                            <p>Byrjaði: {{ education.start }}</p>
+                            <p>Lauk: {{ education.end }}</p>
+                        </div>
+                {% endfor %}
+            </div>
     </div>
 
 {% endblock %}

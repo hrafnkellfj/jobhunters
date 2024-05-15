@@ -28,6 +28,10 @@ def company_job_applications(request, jobid):
     job = get_object_or_404(Job, pk=jobid)
     company = get_object_or_404(companyProfile, user=request.user).company
     if company and job:
+        if request.method == "POST":
+            if 'job_delete' in request.POST:
+                job.delete()
+                return redirect('user-profile')
         if job.company == company:
             applications = Application.objects.filter(job=jobid)
             if applications:
@@ -59,7 +63,7 @@ def application_details(request, jobid, appid):
             application.status = "Hired"
             application.resultDate = date.today()
             application.save()
-
+        return redirect ("/companies/applications/"+str(jobid))
     return render(request, 'company/application_details.html', {
         'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences,
     })
@@ -67,8 +71,8 @@ def application_details(request, jobid, appid):
 
 
 @login_required
-def change_company_profiles(request):
-    company = get_object_or_404(Company, id=request.user.id)
+def change_company_profile(request):
+    company = get_object_or_404(companyProfile, user=request.user).company
     form = ChangeCompanyProfile(instance=company, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         if form.is_valid():

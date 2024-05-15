@@ -25,6 +25,7 @@
 }
 #company_title_add_desc{
     margin-left: 3rem;
+    word-break: break-all;
 }
 #company_logo_cover{
     display:flex;
@@ -95,6 +96,21 @@
     padding: 1rem;
     width: 50%
 }
+#single_application_button_status_container{
+    display: flex;
+    justify-content: space-between;
+
+}
+#status_green{
+    color: green;
+}
+#status_red{
+    color: red;
+}
+#company_form_container{
+    margin-top: 2rem;
+}
+
 
 /* Applicant details */
 #application_status_container{
