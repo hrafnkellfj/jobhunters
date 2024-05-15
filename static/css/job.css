@@ -28,7 +28,10 @@
     border-bottom-style:solid;
     border-color: #5dad24;
 }
-
+/*  company_single_job specific  */
+#delete_job_button{
+    margin-left: 10rem;
+}
 /* single_job.html */
 
 #job_grid{
