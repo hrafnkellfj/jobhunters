@@ -106,3 +106,21 @@
 #status_rejected{
     color:red;
 }
+
+#job_title_container{
+    border-top: solid #5dad24;
+    padding-top: 2rem;
+    height:10rem;
+    width: 70rem;
+    display:flex;
+    margin-top:3rem;
+    margin-bottom: 2rem;
+}
+.company_single_job {
+    display: flex;
+    width: 50%;
+    margin: 1rem;
+}
+#show_applicants{
+
+}
