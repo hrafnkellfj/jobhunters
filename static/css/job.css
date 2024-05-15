@@ -137,6 +137,9 @@ button{
 #status_rejected{
     color:red;
 }
+#job_title{
+    width:200px;
+}
 
 #job_title_container{
     border-top: solid #5dad24;
