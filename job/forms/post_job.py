@@ -7,11 +7,12 @@ class PostJob(ModelForm):
 
     JOB_PERCENTAGE_CHOICES = [
         ('Hlutastarf', 'Hlutastarf'),
-        ('Fullt starf', 'Fullt starf')]
+        ('Fullt starf', 'Fullt starf'),
+        ('Fullt starf / Hlutastarf', "Fullt starf / Hlutastarf")]
 
     jobPercentage = forms.MultipleChoiceField(
         choices=JOB_PERCENTAGE_CHOICES,
-        widget=forms.CheckboxSelectMultiple(),
+        widget=forms.ChoiceField()
     )
 
     class Meta:
@@ -24,7 +25,8 @@ class PostJob(ModelForm):
             'dueDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'startDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'jobImage': widgets.TextInput(attrs={'class': 'form-control'}),
-            'category': widgets.Select(attrs={'class': 'form-control'})
+            'category': widgets.Select(attrs={'class': 'form-control'}),
+            'jobPercentage': widgets.Select(attrs={'class': 'form-control'})
         }
         labels={
             'title': 'Titill',
