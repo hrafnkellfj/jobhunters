@@ -5,7 +5,7 @@ from company.models import Company
 class ChangeCompanyProfile(ModelForm):
     class Meta:
         model = Company
-        exclude = ['address', 'companyPage']
+        exclude = ['address']
         widgets = {
             'title': widgets.TextInput(attrs={'class': 'form-control'}),
             'logo': widgets.TextInput(attrs={'class': 'form-control'}),

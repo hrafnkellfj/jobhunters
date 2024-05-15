@@ -6,7 +6,9 @@
     <br>
     <div class="companies">
         {% for company in companies %}
-            {% include 'company/single_company.html' with company=company %}
+            {% if company.title and company.logo and company.description %}
+                {% include 'company/single_company.html' with company=company %}
+            {% endif %}
 
         {% endfor %}
 
