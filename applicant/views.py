@@ -156,7 +156,7 @@ def application4(request, jobid):
     })
 
 @login_required
-def application5(request, jobid):
+def application5(request, jobid, recid=False):
     """The fifth step in the application process: Applicant recommendations"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
@@ -192,6 +192,15 @@ def application5(request, jobid):
         'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
     })
 
+@login_required
+def delete_recommendation(request, jobid, rid):
+    """Allows an applicant to delete a recommendation during the application process"""
+    if request.method == "POST":
+        if "delete_recommendation" in request.POST:
+            recommendation = get_object_or_404(Recommendation, pk=rid)
+            recommendation.delete()
+
+    return redirect("/applicants/applications5/" + str(jobid))
 @login_required
 def overview(request, jobid):
     """The final step in the application process. Allows the applicant to go over the application's status and if he's

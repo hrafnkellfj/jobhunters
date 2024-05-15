@@ -9,6 +9,7 @@ urlpatterns = [
     path('applications3/<int:jobid>', views.application3, name='Step3'),
     path('applications4/<int:jobid>', views.application4, name='Step4'),
     path('applications5/<int:jobid>', views.application5, name='Step5'),
+    path('applications5/<int:jobid>/recommendations/<int:rid>', views.delete_recommendation, name='delete_recommendation'),
     path('applications6/<int:jobid>', views.overview, name='overview'),
     path('applications/success/<int:jobid>', views.application_successful, name='applicaton_success'),
     path('applications/delete/<int:jobid>', views.application_delete, name="application_cancel"),

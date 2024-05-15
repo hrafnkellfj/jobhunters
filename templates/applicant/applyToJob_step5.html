@@ -23,6 +23,11 @@
                         <p>Hlutverk: {{ recommendation.role }}</p>
                         <p>Má hafa samband:{% if recommendation.allowedToContact %}Já{% else %}Nei{% endif %}</p>
                     </div>
+                
+                 <form class="form form-horizontal" action="/applicants/applications5/{{ jobid }}/recommendations/{{ recommendation.id }}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" name="delete_recommendation" value="Eyða" class="btn btn-danger">
+                 </form>
             {% endfor %}
         </div>
 

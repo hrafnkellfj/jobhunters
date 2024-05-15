@@ -36,9 +36,6 @@ class Education(models.Model):
     start = models.DateField()
     end = models.DateField()
 
-    def delete_education(self, education):
-        """Allows the applicant to delete an education objects"""
-        education.delete()
 
 
 class Experience(models.Model):

@@ -43,7 +43,7 @@
                 <h5>Menntun</h5>
                 <div class="application_legend_info_container">
                     {% for education in education_list %}
-                       {% include 'applicant/single_education.html' with education=education %}
+                       {% include 'applicant/overview_single_education.html' with education=education %}
                     {% endfor %}
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <h5>Reynsla</h5>
             <div class="application_legend_info_container">
                 {% for experience in experience_list %}
-                   {% include 'applicant/single_experience.html' with experience=experience %}
+                   {% include 'applicant/overview_single_experience.html' with experience=experience %}
                 {% endfor %}
             </div>
         </div>

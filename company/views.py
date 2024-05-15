@@ -28,6 +28,10 @@ def company_job_applications(request, jobid):
     job = get_object_or_404(Job, pk=jobid)
     company = get_object_or_404(companyProfile, user=request.user).company
     if company and job:
+        if request.method == "POST":
+            if 'job_delete' in request.POST:
+                job.delete()
+                return redirect('user-profile')
         if job.company == company:
             applications = Application.objects.filter(job=jobid)
             if applications:
