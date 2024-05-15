@@ -54,16 +54,21 @@ def post_job(request):
     if request.method == 'POST':
         form = PostJob(data=request.POST)
         if form.is_valid():
-            job = form.save(commit=False)  # Do not save the form yet, need to add extra fields
-            job.jobPercentage = form.cleaned_data['jobPercentage']
-            job.dueDate = form.cleaned_data['dueDate']
-            job.startDate = form.cleaned_data['startDate']
-            job.postDate = date.today()  # Use Django's timezone now
-            job.company = company  # Access company ID from session
-            job.save()  # Now save the job with all fields properly assigned
+            job = Job()
+            job.title = form.cleaned_data["title"]
+            job.description = form.cleaned_data["description"]
+            job.location = form.cleaned_data["location"]
+            job.postDate = date.today()
+            job.dueDate = form.cleaned_data["dueDate"]
+            job.startDate = form.cleaned_data["startDate"]
+            job.jobImage = form.cleaned_data["jobImage"]
+            job.category = form.cleaned_data["category"]
+            job.Percentage = form.cleaned_data["jobPercentage"]
+            job.company = company
+            job.save()
             return redirect('/jobs/job_posted')
         else:
-            form = PostJob()
+            form = PostJob(data=request.POST)
     else:
         form = PostJob()
     return render(request, 'job/post_job.html', {

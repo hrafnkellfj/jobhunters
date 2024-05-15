@@ -19,7 +19,7 @@ class PostJob(ModelForm):
         exclude = ['id', 'company', 'postDate']
         widgets = {
             'title': widgets.TextInput(attrs={'class': 'form-control'}),
-            'description': widgets.TextInput(attrs={'class': 'form-control'}),
+            'description': widgets.Textarea(attrs={'class': 'form-control'}),
             'location': widgets.TextInput(attrs={'class': 'form-control'}),
             'dueDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'startDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
