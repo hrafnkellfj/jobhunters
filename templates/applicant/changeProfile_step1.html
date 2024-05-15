@@ -14,13 +14,15 @@
         <form class="form form-horizontal" action="{% url 'changeProfile1' %}" method="POST">
             {% csrf_token %}               
             {{ form }}              
-            <button type="submit" id="add-experience" class="btn btn-info">Vista</button>
+            <button type="submit" name="submit" class="btn btn-info">Vista</button>
         </form>
-
-        <form class="form form-horizontal" action="/applicants/changeProfiles2">
-            <input type="button" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
-            <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
-        </form>
+        <div id="back_continue_container">
+            <form class="form form-horizontal" action="{% url 'changeProfile1' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="back" class="btn btn-primary">Aftur</button>
+                <button type="submit" name="continue" class="btn btn-primary">Áfram</button>
+            </form>
+        </div>
     </div>
 
 {% endblock %}

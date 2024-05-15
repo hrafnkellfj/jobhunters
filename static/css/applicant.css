@@ -141,10 +141,7 @@
 }
 
 /* applications listi */
-#application_container{
-    justify-content: center;
-    text-align: center;
-}
+
 #application_title_container{
     text-align: center;
     border-bottom-style: solid;

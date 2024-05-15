@@ -30,13 +30,18 @@
 }
 
 /* single_job.html */
+
+#job_grid{
+    justify-content: center;
+    align-content: center;
+}
 #single_job{
     border-style: solid;
     border-color: #5dad24;
     overflow: hidden;
     margin: 1rem;
     border-radius: 25px;
-    width: 300px;
+    width: 450px;
     height: 300px;
 
 }
@@ -48,8 +53,9 @@
     align-content: center;
 }
 #job_company_logo{
-    height: 2rem;
-    width: 2rem;
+    height: 3rem;
+    width: 3rem;
+    margin-right: 1rem;
 }
 #change-profile-box {
     margin-left: 28rem;
