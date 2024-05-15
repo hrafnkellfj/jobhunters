@@ -139,6 +139,8 @@ button{
     margin-bottom: 2rem;
 }
 #job_info_container{
+    vertical-align: auto;
+    horiz-align: center;
     float:right;
     margin-left: 5rem;
 }
