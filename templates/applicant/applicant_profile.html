@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static "/css/applicant.css"%}">
-     <p id="info">Við viljum benda á að fyrirtæki sem skoða umsóknir ykkar hafa aðgang að öllum þeim upplýsingum sem hér eru að finna.</p>
 
     <div id="applicant_photo_aboutMe_container">
         <div id="photo_email_container">
@@ -17,7 +16,7 @@
     
     <div id="info_container">
         <div id="necessary_info">
-            <h6>Tengiliðaupplýsingar</h6>
+            <h5>Tengiliðaupplýsingar</h5>
             <div id="applicant_information">
                 <div id="necessary_legend_container">
                     <p>Netfang:</p>
@@ -44,22 +43,26 @@
         </div>
     </div>
     
-   
-    <h5>Menntun</h5>
-    <div class="application_legend_info_container">
-        {% for education in education_list %}
-           {% include 'applicant/single_education.html' with education=education %}
-        {% endfor %}
-    </div>    
-    
-    <!--<div class="application_list_container"> -->
-        <h5>Reynsla</h5>
-        <div class="application_legend_info_container">
-            {% for experience in experience_list %}
-               {% include 'applicant/single_experience.html' with experience=experience %}
-            {% endfor %}
+   <div id="info_container">
+        <div id="necessary_info">
+            <h5>Menntun</h5>
+            <div id="applicant_information">
+                {% for education in education_list %}
+                   {% include 'applicant/single_education.html' with education=education %}
+                {% endfor %}
+            </div>    
         </div>
-    <!--/div> -->
+   </div>
+    <div id="info_container">
+        <div id="necessary_info">
+            <h5>Reynsla</h5>
+            <div id="applicant_information">
+                {% for experience in experience_list %}
+                   {% include 'applicant/single_experience.html' with experience=experience %}
+                {% endfor %}
+            </div>
+        </div>>
+    </div>
  
-
+ <p id="info">Við viljum benda á að fyrirtæki sem skoða umsóknir ykkar hafa aðgang að öllum þeim upplýsingum sem hér eru að finna.</p>
 {% endblock %}
