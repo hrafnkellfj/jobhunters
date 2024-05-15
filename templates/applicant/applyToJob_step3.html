@@ -49,7 +49,7 @@
             </script>
 
             <form class="form form-horizontal" action="/applicants/applications4/{{ jobid }}" >
-                <input type="button" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="history.back()">
+                <input type="button" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="location.href='{% url 'Step2' jobid %}'">
                 <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
             </form>
             
