@@ -315,6 +315,20 @@ def changeProfiles3(request):
     })
 
 
+def delete_education(request, edid):
+    """Allows an applicant to delete an application"""
+    if request.method == 'POST':
+        if 'delete_education' in request.POST:
+            education = get_object_or_404(Education, pk=edid)
+            if education:
+                education.delete()
+    return redirect('user-profile')
 
-
-# Create your views here.
+def delete_experience(request, exid):
+    """Allows an applicant to delete an application"""
+    if request.method == 'POST':
+        if 'delete_experience' in request.POST:
+            experience = get_object_or_404(Experience, pk=exid)
+            if experience:
+                experience.delete()
+    return redirect('user-profile')

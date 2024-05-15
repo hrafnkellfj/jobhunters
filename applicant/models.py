@@ -36,9 +36,10 @@ class Education(models.Model):
     start = models.DateField()
     end = models.DateField()
 
-    def delete_education(self):
+    def delete_education(self, education):
         """Allows the applicant to delete an education objects"""
-        self.delete()
+        education.delete()
+
 
 class Experience(models.Model):
     """A work related experience that belongs to an Applicant"""

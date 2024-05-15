@@ -14,4 +14,8 @@
         <p>{{ education.end }}</p>
     </div>
  </div>
- <button onclick="{{ education.delete_education }}">Eyða</button>
+
+ <form class="form form-horizontal" action="/applicants/educations/{{ education.id }}" method="POST">
+        {% csrf_token %}
+        <input type="submit" name="delete_education" value="Eyða" class="btn btn-danger">
+ </form>

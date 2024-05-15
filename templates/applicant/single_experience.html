@@ -12,3 +12,8 @@
         <p>{{ experience.end }}</p>
     </div>
 </div>
+
+ <form class="form form-horizontal" action="/applicants/experiences/{{ experience.id }}" method="POST">
+        {% csrf_token %}
+        <input type="submit" name="delete_experience" value="Eyða" class="btn btn-danger">
+ </form>
