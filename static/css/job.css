@@ -57,6 +57,28 @@
     width: 3rem;
     margin-right: 1rem;
 }
+#change-profile-box {
+    margin-left: 28rem;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#change-profile-button {
+    width: 8rem;
+    text-align: left;
+    background-color: #cdf8af;
+    border: solid thin black;
+    border-radius: 5px;
+}
+
+#change-profile-photo {
+    height: 25px;
+    width: 25px;
+    transform: translate(-1.8rem, 0.1rem);
+}
+button{
+    border-radius: 5px;
+}
 #button_status_container{
     display:flex;
 }
@@ -122,11 +144,22 @@
     margin-top:3rem;
     margin-bottom: 2rem;
 }
-.company_single_job {
+#job_info_container{
+    vertical-align: auto;
+    horiz-align: center;
+    float:right;
+    margin-left: 5rem;
+}
+#company_single_job {
     display: flex;
     width: 50%;
     margin: 1rem;
 }
 #show_applicants{
-
+    display: flex;
+}
+#no_applications{
+    border: solid thin #1b1b1b;
+    padding: 0.3rem;
+    border-radius: 5px;
 }

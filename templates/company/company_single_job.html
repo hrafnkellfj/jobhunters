@@ -3,20 +3,25 @@
 <link rel="stylesheet" href="{% static 'css/job.css' %}">
     <div id="job_title_container">
         <h3 id="job_title">{{ job.title }}</h3>
-        <div id="show_applicants"></div>
-        {% if applications > 0 %}
-            <a href="/companies/applications/{{ job.id }}">
-            <button>Skoða {{ applications }} umsækjendur</button>
-            </a>
-        {% else %}
-            <p>Engir umsækjendur</p>
-        {% endif %}
-        
-        
-        <p>Birtingardagur : {{ job.postDate }}</p>
-        <p>Umsóknarfrestur: {{ job.dueDate }}</p>
+        <div id = "job_info_container">
+            <div id="job_description">
+                <p>{{ job.description }}</p>
+            </div>
+            <div id =date_container>
+                <p>Birtingardagur : {{ job.postDate }}</p>
+                <p>Umsóknarfrestur: {{ job.dueDate }}</p>
+            </div>   
+            <div id="show_applicants">
+                {% if applications > 0 %}
+                    <a href="/companies/applications/{{ job.id }}">
+                    <button>Skoða {{ applications }} umsækjendur</button>
+                    </a>    
+                {% else %}
+                    <p id = "no_applications">Engir umsækjendur</p>
+                {% endif %}
+        </div>
+        </div>
+         
     </div>
-    <div id="job_description">
-        <p>{{ job.description }}</p>
-    </div>
+    
 </div>

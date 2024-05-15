@@ -4,17 +4,18 @@
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
     <div id="profile_title_button">
         <h1>Prófíll fyrir {{ company.title.capitalize }}</h1>
-        <div id="change_profile_button">
-        <a href="{% url 'ChangeCompanyProfile' %}">
-            <button>Breyta prófíl</button>
-        </a>
+        <div id="change-profile-box">
+            <a href="{% url 'ChangeCompanyProfile' %}">
+                <button id="change-profile-button">Breyta prófíl</button>
+            </a>
+            <img id="change-profile-photo" src="{% static 'images/penni.jpg' %}" alt="edit-profile">
         </div>
+    
     </div>
     
     
     <div id="company_detailed">
         <div id="company_title_add_desc">
-            <h2>{{ company.title.capitalize }}</h2>
             <p>{{ company.address }}</p>
             <p>{{ company.description }}</p>
         </div>

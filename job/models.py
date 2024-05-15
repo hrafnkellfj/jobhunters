@@ -16,7 +16,6 @@ class Job(models.Model):
     """The Job class contains all the variables that are needed to display a Job correctly.
     Jobs are made by Company users and can be applied to by Applicant users"""
     title = models.CharField(max_length=255)
-    jobPercentage = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     location = models.CharField(max_length=255)
     postDate = models.DateField()
@@ -24,6 +23,7 @@ class Job(models.Model):
     startDate = models.DateField()
     jobImage = models.CharField(max_length=999, blank=True,default='https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=360')
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
+    jobPercentage = models.CharField(max_length=255)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
 def apply_filters( query_dict, job_list ):

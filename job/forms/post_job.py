@@ -5,11 +5,14 @@ from job.models import Job
 
 class PostJob(ModelForm):
 
-    JOB_PERCENTAGE_CHOICES = [(i, f"{i}%") for i in range(10, 101, 10)]  # Generating choices from 10% to 100%
+    JOB_PERCENTAGE_CHOICES = [
+        ('Hlutastarf', 'Hlutastarf'),
+        ('Fullt starf', 'Fullt starf')]
 
-    jobPercentage = forms.ChoiceField(
+    jobPercentage = forms.MultipleChoiceField(
         choices=JOB_PERCENTAGE_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-control'}))
+        widget=forms.CheckboxSelectMultiple(),
+    )
 
     class Meta:
         model = Job
@@ -22,4 +25,14 @@ class PostJob(ModelForm):
             'startDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'jobImage': widgets.TextInput(attrs={'class': 'form-control'}),
             'category': widgets.Select(attrs={'class': 'form-control'})
+        }
+        labels={
+            'title': 'Titill',
+            'description': 'Lýsing',
+            'location': 'Staðsetning',
+            'dueDate': 'Umsóknarfrestur',
+            'startDate': 'Hefja störf',
+            'jobImage': 'Mynd',
+            'category': 'Starfssvið',
+            'jobPercentage': 'Starfshlutfall'
         }
