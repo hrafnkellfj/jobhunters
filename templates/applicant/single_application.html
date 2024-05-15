@@ -13,10 +13,16 @@
     <div id="status_container">
         {% if application.status == "Pending" %}
             <h5 id="pending_heading">Umsókn í vinnslu</h5>
+            <form class="form form-horizontal" action="/applicants/applications6/{{ application.job.id }}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="application_del" class="btn btn-danger">Eyða umsókn</button>
+            </form>
         {% elif application.status == "Hired" %}
             <h5 id="hired_heading">Umsókn samþykkt {{ application.resultDate }}!</h5>
         {% elif application.status == "Rejected" %}
             <h5 id="rejected_heading">Umsókn hafnað {{ application.resultDate }}</h5>
         {% endif %}
     </div>
+
+
 </div>

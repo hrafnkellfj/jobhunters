@@ -204,16 +204,27 @@ def overview(request, jobid):
         return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = get_object_or_404(Application, job=job, applicant=applicant)
-    if request.method == "POST":
-        if application:
-            application.isFinished = True
-            application.applyDate = date.today()
-            application.save()
-        return redirect("/applicants/applications/success/"+str(jobid))
-
     education_list = Education.objects.filter(applicant=applicant)
     experience_list = Experience.objects.filter(applicant=applicant)
     recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        if "accept" in request.POST:
+            if application:
+                application.isFinished = True
+                application.applyDate = date.today()
+                application.save()
+            return redirect("/applicants/applications/success/"+str(jobid))
+        if "delete" in request.POST:
+            application.delete()
+            recommendation_list.delete()
+            return redirect("/jobs")
+        if "back" in request.POST:
+            return redirect('/applicants/applications5/' + str(jobid))
+        if "application_del" in request.POST:
+            application.delete()
+            recommendation_list.delete()
+            return redirect("/applicants/applications")
+
 
     return render(request, 'applicant/overview.html', { 'applicant': applicant,
         'job': job, 'application': application, 'education_list': education_list, 'experience_list': experience_list,
@@ -249,9 +260,14 @@ def changeProfiles1(request):
     # Initialize the form with the applicant instance directly
     form = ApplicantFormAll(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
+        if 'submit' in request.POST:
+            if form.is_valid():
+                form.save()
+                return redirect('changeProfile2')
+        if 'continue' in request.POST:
             return redirect('changeProfile2')
+        if 'back' in request.POST:
+            return redirect('user-profile')
     return render(request, 'applicant/changeProfile_step1.html', {
         'form': form
     })
@@ -261,14 +277,17 @@ def changeProfiles2(request):
     """The second step in changing an applicant profile: Education"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if request.method == 'POST':
-        # Get the Applicant object using the logged-in User's ID
-        # Initialize the form with the instance if it exists, whether it's a GET or POST request
-        form = EducationForm(data=request.POST)
-        if form.is_valid():
-            education = form.save(commit=False)
-            education.applicant = applicant  # Set the applicant from the verified Applicant instance
-            education.save()
+        if 'submit' in request.POST:
+            form = EducationForm(data=request.POST)
+            if form.is_valid():
+                education = form.save(commit=False)
+                education.applicant = applicant  # Set the applicant from the verified Applicant instance
+                education.save()
+                return redirect('changeProfile2')
+        if 'continue' in request.POST:
             return redirect('changeProfile3')
+        if 'back' in request.POST:
+            return redirect('changeProfile1')
     form = EducationForm()
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
@@ -279,12 +298,17 @@ def changeProfiles3(request):
     """The third and final step in changing an applicant profile: Experiences"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if request.method == 'POST':
-        form = ExperienceForm(data=request.POST)
-        if form.is_valid():
-            experience = form.save(commit=False)
-            experience.applicant = applicant  # Set the applicant from the verified Applicant instance
-            experience.save()
+        if 'submit' in request.POST:
+            form = ExperienceForm(data=request.POST)
+            if form.is_valid():
+                experience = form.save(commit=False)
+                experience.applicant = applicant  # Set the applicant from the verified Applicant instance
+                experience.save()
+                return redirect('changeProfile3')
+        if 'continue' in request.POST:
             return redirect('user-profile')
+        if 'back' in request.POST:
+            return redirect('changeProfile2')
     form = ExperienceForm()
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form

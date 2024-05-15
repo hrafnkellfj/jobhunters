@@ -101,12 +101,12 @@
         <div id="overview_accept">
             <form class="form form-horizontal" action="/applicants/applications6/{{ job.id }}" method="POST">
                 {%  csrf_token %}
-                <input type="button" name="back" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
-                <button type="submit" name="accept" value="submit" class="btn btn-success">Staðfesta umsókn</button>
+                 <button type="submit" name="back" value="Aftur" class="btn btn-primary">Aftur</button>
+                <button type="submit" name="accept" value="Sækja um" class="btn btn-success">Staðfesta umsókn</button>
             </form>
         </div>
         <div id="overview_cancel">
-            <form class="form form-horizontal" action="/applicants/applications/delete/{{ job.id }}" method="POST">
+            <form class="form form-horizontal" action="/applicants/applications6/{{ job.id }}" method="POST">
                 {%  csrf_token %}
                 <button type="submit" name="delete" value="cancel" class="btn btn-danger">Hætta við</button>
             </form>

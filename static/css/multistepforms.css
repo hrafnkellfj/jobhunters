@@ -18,3 +18,7 @@
 #tabs .tab.active {
     background-color: #cdf8af; /* Highlight the active tab with a different color */
 }
+
+#back_continue_container{
+    margin-top: 1rem;
+}
