@@ -195,5 +195,15 @@
     text-align: center;
     color: gray;
 }
+
+#application-coverletter p {
+    word-wrap: break-word; /* Ensures words break to prevent overflow */
+}
+
+#application-coverletter {
+    border-bottom: solid #5dad24;
+}
+
+
 /* profile image */
 
