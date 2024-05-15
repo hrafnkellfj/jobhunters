@@ -3,9 +3,8 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <div>
-        <h2>JobHunters</h2>
-        <p>Nýskráning</p>
-        <h3>Fylltu inn upplýsingar um þig</h3>
+        <h2>Nýskráning</h2>
+        <h4>Fylltu inn upplýsingar um þig</h4>
         <form class="form form-horizontal"  method="post">
             {% csrf_token %}
             {% for field in form %}

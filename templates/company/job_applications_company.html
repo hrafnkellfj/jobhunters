@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
-    
-<h3>Starfsauglýsingar ykkar:</h3>
-    <a href="{% url 'post-job' %}">
+
+<a href="{% url 'post-job' %}">
         <button>Búa til nýtt starf</button>
     </a>
+<h3>Starfsauglýsingar ykkar:</h3>
+
     
     <div class="company_single_jobs">
             {% for key, value in job_dict.items %}
