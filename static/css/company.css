@@ -44,7 +44,7 @@
 #company_logo_cover{
     display:flex;
     margin:2rem;
-    justify-content: flex-end;
+    justify-content: left;
 }
 #company_detailed_cover{
     height: 20rem;
