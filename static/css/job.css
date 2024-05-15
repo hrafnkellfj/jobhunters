@@ -43,6 +43,7 @@
     border-color: #5dad24;
     overflow: hidden;
     margin: 1rem;
+    padding: 1rem;
     border-radius: 25px;
     width: 450px;
     height: 300px;
@@ -61,7 +62,7 @@
     margin-right: 1rem;
 }
 #change-profile-box {
-    margin-left: 28rem;
+    margin-left: 29rem;
     display: flex;
     flex-wrap: nowrap;
 }
@@ -137,6 +138,9 @@ button{
 #status_rejected{
     color:red;
 }
+#job_title{
+    width:200px;
+}
 
 #job_title_container{
     border-top: solid #5dad24;
@@ -152,11 +156,12 @@ button{
     horiz-align: center;
     float:right;
     margin-left: 5rem;
+    margin-bottom: 5rem;
 }
 #company_single_job {
     display: flex;
     width: 50%;
-    margin: 1rem;
+    margin: 1rem;   
 }
 #show_applicants{
     display: flex;

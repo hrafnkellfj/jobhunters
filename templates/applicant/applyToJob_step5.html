@@ -31,13 +31,21 @@
             <div class="applicant_list">
                 <h5>Nú þegar skráð:</h5>
                 {% for recommendation in recommendation_list  %}
+                    <div class="recommendation_list_container">
                         <div class="application_list_container" >
                             <p>Nafn: {{ recommendation.name }}</p>
-                            <p>Netfang: {{ recommendation.email }}</p>
-                            <p>Sími: {{ recommendation.phone }}</p>
+                            <p>Netfang: {% if recommendation.email %} {{ recommendation.email }} {% else %} &nbsp {% endif %}</p>
+                            <p>Sími: {% if recommendation.email %} {{ recommendation.phone }}{% else %} &nbsp {% endif %}</p>
                             <p>Hlutverk: {{ recommendation.role }}</p>
                             <p>Má hafa samband:{% if recommendation.allowedToContact %}Já{% else %}Nei{% endif %}</p>
                         </div>
+                        <div class="recommendation_delete_button">
+                            <form class="form form-horizontal" action="/applicants/applications5/{{ jobid }}/recommendations/{{ recommendation.id }}" method="POST">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit" name="delete_recommendation">Eyða</button>
+                            </form>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
 

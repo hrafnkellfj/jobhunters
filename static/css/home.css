@@ -1,5 +1,6 @@
 body {
     background-color: #cdf8af;
+    overflow-x: hidden;
 }
 
 .container-home-logo {

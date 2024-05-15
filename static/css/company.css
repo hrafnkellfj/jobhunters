@@ -1,4 +1,5 @@
 #company-logo{
+    position: fixed;
     width: 25%;
     height: 60%;
 }
@@ -9,26 +10,41 @@
 #profile_title_button{
     display:flex;
 }
-#change_profile_button{
-    margin-left: 2rem;
+#change-profile-box {
+    margin-left: 40rem;
+    display: flex;
+    flex-wrap: nowrap;
 }
-#change_profile_button_button{
+
+#change-profile-button {
     width: 8rem;
     text-align: left;
     background-color: #cdf8af;
     border: solid thin black;
     border-radius: 5px;
 }
+
+#change-profile-photo {
+    height: 25px;
+    width: 25px;
+    transform: translate(-1.8rem, 0.1rem);
+}
 /* Company detail síða   */
 #company_detailed{
-    display:flex;
+    display: flex;
+    justify-content: space-between; /* This will push children to each end */
+    align-items: flex-start; /* Align items at the start of the container */
+    width: 100%;
 }
 #company_title_add_desc{
-    margin-left: 3rem;
+    flex: 1; /* Takes as much space as available */
+    margin-left: 2rem;
+    word-break: break-all;
 }
 #company_logo_cover{
     display:flex;
-    margin:1rem;
+    margin:2rem;
+    justify-content: left;
 }
 #company_detailed_cover{
     height: 20rem;
@@ -41,6 +57,9 @@
 }
 #company_address{
     bottom: 0;
+}
+#company_new_job_button{
+    border-radius: 5px;
 }
 #single_company{
     border-top: solid #5dad24;
@@ -95,6 +114,21 @@
     padding: 1rem;
     width: 50%
 }
+#single_application_button_status_container{
+    display: flex;
+    justify-content: space-between;
+
+}
+#status_green{
+    color: green;
+}
+#status_red{
+    color: red;
+}
+#company_form_container{
+    margin-top: 2rem;
+}
+
 
 /* Applicant details */
 #application_status_container{
@@ -153,6 +187,36 @@
     margin-right: 1rem;
 
 }
-#change-profile-button {
-
+#job_title_container{
+    border-top: solid #5dad24;
+    padding-top: 2rem;
+    height:10rem;
+    width: 70rem;
+    display:flex;
+    margin-top:3rem;
+    margin-bottom: 2rem;
+}
+#job_info_container{
+    vertical-align: auto;
+    horiz-align: center;
+    float:right;
+    margin-left: 5rem;
+    margin-bottom: 5rem;
+}
+#company_single_job {
+    display: flex;
+    width: 50%;
+    margin: 1rem;
+}
+#show_applicants{
+    display: flex;
+}
+#no_applications{
+    border: solid thin #1b1b1b;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+#show_applications{
+    border-radius: 5px;
+    margin-right: 10rem;
 }
