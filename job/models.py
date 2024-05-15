@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from applicant.models import Applicant
 from company.models import Company
-from datetime import date
+
 
 # Create your models here.
 class JobCategory(models.Model):
@@ -36,15 +36,11 @@ def apply_filters( query_dict, job_list ):
     if query_dict["category"]:
         job_list = job_list.filter(category=query_dict["category"])
     if query_dict["company"]:
-        company = get_object_or_404(Company, title__icontains=query_dict["company"])
-    if company:
-        job_list = job_list.filter(company_id=company.id)
-    if query_dict["applicant"] and query_dict['applied']:
-        applicant = query_dict["applicant"]
-        applications = Application.objects.filter(applicant=applicant)
-        job_filter_list = [application.job.id for application in applications]
-        job_list = job_list.filter(pk__in=job_filter_list)
-
+        companies = Company.objects.filter(title__icontains=query_dict["company"])
+        job_list = job_list.filter(company__in=companies)
+    if query_dict["applied"] and query_dict["applications"]:
+        applications = [application.job.id for application in query_dict["applications"] if application.isFinished]
+        job_list = [job for job in job_list if job.id in applications]
     return job_list
 
 class Application(models.Model):
@@ -68,21 +64,7 @@ class Recommendation(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, blank=True, null=True)
     phone = models.IntegerField(blank=True, null=True)
-    allowedToContact = models.BooleanField(blank=True, default=False)
+    allowedToContact = models.BooleanField(blank=True, null=True, default=False)
     role = models.CharField(max_length=100)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-
-class Experience(models.Model):
-    """A work related experience that belongs to an Applicant"""
-    company = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
-    start = models.DateField()
-    end = models.DateField(blank=True, null=True)
-    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-
-
-
-
-

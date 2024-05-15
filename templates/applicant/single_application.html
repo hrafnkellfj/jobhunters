@@ -1,12 +1,11 @@
-<div id="single_application">
+<div id="single_application" class="col-6 col-md-6 col-lg-4">
 
     <div id="logo_title_container">
         <img id="application_company_logo" src="{{ application.job.company.logo }}"  alt="Company logo"/>
-        <h2 id="company_title">{{ application.job.company.title }}</h2>
+        <h4 id="company_title">{{ application.job.company.title }}</h4>
     </div>
 
-    <h3>{{ application.job.title }}</h3>
-    <p>{{ job.description }}</p>
+    <h5>{{ application.job.title }}</h5>
     <p>Sótt um: {{ application.applyDate }}</p>
     <p>Umsóknarfrestur: {{ application.job.dueDate }}</p>
 

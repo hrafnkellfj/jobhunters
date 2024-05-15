@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from applicant.forms.applicantform import ApplicantFormPrimary, ApplicantFormSecondary
 from user.forms.signup_form import CustomUserCreationForm
 from user.forms.company_signup import CustomUserCreationForm2
 from user.models import applicantProfile, companyProfile
 from job.models import Job, Application
-from applicant.models import Applicant
+from applicant.models import Applicant, Education, Experience
 from company.models import Company
 
 def login(request):
@@ -44,10 +43,12 @@ def profile(request):
     try:
         a_user = applicantProfile.objects.get(user=request.user)
         applicant = a_user.applicant
+        experience_list = Experience.objects.filter(applicant=applicant)
+        education_list = Education.objects.filter(applicant=applicant)
         return render(request, 'applicant/applicant_profile.html', {
-            "applicant": applicant
+            "applicant": applicant, 'education_list': education_list, 'experience_list':experience_list
         })
-    except applicantProfile.DoesNotExist:
+    except applicantProfile.DoesNotExist or TypeError:
         pass  # Ignore and try for company profile
 
     try:
@@ -60,6 +61,6 @@ def profile(request):
         return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "job_dict": job_dict
         })
-    except companyProfile.DoesNotExist:
+    except companyProfile.DoesNotExist or TypeError:
         raise Http404("No profile available")
         #return server error, því ef hægt er að búa til notanda sem ekki er tengdur við applicant og company þá er það okkur að kenna

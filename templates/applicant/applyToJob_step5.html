@@ -21,7 +21,7 @@
                         <p>Netfang: {{ recommendation.email }}</p>
                         <p>Sími: {{ recommendation.phone }}</p>
                         <p>Hlutverk: {{ recommendation.role }}</p>
-                        <p>Má hafa samband: {{ recommendation.allowedToContact }}</p>
+                        <p>Má hafa samband:{% if recommendation.allowedToContact %}Já{% else %}Nei{% endif %}</p>
                     </div>
             {% endfor %}
         </div>

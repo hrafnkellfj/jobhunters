@@ -5,17 +5,14 @@ from applicant.forms.applicationform import ApplicationForm
 from applicant.forms.educationform import EducationForm
 from applicant.forms.experienceform import ExperienceForm
 from applicant.forms.recommendationform import RecommendationForm
-from applicant.models import Applicant, ApplicantEducation
-from job.models import Experience, Recommendation, Application, Job
-from applicant.forms.changeprofile_step1_form import StepOneChangeProfile
-from applicant.forms.changeprofile_step2_form import StepTwoChangeProfile
-from applicant.forms.changeprofile_step3_form import StepThreeChangeProfile
+from applicant.models import Education, Experience
+from job.models import Recommendation, Application, Job
 from user.models import applicantProfile
 from datetime import date
 
 
 def index(request):
-    """"""
+    """The index class for applicants, used as a redirect for the user-profile"""
     return redirect('user-profile')
 
 
@@ -35,7 +32,7 @@ def applications(request):
 
 @login_required
 def application1(request, jobid):
-    """ """
+    """The first step in the create application process: Contact information"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -61,7 +58,7 @@ def application1(request, jobid):
 
 @login_required
 def application2(request, jobid):
-    """"""
+    """The second step in the application process: Writing the cover letter"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -87,11 +84,11 @@ def application2(request, jobid):
 
 @login_required
 def application3(request, jobid):
-    """"""
+    """The third step in the application process: Applicant education history"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
-    education_list = ApplicantEducation.objects.filter(applicant=applicant)
+    education_list = Education.objects.filter(applicant=applicant)
 
     if request.method == 'POST':
         form = EducationForm(data=request.POST)
@@ -102,7 +99,7 @@ def application3(request, jobid):
             start = form.cleaned_data["start"]
             end = form.cleaned_data["end"]
             if school and degree and fieldofstudy and start and end:
-                new_education = ApplicantEducation()
+                new_education = Education()
                 new_education.school = school
                 new_education.degree = degree
                 new_education.fieldOfStudy = fieldofstudy
@@ -125,11 +122,11 @@ def application3(request, jobid):
 
 @login_required
 def application4(request, jobid):
+    """The fourth step in the application process: Applicant job experiences"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
-    job = get_object_or_404(Job, pk=jobid)
-    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    experience_list = Experience.objects.filter(applicant=applicant)
 
     if request.method == 'POST':
         form = ExperienceForm(data=request.POST)
@@ -144,7 +141,6 @@ def application4(request, jobid):
                new_experience.role = role
                new_experience.start = start
                new_experience.end = end
-               new_experience.job = job
                new_experience.applicant = applicant
                new_experience.save()
                return redirect('/applicants/applications4/' + str(jobid))
@@ -161,6 +157,7 @@ def application4(request, jobid):
 
 @login_required
 def application5(request, jobid):
+    """The fifth step in the application process: Applicant recommendations"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -175,7 +172,7 @@ def application5(request, jobid):
             phone = form.cleaned_data["phone"]
             role = form.cleaned_data["role"]
             allow_contact = form.cleaned_data["allowedToContact"]
-            if name and allow_contact:
+            if name:
                 new_recommendation = Recommendation()
                 new_recommendation.name = name
                 new_recommendation.allowedToContact = allow_contact
@@ -189,26 +186,19 @@ def application5(request, jobid):
                     new_recommendation.role = role
                 new_recommendation.save()
                 return redirect('/applicants/applications5/' + str(jobid))
-            else:
-                request.method = ""
-                #error = vantar eitthvað
-                return render(request, 'applicant/applyToJob_step5.html', {
-                    'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
-                })
-    else:
-        form = RecommendationForm()
+
+    form = RecommendationForm()
     return render(request, 'applicant/applyToJob_step5.html', {
         'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
     })
 
 @login_required
 def overview(request, jobid):
-    """Allows the applicant to go over the application's status and if he's happy he
-    can submit the application
+    """The final step in the application process. Allows the applicant to go over the application's status and if he's
+     happy he can submit the application, if not he can delete the application and all objects related  to it.
 
     The application is already submitted, instead the isFinished field is set to True
     if applicant cancels, delete all data related to application"""
-
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
@@ -221,8 +211,8 @@ def overview(request, jobid):
             application.save()
         return redirect("/applicants/applications/success/"+str(jobid))
 
-    education_list = ApplicantEducation.objects.filter(applicant=applicant)
-    experience_list = Experience.objects.filter(applicant=applicant, job=job)
+    education_list = Education.objects.filter(applicant=applicant)
+    experience_list = Experience.objects.filter(applicant=applicant)
     recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
 
     return render(request, 'applicant/overview.html', { 'applicant': applicant,
@@ -232,27 +222,29 @@ def overview(request, jobid):
 
 @login_required
 def application_successful(request, jobid):
-    """"""
+    """A success screen if a job application is successful"""
     job_title = get_object_or_404(Job, pk=jobid).title
     return render(request, 'applicant/application_successful.html', {'title': job_title})
 
 @login_required
 def application_delete(request, jobid):
-    """"""
+    """This view deletes the application and all related objects
+
+    Put in its own view so we can call it from other places than just the overview"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
         return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = get_object_or_404(Application, job=job, applicant=applicant)
-    experience_list = Experience.objects.filter(applicant=applicant, job=job)
     recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
     if request.method == "POST":
         application.delete()
-        experience_list.delete()
         recommendation_list.delete()
     return redirect("home-index")
 
+@login_required
 def changeProfiles1(request):
+    """The first step in changing an applicant profile: Contact information"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     # Initialize the form with the applicant instance directly
     form = ApplicantFormAll(instance=applicant, data=request.POST if request.method == 'POST' else None)
@@ -264,35 +256,36 @@ def changeProfiles1(request):
         'form': form
     })
 
-
+@login_required
 def changeProfiles2(request):
+    """The second step in changing an applicant profile: Education"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
-    educationobj = ApplicantEducation.objects.filter(applicant=applicant).first()
-    form = EducationForm(instance=educationobj, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
         # Get the Applicant object using the logged-in User's ID
         # Initialize the form with the instance if it exists, whether it's a GET or POST request
+        form = EducationForm(data=request.POST)
         if form.is_valid():
             education = form.save(commit=False)
             education.applicant = applicant  # Set the applicant from the verified Applicant instance
             education.save()
             return redirect('changeProfile3')
+    form = EducationForm()
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
     })
 
-
+@login_required
 def changeProfiles3(request):
+    """The third and final step in changing an applicant profile: Experiences"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
-    experienceobject = Experience.objects.filter(applicant=applicant).first()
-    form = StepThreeChangeProfile(instance=experienceobject, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        form = StepThreeChangeProfile(data=request.POST)
+        form = ExperienceForm(data=request.POST)
         if form.is_valid():
             experience = form.save(commit=False)
             experience.applicant = applicant  # Set the applicant from the verified Applicant instance
             experience.save()
             return redirect('user-profile')
+    form = ExperienceForm()
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })

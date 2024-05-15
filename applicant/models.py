@@ -27,11 +27,19 @@ class Applicant(models.Model):
                              default='https://cdn-icons-png.freepik.com/256/12259/12259373.png?ga=GA1.1.1834476485.1715253075&semt=ais_hybrid')
 
 
-class ApplicantEducation(models.Model):
+class Education(models.Model):
     """This class holds information about the education of the applicant."""
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
-    school = models.CharField(max_length=255, blank=True)
-    degree = models.CharField(max_length=255, blank=True)
-    fieldOfStudy = models.CharField(max_length=255, blank=True)
-    start = models.DateField(blank=True, null=True)
+    school = models.CharField(max_length=255)
+    degree = models.CharField(max_length=255)
+    fieldOfStudy = models.CharField(max_length=255)
+    start = models.DateField()
+    end = models.DateField()
+
+class Experience(models.Model):
+    """A work related experience that belongs to an Applicant"""
+    company = models.CharField(max_length=255)
+    role = models.CharField(max_length=255)
+    start = models.DateField()
     end = models.DateField(blank=True, null=True)
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
