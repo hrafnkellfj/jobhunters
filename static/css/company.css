@@ -12,7 +12,13 @@
 #change_profile_button{
     margin-left: 2rem;
 }
-
+#change_profile_button_button{
+    width: 8rem;
+    text-align: left;
+    background-color: #cdf8af;
+    border: solid thin black;
+    border-radius: 5px;
+}
 /* Company detail síða   */
 #company_detailed{
     display:flex;
@@ -22,6 +28,7 @@
 }
 #company_logo_cover{
     display:flex;
+    margin:1rem;
 }
 #company_detailed_cover{
     height: 20rem;
@@ -66,11 +73,11 @@
     max-height:8rem !important;
     float:left !important;
     white-space: wrap;
-    overflow-y: hidden; /* Hide vertical overflow */
-    overflow-x: auto; /* Allow horizontal scrolling */
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
-.company_single_job{
+#company_single_job{
     border-style: solid;
     border-color: #5dad24;
     display:flex;
@@ -144,4 +151,8 @@
     font-weight: bold;
     text-align:right;
     margin-right: 1rem;
+
+}
+#change-profile-button {
+
 }
