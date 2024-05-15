@@ -55,8 +55,6 @@ def profile(request):
         company = request.user.companyprofile.company
         job_list = Job.objects.filter(company=company)
         job_dict = {job:len((Application.objects.filter(job=job))) for job in job_list }
-        if request.method == "POST":
-            pass  # your POST handling logic for company
         return render(request, 'company/company_profile.html', {
             "form": "", "company": company, "job_dict": job_dict
         })

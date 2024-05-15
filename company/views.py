@@ -63,7 +63,7 @@ def application_details(request, jobid, appid):
             application.status = "Hired"
             application.resultDate = date.today()
             application.save()
-
+        return redirect ("/companies/applications/"+str(jobid))
     return render(request, 'company/application_details.html', {
         'application': application, 'applicant': applicant, 'recommendations':recommendations, 'experiences': experiences,
     })
