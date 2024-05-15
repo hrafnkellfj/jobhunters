@@ -15,7 +15,6 @@ class Migration(migrations.Migration):
 
             field=models.BooleanField(default=False),
 
-            field=models.BooleanField(blank=True, default=False),
 
         ),
     ]

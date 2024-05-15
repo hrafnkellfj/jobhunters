@@ -3,9 +3,8 @@
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/forms.css' %}">
     <div>
-        <h2>JobHunters</h2>
-        <p>Innskráning</p>
-        <h3>Skráðu þig inn</h3>
+        <h2>Innskráning</h2>
+        <h4>Skráðu þig inn</h4>
         <form method="post" class="form form-horizontal">
             {% csrf_token %}
              {{ form.non_field_errors }}
@@ -24,5 +23,7 @@
     </div>
             <input type="submit" class="btn btn-primary" value="Skrá inn">
         </form>
+    </div>
+    <div id = "user_direct_to_signup">Ekki með reikning? Nýskrá <a href='signup'>Umsækjendur</a> / <a href='company_signup'>Fyrirtæki</a>
     </div>
 {% endblock %}
