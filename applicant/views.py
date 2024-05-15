@@ -172,7 +172,7 @@ def application5(request, jobid):
             phone = form.cleaned_data["phone"]
             role = form.cleaned_data["role"]
             allow_contact = form.cleaned_data["allowedToContact"]
-            if name and allow_contact:
+            if name:
                 new_recommendation = Recommendation()
                 new_recommendation.name = name
                 new_recommendation.allowedToContact = allow_contact
@@ -186,14 +186,8 @@ def application5(request, jobid):
                     new_recommendation.role = role
                 new_recommendation.save()
                 return redirect('/applicants/applications5/' + str(jobid))
-            else:
-                request.method = ""
-                #error = vantar eitthvað
-                return render(request, 'applicant/applyToJob_step5.html', {
-                    'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
-                })
-    else:
-        form = RecommendationForm()
+
+    form = RecommendationForm()
     return render(request, 'applicant/applyToJob_step5.html', {
         'form': form, 'recommendation_list': recommendation_list, 'jobid': jobid
     })
@@ -266,7 +260,6 @@ def changeProfiles1(request):
 def changeProfiles2(request):
     """The second step in changing an applicant profile: Education"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
-    education_list = Education.objects.filter(applicant=applicant)
     if request.method == 'POST':
         # Get the Applicant object using the logged-in User's ID
         # Initialize the form with the instance if it exists, whether it's a GET or POST request
@@ -278,14 +271,13 @@ def changeProfiles2(request):
             return redirect('changeProfile3')
     form = EducationForm()
     return render(request, 'applicant/changeProfile_step2.html', {
-        'form': form, 'education_list': education_list
+        'form': form
     })
 
 @login_required
 def changeProfiles3(request):
     """The third and final step in changing an applicant profile: Experiences"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
-    experience_list = Experience.objects.filter(applicant=applicant)
     if request.method == 'POST':
         form = ExperienceForm(data=request.POST)
         if form.is_valid():
@@ -295,7 +287,7 @@ def changeProfiles3(request):
             return redirect('user-profile')
     form = ExperienceForm()
     return render(request, 'applicant/changeProfile_step3.html', {
-        'form': form, 'experience_list': experience_list
+        'form': form
     })
 
 

@@ -60,40 +60,40 @@
         </div>
 
         <div class="application_list_container">
-                    <h5>Meðmæli</h5>
-                    <div class="application_legend_info_container">
-                        {% for recommendation in recommendation_list %}
-                            <div class="application_legend_info_container_many">
-                                <div class="application_legend">
-                                    <p>Nafn:</p>
-                                    <p>Hlutverk:</p>
-                                    <p>Má hafa samband:</p>
-                                    {% if recommendation.email %}
-                                        <p>Netfang:</p>
-                                    {% endif %}
-                                    {% if recommendation.phone %}
-                                        <p>Sími:</p>
-                                    {% endif %}
-                                </div>
-                                <div class="application_information">
-                                    <p>{{ recommendation.name }}</p>
-                                    <p>{{ recommendation.role }}</p>
-                                    {% if recommendation.allowedToContact %}
-                                        <p>Já</p>
-                                    {% else %}
-                                        <p>Nei</p>
-                                    {% endif %}
-                                    {% if recommendation.email %}
-                                        <p>{{ recommendation.email }}</p>
-                                    {% endif %}
-                                    {% if recommendation.phone %}
-                                        <p>{{ recommendation.phone}}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
+            <h5>Meðmæli</h5>
+            <div class="application_legend_info_container">
+                {% for recommendation in recommendation_list %}
+                    <div class="application_legend_info_container_many">
+                        <div class="application_legend">
+                            <p>Nafn:</p>
+                            <p>Hlutverk:</p>
+                            <p>Má hafa samband:</p>
+                            {% if recommendation.email %}
+                                <p>Netfang:</p>
+                            {% endif %}
+                            {% if recommendation.phone %}
+                                <p>Sími:</p>
+                            {% endif %}
+                        </div>
+                        <div class="application_information">
+                            <p>{{ recommendation.name }}</p>
+                            <p>{{ recommendation.role }}</p>
+                            {% if recommendation.allowedToContact %}
+                                <p>Já</p>
+                            {% else %}
+                                <p>Nei</p>
+                            {% endif %}
+                            {% if recommendation.email %}
+                                <p>{{ recommendation.email }}</p>
+                            {% endif %}
+                            {% if recommendation.phone %}
+                                <p>{{ recommendation.phone}}</p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+            </div>
+        </div>
 
     </div>
 
