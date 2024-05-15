@@ -156,7 +156,7 @@ def application4(request, jobid):
     })
 
 @login_required
-def application5(request, jobid):
+def application5(request, jobid, recid=False):
     """The fifth step in the application process: Applicant recommendations"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:
@@ -193,6 +193,15 @@ def application5(request, jobid):
     })
 
 @login_required
+def delete_recommendation(request, jobid, rid):
+    """Allows an applicant to delete a recommendation during the application process"""
+    if request.method == "POST":
+        if "delete_recommendation" in request.POST:
+            recommendation = get_object_or_404(Recommendation, pk=rid)
+            recommendation.delete()
+
+    return redirect("/applicants/applications5/" + str(jobid))
+@login_required
 def overview(request, jobid):
     """The final step in the application process. Allows the applicant to go over the application's status and if he's
      happy he can submit the application, if not he can delete the application and all objects related  to it.
@@ -204,16 +213,27 @@ def overview(request, jobid):
         return redirect('home-index')
     job = get_object_or_404(Job, pk=jobid)
     application = get_object_or_404(Application, job=job, applicant=applicant)
-    if request.method == "POST":
-        if application:
-            application.isFinished = True
-            application.applyDate = date.today()
-            application.save()
-        return redirect("/applicants/applications/success/"+str(jobid))
-
     education_list = Education.objects.filter(applicant=applicant)
     experience_list = Experience.objects.filter(applicant=applicant)
     recommendation_list = Recommendation.objects.filter(applicant=applicant, job=job)
+    if request.method == "POST":
+        if "accept" in request.POST:
+            if application:
+                application.isFinished = True
+                application.applyDate = date.today()
+                application.save()
+            return redirect("/applicants/applications/success/"+str(jobid))
+        if "delete" in request.POST:
+            application.delete()
+            recommendation_list.delete()
+            return redirect("/jobs")
+        if "back" in request.POST:
+            return redirect('/applicants/applications5/' + str(jobid))
+        if "application_del" in request.POST:
+            application.delete()
+            recommendation_list.delete()
+            return redirect("/applicants/applications")
+
 
     return render(request, 'applicant/overview.html', { 'applicant': applicant,
         'job': job, 'application': application, 'education_list': education_list, 'experience_list': experience_list,
@@ -249,9 +269,14 @@ def changeProfiles1(request):
     # Initialize the form with the applicant instance directly
     form = ApplicantFormAll(instance=applicant, data=request.POST if request.method == 'POST' else None)
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
+        if 'submit' in request.POST:
+            if form.is_valid():
+                form.save()
+                return redirect('changeProfile2')
+        if 'continue' in request.POST:
             return redirect('changeProfile2')
+        if 'back' in request.POST:
+            return redirect('user-profile')
     return render(request, 'applicant/changeProfile_step1.html', {
         'form': form
     })
@@ -261,14 +286,17 @@ def changeProfiles2(request):
     """The second step in changing an applicant profile: Education"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if request.method == 'POST':
-        # Get the Applicant object using the logged-in User's ID
-        # Initialize the form with the instance if it exists, whether it's a GET or POST request
-        form = EducationForm(data=request.POST)
-        if form.is_valid():
-            education = form.save(commit=False)
-            education.applicant = applicant  # Set the applicant from the verified Applicant instance
-            education.save()
+        if 'submit' in request.POST:
+            form = EducationForm(data=request.POST)
+            if form.is_valid():
+                education = form.save(commit=False)
+                education.applicant = applicant  # Set the applicant from the verified Applicant instance
+                education.save()
+                return redirect('changeProfile2')
+        if 'continue' in request.POST:
             return redirect('changeProfile3')
+        if 'back' in request.POST:
+            return redirect('changeProfile1')
     form = EducationForm()
     return render(request, 'applicant/changeProfile_step2.html', {
         'form': form
@@ -279,18 +307,37 @@ def changeProfiles3(request):
     """The third and final step in changing an applicant profile: Experiences"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if request.method == 'POST':
-        form = ExperienceForm(data=request.POST)
-        if form.is_valid():
-            experience = form.save(commit=False)
-            experience.applicant = applicant  # Set the applicant from the verified Applicant instance
-            experience.save()
+        if 'submit' in request.POST:
+            form = ExperienceForm(data=request.POST)
+            if form.is_valid():
+                experience = form.save(commit=False)
+                experience.applicant = applicant  # Set the applicant from the verified Applicant instance
+                experience.save()
+                return redirect('changeProfile3')
+        if 'continue' in request.POST:
             return redirect('user-profile')
+        if 'back' in request.POST:
+            return redirect('changeProfile2')
     form = ExperienceForm()
     return render(request, 'applicant/changeProfile_step3.html', {
         'form': form
     })
 
 
+def delete_education(request, edid):
+    """Allows an applicant to delete an application"""
+    if request.method == 'POST':
+        if 'delete_education' in request.POST:
+            education = get_object_or_404(Education, pk=edid)
+            if education:
+                education.delete()
+    return redirect('user-profile')
 
-
-# Create your views here.
+def delete_experience(request, exid):
+    """Allows an applicant to delete an application"""
+    if request.method == 'POST':
+        if 'delete_experience' in request.POST:
+            experience = get_object_or_404(Experience, pk=exid)
+            if experience:
+                experience.delete()
+    return redirect('user-profile')

@@ -36,6 +36,8 @@ class Education(models.Model):
     start = models.DateField()
     end = models.DateField()
 
+
+
 class Experience(models.Model):
     """A work related experience that belongs to an Applicant"""
     company = models.CharField(max_length=255)

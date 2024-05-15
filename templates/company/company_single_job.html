@@ -19,6 +19,10 @@
                 {% else %}
                     <p id = "no_applications">Engir umsækjendur</p>
                 {% endif %}
+                <form class="form form-horizontal" action="/companies/applications/{{ job.id }}" method="POST">
+                {%  csrf_token %}
+                <button type="submit" name="job_delete" value="cancel" class="btn btn-danger">Eyða starfi</button>
+            </form>
         </div>
         </div>
          
