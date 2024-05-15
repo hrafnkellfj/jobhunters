@@ -10,5 +10,11 @@ class ChangeCompanyProfile(ModelForm):
             'title': widgets.TextInput(attrs={'class': 'form-control'}),
             'logo': widgets.TextInput(attrs={'class': 'form-control'}),
             'coverImage': widgets.TextInput(attrs={'class': 'form-control'}),
-            'description': widgets.TextInput(attrs={'class': 'form-control'})
+            'description': widgets.Textarea(attrs={'class': 'form-control'})
+        }
+        labels = {
+            'title': 'Titill',
+            'logo': 'Merki',
+            'coverImage': 'Mynd fyrir bakgrunn',
+            'description': 'Lýsing'
         }

@@ -96,6 +96,11 @@
     width: 50%
 }
 
+#company_form_container{
+    margin-top: 2rem;
+}
+
+
 /* Applicant details */
 #application_status_container{
     border-style: solid;
