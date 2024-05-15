@@ -11,7 +11,7 @@
     display:flex;
 }
 #change-profile-box {
-    margin-left: 45rem;
+    margin-left: 40rem;
     display: flex;
     flex-wrap: nowrap;
 }
@@ -57,6 +57,9 @@
 }
 #company_address{
     bottom: 0;
+}
+#company_new_job_button{
+    border-radius: 5px;
 }
 #single_company{
     border-top: solid #5dad24;
@@ -183,4 +186,37 @@
     text-align:right;
     margin-right: 1rem;
 
+}
+#job_title_container{
+    border-top: solid #5dad24;
+    padding-top: 2rem;
+    height:10rem;
+    width: 70rem;
+    display:flex;
+    margin-top:3rem;
+    margin-bottom: 2rem;
+}
+#job_info_container{
+    vertical-align: auto;
+    horiz-align: center;
+    float:right;
+    margin-left: 5rem;
+    margin-bottom: 5rem;
+}
+#company_single_job {
+    display: flex;
+    width: 50%;
+    margin: 1rem;
+}
+#show_applicants{
+    display: flex;
+}
+#no_applications{
+    border: solid thin #1b1b1b;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+#show_applications{
+    border-radius: 5px;
+    margin-right: 10rem;
 }
