@@ -135,7 +135,7 @@ def application4(request, jobid):
             role = form.cleaned_data["role"]
             start = form.cleaned_data["start"]
             end = form.cleaned_data["end"]
-            if company and role and start and end:
+            if company and role and start:
                new_experience = Experience()
                new_experience.company = company
                new_experience.role = role
@@ -156,7 +156,7 @@ def application4(request, jobid):
     })
 
 @login_required
-def application5(request, jobid, recid=False):
+def application5(request, jobid):
     """The fifth step in the application process: Applicant recommendations"""
     applicant = get_object_or_404(applicantProfile, user=request.user).applicant
     if not applicant:

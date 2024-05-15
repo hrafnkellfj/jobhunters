@@ -124,6 +124,17 @@
     line-height: 0.5;
     border-top: solid #5dad24;
     margin-bottom: 0;
+    width: 400px;
+}
+.recommendation_list_container{
+    display:flex;
+
+}
+.recommendation_delete_button{
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    right: 100px;
 }
 .application_legend{
     font-weight: bold;
