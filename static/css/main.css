@@ -20,13 +20,15 @@
 .nav-item2 {
     padding-left: 10px;
 }
-.bg-body-tertiary{
+.bg-body-tertiary {
     background-color: #cdf8af !important;
     border-top: thin solid #1b1b1b !important;
     border-bottom: thin solid #1b1b1b !important;
     margin-bottom: 3%;
     font-weight: bold;
+    /*background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);*/
 }
+
 .tab {
     padding: 10px 20px;
     margin: 5px;
