@@ -18,14 +18,27 @@
 
     <h3 class="application_form_heading">Starfsferill</h3>
     <div class="application_list_form_container">
+        <div class="applicant_list">
+            <h5>Nú þegar skráð:</h5>
+            {% for experience in experience_list  %}
+                    <div class="application_list_container" >
+                        <p>Staður: {{ experience.company }}</p>
+                        <p>Hlutverk: {{ experience.role }}</p>
+                        <p>Byrjaði: {{ experience.start }}</p>
+                        <p>Lauk: {{ experience.end }}</p>
+                    </div>
+            {% endfor %}
+        </div>
+
         <div>
-            <form class="form form-horizontal" action="/applicants/applications4/{{ jobid }}" method="POST">
-                {% csrf_token %}
-                <div id="experience-fields-wrapper">
+                <h3>Reynsla</h3>
+                <form class="form form-horizontal" action="/applicants/applications4/{{ jobid }}" method="POST">
+                    {% csrf_token %}
+                    <div id="experience-fields-wrapper">
                     {{ form.as_p }}
-                </div>
-                <button type="submit" id="add-experience" class="btn btn-info">Bæta við reynslu</button>
-            </form>
+                   </div>
+                    <button type="submit" id="add-experience" class="btn btn-info">Bæta við reynslu</button>
+                </form>
 
                 <form class="form form-horizontal" action="/applicants/applications5/{{ jobid }}">
                                 <input type="button" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="location.href='{% url 'Step3' jobid %}'">
@@ -41,17 +54,7 @@
                         });
                     });
                 </script>
-        </div>
-            <div class="applicant_list">
-                <h5>Nú þegar skráð:</h5>
-                {% for experience in experience_list  %}
-                        <div class="application_list_container" >
-                            <p>Staður: {{ experience.company }}</p>
-                            <p>Hlutverk: {{ experience.role }}</p>
-                            <p>Byrjaði: {{ experience.start }}</p>
-                            <p>Lauk: {{ experience.end }}</p>
-                        </div>
-                {% endfor %}
+
             </div>
     </div>
 

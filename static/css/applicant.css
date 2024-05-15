@@ -1,7 +1,8 @@
 /*Profile*/
 #applicant_photo_aboutMe_container{
-    margin-top: 1rem;
+    margin-top: 2rem;
     display: flex;
+
 }
 #applicant_photo{
     max-height: 10rem;
@@ -92,36 +93,28 @@
 
 .application_form_heading{
     margin-top: 2rem;
-    margin-left: 3rem;
 }
 
 .application_list_form_container{
-    display: flex;
-    margin-left: 3rem;
+    display:flex;
+    margin: 2rem;
 }
-
-.add_experience {
-    margin-top: 6px;
-}
-
 
 .applicant_list{
-    margin-left: 10rem;
-    width: 100%;
+    margin-right: 3rem;
 }
 
 .application_legend_info_container{
     margin-top: 1rem;
     display:flex;
     text-wrap: nowrap;
-
 }
 .application_list_container{
-    margin-bottom: 0;
+    border-style: solid;
+    border-color: #5dad24;
+    margin-bottom: 1rem;
     padding: 1rem;
     margin-right: 2rem;
-    line-height: 0.5;
-    border-top: solid #5dad24;
 }
 .application_legend{
     font-weight: bold;
@@ -147,17 +140,22 @@
 }
 
 /* applications listi */
+#application_container{
+    justify-content: center;
+    text-align: center;
+}
 #application_title_container{
     text-align: center;
     border-bottom-style: solid;
     border-color: #5dad24;
     margin-bottom: 2rem;
+
 }
 #single_application{
     border-style: solid;
     border-color: #5dad24;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin: 1rem;
     overflow: hidden;
     border-radius: 25px;
     width: 300px;
@@ -190,8 +188,5 @@
     text-align: center;
     color: gray;
 }
-
-
-
 /* profile image */
 

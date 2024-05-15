@@ -1,7 +1,9 @@
-<div class="company_single_job">
-
+{% load static %}
+<div class="company_jobs">
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
     <div id="job_title_container">
         <h3 id="job_title">{{ job.title }}</h3>
+        <div id="show_applicants"></div>
         {% if applications > 0 %}
             <a href="/companies/applications/{{ job.id }}">
             <button>Skoða {{ applications }} umsækjendur</button>
@@ -14,7 +16,7 @@
         <p>Birtingardagur : {{ job.postDate }}</p>
         <p>Umsóknarfrestur: {{ job.dueDate }}</p>
     </div>
-    <div>
+    <div id="job_description">
         <p>{{ job.description }}</p>
     </div>
 </div>

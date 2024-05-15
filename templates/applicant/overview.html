@@ -43,22 +43,7 @@
                 <h5>Menntun</h5>
                 <div class="application_legend_info_container">
                     {% for education in education_list %}
-                        <div class="application_legend_info_container_many">
-                            <div class="application_legend">
-                                <p>Skóli:</p>
-                                <p>Gráða:</p>
-                                <p>Svið:</p>
-                                <p>Byrjaði:</p>
-                                <p>Lauk:</p>
-                            </div>
-                            <div class="application_information">
-                                <p>{{ education.school }}</p>
-                                <p>{{ education.degree }}</p>
-                                <p>{{ education.fieldOfStudy }}</p>
-                                <p>{{ education.start }}</p>
-                                <p>{{ education.end }}</p>
-                            </div>
-                        </div>
+                       {% include 'applicant/single_education.html' with education=education %}
                     {% endfor %}
                 </div>
             </div>
@@ -69,59 +54,46 @@
             <h5>Reynsla</h5>
             <div class="application_legend_info_container">
                 {% for experience in experience_list %}
-                    <div class="application_legend_info_container_many">
-                        <div class="application_legend">
-                            <p>Fyrirtæki:</p>
-                            <p>Hlutverk:</p>
-                            <p>Byrjaði:</p>
-                            <p>Lauk:</p>
-                        </div>
-                        <div class="application_information">
-                            <p>{{ experience.company }}</p>
-                            <p>{{ experience.role }}</p>
-                            <p>{{ experience.start }}</p>
-                            <p>{{ experience.end }}</p>
-                        </div>
-                    </div>
+                   {% include 'applicant/single_experience.html' with experience=experience %}
                 {% endfor %}
             </div>
         </div>
 
         <div class="application_list_container">
-                    <h5>Meðmæli</h5>
-                    <div class="application_legend_info_container">
-                        {% for recommendation in recommendation_list %}
-                            <div class="application_legend_info_container_many">
-                                <div class="application_legend">
-                                    <p>Nafn:</p>
-                                    <p>Hlutverk:</p>
-                                    <p>Má hafa samband:</p>
-                                    {% if recommendation.email %}
-                                        <p>Netfang:</p>
-                                    {% endif %}
-                                    {% if recommendation.phone %}
-                                        <p>Sími:</p>
-                                    {% endif %}
-                                </div>
-                                <div class="application_information">
-                                    <p>{{ recommendation.name }}</p>
-                                    <p>{{ recommendation.role }}</p>
-                                    {% if recommendation.allowedToContact %}
-                                        <p>Já</p>
-                                    {% else %}
-                                        <p>Nei</p>
-                                    {% endif %}
-                                    {% if recommendation.email %}
-                                        <p>{{ recommendation.email }}</p>
-                                    {% endif %}
-                                    {% if recommendation.phone %}
-                                        <p>{{ recommendation.phone}}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% endfor %}
+            <h5>Meðmæli</h5>
+            <div class="application_legend_info_container">
+                {% for recommendation in recommendation_list %}
+                    <div class="application_legend_info_container_many">
+                        <div class="application_legend">
+                            <p>Nafn:</p>
+                            <p>Hlutverk:</p>
+                            <p>Má hafa samband:</p>
+                            {% if recommendation.email %}
+                                <p>Netfang:</p>
+                            {% endif %}
+                            {% if recommendation.phone %}
+                                <p>Sími:</p>
+                            {% endif %}
+                        </div>
+                        <div class="application_information">
+                            <p>{{ recommendation.name }}</p>
+                            <p>{{ recommendation.role }}</p>
+                            {% if recommendation.allowedToContact %}
+                                <p>Já</p>
+                            {% else %}
+                                <p>Nei</p>
+                            {% endif %}
+                            {% if recommendation.email %}
+                                <p>{{ recommendation.email }}</p>
+                            {% endif %}
+                            {% if recommendation.phone %}
+                                <p>{{ recommendation.phone}}</p>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+            </div>
+        </div>
 
     </div>
 

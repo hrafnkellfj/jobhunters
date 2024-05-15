@@ -18,11 +18,25 @@
 
     <h3 class="application_form_heading">Námsferill</h3>
     <div class="application_list_form_container">
+        <div class="applicant_list">
+        <h5>Nú þegar skráð:</h5>
+        {% for education in education_list  %}
+                <div class="application_list_container" >
+                    <p>Skóli: {{ education.school }}</p>
+                    <p>Gráða: {{ education.degree }}</p>
+                    <p>Svið: {{ education.fieldOfStudy }}</p>
+                    <p>Byrjaði: {{ education.start }}</p>
+                    <p>Lauk: {{ education.end }}</p>
+                </div>
+        {% endfor %}
+        </div>
+
        <div>
+
             <form class="form form-horizontal" action="/applicants/applications3/{{ jobid }}" method="POST">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit" id="add-education" class="btn btn-info">Bæta við námi</button>
+                <button type="submit" id="add-experience" class="btn btn-info">Bæta við námi</button>
             </form>
            <script>
                 $(document).ready(function () {
@@ -38,19 +52,8 @@
                 <input type="button" value="Aftur"  class="btn btn-primary pull-right" style="clear:both; margin:10px 0" onclick="location.href='{% url 'Step2' jobid %}'">
                 <input type="submit" value="Áfram" class="btn btn-primary pull-right" style="clear:both; margin:10px 0">
             </form>
+            
        </div>
-            <div class="applicant_list">
-                <h5>Nú þegar skráð:</h5>
-                {% for education in education_list  %}
-                        <div class="application_list_container" >
-                            <p>Skóli: {{ education.school }}</p>
-                            <p>Gráða: {{ education.degree }}</p>
-                            <p>Svið: {{ education.fieldOfStudy }}</p>
-                            <p>Byrjaði: {{ education.start }}</p>
-                            <p>Lauk: {{ education.end }}</p>
-                        </div>
-                {% endfor %}
-            </div>
     </div>
 
 {% endblock %}
