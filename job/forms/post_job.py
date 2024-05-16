@@ -12,29 +12,35 @@ class PostJob(ModelForm):
 
     jobPercentage = forms.MultipleChoiceField(
         choices=JOB_PERCENTAGE_CHOICES,
+<<<<<<< HEAD
         widget=forms.ChoiceField()
+=======
+        widget=forms.CheckboxSelectMultiple(),
+        label='Starfshlutfall'
+>>>>>>> main
     )
 
     class Meta:
         model = Job
-        exclude = ['id', 'company', 'postDate']
+        exclude = ['id', 'company', 'postDate', 'location']
         widgets = {
             'title': widgets.TextInput(attrs={'class': 'form-control'}),
             'description': widgets.Textarea(attrs={'class': 'form-control'}),
             'location': widgets.TextInput(attrs={'class': 'form-control'}),
             'dueDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
             'startDate': widgets.TextInput(attrs={'class': 'form-control datepicker'}),
+<<<<<<< HEAD
             'jobImage': widgets.TextInput(attrs={'class': 'form-control'}),
             'category': widgets.Select(attrs={'class': 'form-control'}),
             'jobPercentage': widgets.Select(attrs={'class': 'form-control'})
+=======
+            'category': widgets.Select(attrs={'class': 'form-control'})
+>>>>>>> main
         }
         labels={
             'title': 'Titill',
             'description': 'Lýsing',
-            'location': 'Staðsetning',
             'dueDate': 'Umsóknarfrestur',
             'startDate': 'Hefja störf',
-            'jobImage': 'Mynd',
             'category': 'Starfssvið',
-            'jobPercentage': 'Starfshlutfall'
         }

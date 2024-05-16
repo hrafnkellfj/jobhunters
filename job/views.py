@@ -57,13 +57,12 @@ def post_job(request):
             job = Job()
             job.title = form.cleaned_data["title"]
             job.description = form.cleaned_data["description"]
-            job.location = form.cleaned_data["location"]
+            job.location = company.address
             job.postDate = date.today()
             job.dueDate = form.cleaned_data["dueDate"]
             job.startDate = form.cleaned_data["startDate"]
-            job.jobImage = form.cleaned_data["jobImage"]
             job.category = form.cleaned_data["category"]
-            job.Percentage = form.cleaned_data["jobPercentage"]
+            job.jobPercentage = "/".join(form.cleaned_data["jobPercentage"])
             job.company = company
             job.save()
             return redirect('/jobs/job_posted')
