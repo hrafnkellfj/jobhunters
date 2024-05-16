@@ -26,11 +26,11 @@
                     <p>Sími:</p>
                 </div>
                  <div>
-                     <p>{{ applicant.email }}</p>
-                    <p>{{ applicant.street }} {{ applicant.houseNr }}</p>
-                    <p>{{ applicant.postalCode }} {{ applicant.city }}</p>
-                    <p>{{ applicant.country }}</p>
-                     <p>{{ applicant.phone }}</p>
+                    <p>{{ applicant.email }}</p>
+                    <p>{% if applicant.street %}{{ applicant.street }}{% endif %} {% if applicant.houseNr %}{{ applicant.houseNr }}{% endif %}</p>
+                    <p>{% if applicant.postalCode %}{{ applicant.postalCode }}{% endif %}{% if applicant.city %} {{ applicant.city }}{% endif %}</p>
+                    <p>{% if applicant.country %}{{ applicant.country }}{% endif %}</p>
+                     <p>{% if applicant.phone %}{{ applicant.phone }}{% endif %}</p>
                  </div>
                 <div id="change-profile-box">
                     <a href="{% url 'changeProfile1' %}">
