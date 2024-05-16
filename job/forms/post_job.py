@@ -12,6 +12,7 @@ class PostJob(ModelForm):
     jobPercentage = forms.MultipleChoiceField(
         choices=JOB_PERCENTAGE_CHOICES,
         widget=forms.CheckboxSelectMultiple(),
+        label='Starfshlutfall'
     )
 
     class Meta:
@@ -34,5 +35,4 @@ class PostJob(ModelForm):
             'startDate': 'Hefja störf',
             'jobImage': 'Mynd',
             'category': 'Starfssvið',
-            'jobPercentage': 'Starfshlutfall'
         }

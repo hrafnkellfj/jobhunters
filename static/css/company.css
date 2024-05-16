@@ -1,225 +1,170 @@
-#content-wrap{
+/* General Styling */
+#content-wrap {
     padding-bottom: 8rem;
 }
-#company-logo{
+#company-logo {
     position: fixed;
     width: 25%;
     height: 60%;
 }
-#job-company-logo{
+#job-company-logo {
     width: 200px;
     height: 200px;
 }
-#profile_title_button{
-    display:flex;
+
+#profile_title_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 #change-profile-box {
-    margin-left: 40rem;
     display: flex;
-    flex-wrap: nowrap;
+    align-items: center;
 }
-
 #change-profile-button {
     width: 8rem;
-    text-align: left;
     background-color: #cdf8af;
     border: solid thin black;
     border-radius: 5px;
+    margin-right: 0.5rem;
 }
-
 #change-profile-photo {
     height: 25px;
     width: 25px;
-    transform: translate(-1.8rem, 0.1rem);
 }
-/* Company detail síða   */
-#company_detailed{
+
+/* Company Details */
+#company_detailed {
     display: flex;
-    justify-content: space-between; /* This will push children to each end */
-    align-items: flex-start; /* Align items at the start of the container */
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
+    margin-bottom: 2rem;
 }
-#company_title_add_desc{
-    flex: 1; /* Takes as much space as available */
-    margin-left: 2rem;
+#company_title_add_desc {
+    flex: 1;
+    margin-right: 2rem;
     word-break: break-all;
 }
-#company_logo_cover{
+#company_logo_cover {
     display:flex;
     margin:2rem;
     justify-content: left;
 }
-#company_detailed_cover{
+#company_detailed_cover {
     height: 20rem;
     width: 40rem;
 }
-#company_detailed_logo{
+#company_detailed_logo {
     position: absolute;
     max-height: 7rem;
     max-width: 7rem;
 }
-#company_address{
-    bottom: 0;
-}
-#company_new_job_button{
+
+/* New Job Button */
+#company_new_job_button {
     border-radius: 5px;
-}
-#single_company{
-    border-top: solid #5dad24;
-    padding-top: 2rem;
-    height:10rem;
-    width: 70rem;
-    display:flex;
-    margin-top:3rem;
     margin-bottom: 2rem;
 }
-#company-info{
-    height:10%;
-}
-#single_company_cover{
-    width: 100%;
-    height: 100%;
-}
-#single_company_logo_div{
-    text-align: right;
-    margin-right: 1rem;
-}
-#single_company_logo{
-    float:left;
-    clear:both;
-    max-height: 10rem;
-    max-width: 10rem;
-}
 
-#single_company_descr{
-    max-height:8rem !important;
-    float:left !important;
-    white-space: wrap;
-    overflow-y: hidden;
-    overflow-x: auto;
-}
-
-#company_single_job{
-    border-style: solid;
-    border-color: #5dad24;
-    display:flex;
-    width: 50%;
-    margin: 1rem;
-}
-#job_title{
-    display:inline-block;
-}
-
-#single_application{
-    border-style: solid;
-    border-color: #5dad24;
-    margin: 1rem;
+/* Single Job Listing */
+#company_single_job {
+    border: solid #5dad24;
     padding: 1rem;
-    width: 50%
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
 }
-#single_application_button_status_container{
+#company_jobs {
+    padding-bottom: 10rem;
+}
+#job_title_container {
+    border-top: solid #5dad24;
+    padding-top: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+#job_info_container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+#job_description {
+    margin-bottom: 1rem;
+}
+#date_container {
+    margin-bottom: 1rem;
+}
+#show_applicants {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+#show_applications {
+    border-radius: 5px;
+}
+#no_applications {
+    border: solid thin #1b1b1b;
+    padding: 0.3rem;
+    border-radius: 5px;
+}
+#delete_job_button {
+    margin-top: 1rem;
+}
 
-}
-#status_green{
-    color: green;
-}
-#status_red{
-    color: red;
-}
-#company_form_container{
-    margin-top: 2rem;
-}
-
-
-/* Applicant details */
-#application_status_container{
-    border-style: solid;
-    border-color: #5dad24;
+/* Applicant Details */
+#application_status_container {
+    border: solid #5dad24;
     padding: 1rem;
+    margin-bottom: 2rem;
 }
-#applicant_photo_aboutMe_container{
+#applicant_photo_aboutMe_container {
     margin-top: 1rem;
     display: flex;
 }
-#applicant_photo{
+#applicant_photo {
     max-height: 10rem;
     max-width: 10rem;
 }
-#photo_email_container{
+#photo_email_container {
     margin-right: 1rem;
     max-width: 10rem;
     word-wrap: break-word;
     font-size: 1rem;
     text-align: center;
 }
-#applicant_information{
-    display:flex;
+#applicant_information {
+    display: flex;
 }
-#address_legend_container{
+#address_legend_container {
     font-weight: bold;
-    text-align:right;
+    text-align: right;
     margin-right: 1rem;
 }
-#recommendation_container{
-    border-style: solid;
-    border-color: #5dad24;
-    display:flex;
+#recommendation_container {
+    border: solid #5dad24;
+    display: flex;
     margin: 1rem;
     padding: 1rem;
     max-width: 40rem;
 }
-#recommendation_legend{
+#recommendation_legend {
     font-weight: bold;
-    text-align:right;
+    text-align: right;
     margin-right: 1rem;
 }
-
-#experience_container{
-    border-style: solid;
-    border-color: #5dad24;
-    display:flex;
+#experience_container {
+    border: solid #5dad24;
+    display: flex;
     margin: 1rem;
     padding: 1rem;
     max-width: 40rem;
 }
-#experience_legend{
+#experience_legend {
     font-weight: bold;
-    text-align:right;
+    text-align: right;
     margin-right: 1rem;
-
-}
-#job_title_container{
-    border-top: solid #5dad24;
-    padding-top: 2rem;
-    height:10rem;
-    width: 70rem;
-    display:flex;
-    margin-top:3rem;
-    margin-bottom: 2rem;
-}
-#job_info_container{
-    vertical-align: auto;
-    horiz-align: center;
-    float:right;
-    margin-left: 5rem;
-    margin-bottom: 5rem;
-}
-#company_single_job {
-    display: flex;
-    width: 50%;
-    margin: 1rem;
-}
-#show_applicants{
-    display: flex;
-}
-#no_applications{
-    border: solid thin #1b1b1b;
-    padding: 0.3rem;
-    border-radius: 5px;
-}
-#show_applications{
-    border-radius: 5px;
-    margin-right: 10rem;
 }
