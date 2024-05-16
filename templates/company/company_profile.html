@@ -4,33 +4,32 @@
 
     <div id="profile_title_button">
     <link rel="stylesheet" type="text/css" href="{% static "/css/company.css"%}">
-        <h1 id="company_profile_h1">Prófíll fyrir {{ company.title.capitalize }}</h1>
+        <h1 id="company_profile_h1">{{ company.title.capitalize }}</h1>
+    </div>
+    
+    
+    <div id="company_detailed">
+        <div id="company_logo_cover">
+            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
+            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
+        </div>
+        <div id="company_title_add_desc">
+            <p>{{ company.address }}</p>
+            <p>{{ company.description }}</p>
+        </div>
+    </div>
+    <div id="post_job_container">
+        <h4 id="company_job_postings">Starfsauglýsingar ykkar:</h4>
+        <a href="{% url 'post-job' %}">
+            <button id="company_new_job_button">Auglýsa nýtt starf</button>
+        </a>
         <div id="change-profile-box">
             <a href="{% url 'ChangeCompanyProfile' %}">
                 <button id='change-profile-button'>Breyta prófíl</button>
             </a>
             <img id="change-profile-photo" src="{% static 'images/penni.jpg' %}" alt="edit-profile">
         </div>
-    
     </div>
-    
-    
-    <div id="company_detailed">
-        <div id="company_title_add_desc">
-            <p>{{ company.address }}</p>
-            <p>{{ company.description }}</p>
-        </div>
-        <div id="company_logo_cover">
-            <img id="company_detailed_cover" src="{{ company.coverImage }}" alt="{{ company.coverImage }} cover image" />
-            <img id="company_detailed_logo" src="{{ company.logo }}" alt="{{ company.title }} logo" />
-        </div>
-
-    </div>
-
-    <h4>Starfsauglýsingar ykkar:</h4>
-    <a href="{% url 'post-job' %}">
-        <button id="company_new_job_button">Auglýsa nýtt starf</button>
-    </a>
     
     <div class="company_single_job">
             {% for key, value in job_dict.items %}
