@@ -21,7 +21,6 @@ class Job(models.Model):
     postDate = models.DateField()
     dueDate = models.DateField()
     startDate = models.DateField()
-    jobImage = models.CharField(max_length=999, blank=True,default='https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=360')
     category = models.ForeignKey(JobCategory, on_delete=models.CASCADE)
     jobPercentage = models.CharField(max_length=255)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

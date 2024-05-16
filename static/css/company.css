@@ -19,8 +19,10 @@
     margin-bottom: 1rem;
 }
 #change-profile-box {
+    margin-left: 62rem;
     display: flex;
-    align-items: center;
+    flex-wrap: nowrap;
+    transform: translate(0, -1.8rem);
 }
 #change-profile-button {
     width: 8rem;
@@ -49,7 +51,7 @@
 }
 #company_logo_cover {
     display:flex;
-    margin:2rem;
+    margin-right: 2rem;
     justify-content: left;
 }
 #company_detailed_cover {
