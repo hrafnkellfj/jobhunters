@@ -42,8 +42,6 @@
 }
 #company_title_add_desc{
     flex: 1; /* Takes as much space as available */
-    margin-left: 2rem;
-    margin-top: 2rem;
     word-break: break-all;
 }
 #company_logo_cover{
